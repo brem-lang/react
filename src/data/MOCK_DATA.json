@@ -1,0 +1,82 @@
+[
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe0" },
+    "customer_name": "Sallee Le Batteur",
+    "custor_date": "30/10/2021",
+    "pallet_number": "0287956792",
+    "warehouse_location": "China",
+    "location": "Hoppe LLC"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe1" },
+    "customer_name": "Ambros Besant",
+    "custor_date": "10/02/2022",
+    "pallet_number": "0334180090",
+    "warehouse_location": "Iran",
+    "location": "Beer LLC"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe2" },
+    "customer_name": "Tami Churchlow",
+    "custor_date": "29/12/2021",
+    "pallet_number": "1251372619",
+    "warehouse_location": "Indonesia",
+    "location": "Mosciski LLC"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe3" },
+    "customer_name": "Nananne Frend",
+    "custor_date": "02/09/2021",
+    "pallet_number": "8655204552",
+    "warehouse_location": "Indonesia",
+    "location": "Ritchie, Jacobs and Ziemann"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe4" },
+    "customer_name": "Armin Figurski",
+    "custor_date": "03/09/2021",
+    "pallet_number": "0512596948",
+    "warehouse_location": "Chile",
+    "location": "Gaylord-Schuster"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe5" },
+    "customer_name": "Stefanie Eames",
+    "custor_date": "27/06/2022",
+    "pallet_number": "8412724917",
+    "warehouse_location": "Brazil",
+    "location": "Goyette Inc"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe6" },
+    "customer_name": "Gae Ralfe",
+    "custor_date": "11/06/2022",
+    "pallet_number": "5995909592",
+    "warehouse_location": "Russia",
+    "location": "Pouros, Farrell and Herzog"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe7" },
+    "customer_name": "Brigida Dix",
+    "custor_date": "21/03/2022",
+    "pallet_number": "6993061430",
+    "warehouse_location": "Uganda",
+    "location": "Cummings-Wunsch"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe8" },
+    "customer_name": "Blanch Wigfall",
+    "custor_date": "10/11/2021",
+    "pallet_number": "2777877440",
+    "warehouse_location": "Russia",
+    "location": "Kautzer, Batz and Corwin"
+  },
+  {
+    "document_series_no": { "$oid": "62d11ccffc13ae61f3001fe9" },
+    "customer_name": "Anthe Boldock",
+    "custor_date": "04/04/2022",
+    "pallet_number": "1021651281",
+    "warehouse_location": "France",
+    "location": "Bailey-Mante"
+  }
+]
