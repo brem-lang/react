@@ -1,8 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const AppMenu = () => {
   const location = useLocation().pathname;
 
+
+  // add this useeffect to load the treeview
+  // useEffect(() => { 
+  //   const trees = window.$('[data-widget="treeview"]'); 
+  //   trees.Treeview('init'); 
+  // }, 
+  // []);
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <Link to="/" className="brand-link">
@@ -32,7 +40,7 @@ const AppMenu = () => {
         </div>
 
         <div className="form-inline">
-          <div className="input-group" data-widget="sidebar-search">
+          {/* <div className="input-group" data-widget="sidebar-search">
             <input
               className="form-control form-control-sidebar"
               type="search"
@@ -44,7 +52,7 @@ const AppMenu = () => {
                 <i className="fas fa-search fa-fw"></i>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <nav className="mt-2">
@@ -88,7 +96,7 @@ const AppMenu = () => {
                 </li>
               </ul> */}
             </li>
-
+{/* 
             <li className="nav-item">
               <Link
                 to="/data-table"
@@ -99,11 +107,132 @@ const AppMenu = () => {
                 <i className="nav-icon fas fa-table"></i>
                 <p>
                   Tables
-                  {/* <i className="right fas fa-angle-left"></i> */}
+                  <i className="right fas fa-angle-left"></i>
                 </p>
               </Link>
-            </li>
+            </li> */}
+            
+          <li className="nav-item">
+            <Link
+                to="/"
+                className="nav-link"
+              >
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Slip
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </Link>
 
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <Link to="/mi-slip" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MI</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/mro-slip" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MRO</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/dm-slip" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>DM</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fg-slip" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FG</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fa-slip" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FA</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/ma-slip" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MA</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/mr-slip" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MR</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/service-call" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>Service Call</p>
+                  </Link>
+                </li>
+            </ul>
+          </li>   
+
+          <li className="nav-item">
+            <Link
+                to="/"
+                className="nav-link"
+              >
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Slip List
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </Link>
+
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <Link to="/mi-list" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MI</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/mro-list" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MRO</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/dm-list" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>DM</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fg-list" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FG</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fa-list" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FA</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/ma-list" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MA</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/mr-list" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MR</p>
+                  </Link>
+                </li>
+            </ul>
+          </li>   
             {/* <li className="nav-item">
               <a href="pages/widgets.html" className="nav-link">
                 <i className="nav-icon fas fa-th"></i>

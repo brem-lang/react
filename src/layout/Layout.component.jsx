@@ -13,7 +13,12 @@ const AppSetting = React.lazy(() =>
   import("../components/app-setting/appSetting")
 );
 
+const trees = window.$('[data-widget="treeview"]'); 
+trees.Treeview('init'); 
+
+
 const Layout = () => {
+  
   return (
     <div className="wrapper">
       <AppHeader />
