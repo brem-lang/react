@@ -15,15 +15,13 @@ const AppSetting = React.lazy(() =>
 
 const Layout = () => {
   return (
-    <>
-      <div className="wrapper">
-        <AppHeader />
-        <AppMenu />
-        <Outlet />
-        <AppFooter />
-        <AppSetting />
-      </div>
-    </>
+    <div className="wrapper">
+      <AppHeader />
+      <AppMenu />
+      <Outlet />
+      <AppFooter />
+      <AppSetting />
+    </div>
   );
 };
 

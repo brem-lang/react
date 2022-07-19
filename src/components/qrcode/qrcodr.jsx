@@ -32,7 +32,7 @@ const Qrcode = () => {
       <button onClick={GenerateQRCode}>Generate</button>
       {qrcode && (
         <>
-          <img src={qrcode} />
+          <img src={qrcode} alt="qrcode" />
           <a href={qrcode} download="qrcode.png">
             Download
           </a>

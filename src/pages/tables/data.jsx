@@ -1,46 +1,88 @@
-import Qrcode from "../../components/qrcode/qrcodr";
-import DATA from "../../data/MOCK_DATA.json";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-console.log(DATA);
+import WSDM from "../../data/wsdm.json";
+import BasicDocument from "../../components/PDF/basic-document";
 
 const DataTable = () => {
+  const [isOpenPdf, setIsOpenPdf] = useState(false);
+  const [item, setItem] = useState([]);
+
+  const navigate = useNavigate();
+
+  const handlePdf = (e, item) => {
+    e.preventDefault();
+    setItem(item);
+    setIsOpenPdf(true);
+  };
+
+  const closePdfForm = (e) => {
+    setIsOpenPdf(false);
+    setItem([]);
+  };
+
+  const handleAddWSMI = () => {
+    navigate("/create/wsmi");
+  };
+
   return (
     <div className="content-wrapper">
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">DataTable with default features</h3>
-        </div>
-        <div className="card-body">
-          <Qrcode />
+      {isOpenPdf ? (
+        <BasicDocument
+          code={item.document_series_no}
+          item={item}
+          close={closePdfForm}
+        />
+      ) : (
+        <div className="card">
+          <div className="card-header">
+            <h3 className="card-title">DataTable with default features</h3>
+          </div>
+          <div className="card-body">
+            <div className="clearfix">
+              <button
+                type="button"
+                className="btn btn-primary float-right"
+                onClick={() => handleAddWSMI()}
+              >
+                <i className="fas fa-plus"></i> Add item
+              </button>
+            </div>
 
-          <table id="example1" className="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Document Series No</th>
-                <th>Customer name</th>
-                <th>Customer Date</th>
-                <th>Pallet Number</th>
-                <th>Warehouse Location</th>
-                <th>Warehouse</th>
-                <th>QR Code</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+            <table id="example1" className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Document Series No</th>
+                  <th>Customer name</th>
+                  <th>Order No.</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              <tr>
-                <td>Trident</td>
-                <td>Internet Explorer 4.0</td>
-                <td>Win 95+</td>
-                <td>GFI+DateToday+Document Series No</td>
-                <td>
-                  <i class="fas fa-file-pdf"></i>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+              <tbody>
+                {WSDM.map((item) => {
+                  return (
+                    <tr key={item.document_series_no}>
+                      <td>{item.document_series_no}</td>
+                      <td>{item.customer_name}</td>
+                      <td>{item.order_no}</td>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-outline-warning"
+                          onClick={(e) => handlePdf(e, item)}
+                        >
+                          <i class="fas fa-file-pdf info"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

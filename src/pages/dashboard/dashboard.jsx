@@ -644,7 +644,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="card bg-gradient-info">
+              {/* <div className="card bg-gradient-info">
                 <div className="card-header border-0">
                   <h3 className="card-title">
                     <i className="fas fa-th mr-1"></i>
@@ -723,7 +723,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* <!-- Calendar --> */}
               <div className="card bg-gradient-success">

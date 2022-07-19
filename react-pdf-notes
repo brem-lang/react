@@ -1,0 +1,1 @@
+add process browserify-zlib stream-browserify util buffer assert @craco/craco
