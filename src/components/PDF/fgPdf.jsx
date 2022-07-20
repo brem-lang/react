@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-
 import QRCode from "qrcode";
+import { useEffect, useState } from "react";
 
 import {
   Document,
@@ -125,27 +124,21 @@ const styles = StyleSheet.create({
   },
 });
 
-const MiSlipPdf = ({ code, item, close, styles }) => {
-  const [url] = useState(`localhost:3000/verify/${code}`);
+// Create Document Component
+const FgPdf = ({ code, item, close }) => {
+  const [url] = useState(`localhost:3500/verify?key=${code}/${item.id}`);
   const [qrcodes, setQrcodes] = useState("");
 
-  console.log(styles);
-
   const {
-    approved_by,
-    customer_name,
     document_series_no,
-    items,
+    batch_no,
     pallet_no,
+    location,
     prepared_by,
-    profit_center,
+    approved_by,
     released_by,
-    sub_profit_center,
-    warehouse,
-    wh_location,
+    items,
   } = item;
-
-  console.log(item, "MI SLIP");
 
   useEffect(() => {
     const GenerateQRCode = () => {
@@ -190,21 +183,15 @@ const MiSlipPdf = ({ code, item, close, styles }) => {
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
                   <Text style={styles.contentText}>Document Series No</Text>
-                  <Text style={styles.contentText2}>Customer Name</Text>
-                  <Text style={styles.contentText2}>Pallet No.</Text>
-                  <Text style={styles.contentText2}>Profit Center</Text>
-                  <Text style={styles.contentText2}>Sub Profit Center</Text>
-                  <Text style={styles.contentText2}>Warehouse</Text>
-                  <Text style={styles.contentText2}>Warehouse Location</Text>
+                  <Text style={styles.contentText2}>Batch No</Text>
+                  <Text style={styles.contentText2}>Pallet No</Text>
+                  <Text style={styles.contentText2}>Location</Text>
                 </View>
                 <View>
                   <Text style={styles.contentText}>{document_series_no}</Text>
-                  <Text style={styles.contentText2}>{customer_name}</Text>
+                  <Text style={styles.contentText2}>{batch_no}</Text>
                   <Text style={styles.contentText2}>{pallet_no}</Text>
-                  <Text style={styles.contentText2}>{profit_center}</Text>
-                  <Text style={styles.contentText2}>{sub_profit_center}</Text>
-                  <Text style={styles.contentText2}>{warehouse}</Text>
-                  <Text style={styles.contentText2}>{wh_location}</Text>
+                  <Text style={styles.contentText2}>{location}</Text>
                 </View>
               </View>
               <View style={styles.qrcode}>
@@ -221,9 +208,9 @@ const MiSlipPdf = ({ code, item, close, styles }) => {
                 <Text style={styles.row5}>Remarks</Text>
               </View>
 
-              {items.map((item, index) => {
+              {items.map((item) => {
                 return (
-                  <View key={index} style={[styles.row, styles.body]}>
+                  <View key={item.id} style={[styles.row, styles.body]}>
                     <Text style={[styles.row1, { marginRight: "5px" }]}>
                       {item.item_code}
                     </Text>
@@ -255,5 +242,4 @@ const MiSlipPdf = ({ code, item, close, styles }) => {
     </div>
   );
 };
-
-export default MiSlipPdf;
+export default FgPdf;

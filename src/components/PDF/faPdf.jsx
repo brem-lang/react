@@ -125,22 +125,18 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const BasicDocument = ({ code, item, close }) => {
-  const [url] = useState(`localhost:3000/verify/${code}`);
+const FaPdf = ({ code, item, close }) => {
+  const [url] = useState(`localhost:3500/verify?key=${code}/${item.id}`);
   const [qrcodes, setQrcodes] = useState("");
 
   const {
-    approved_by,
-    customer_name,
     document_series_no,
-    items,
-    pallet_no,
+    department,
+    mr_no,
     prepared_by,
-    profit_center,
+    approved_by,
     released_by,
-    sub_profit_center,
-    warehouse,
-    wh_location,
+    items,
   } = item;
 
   useEffect(() => {
@@ -186,21 +182,13 @@ const BasicDocument = ({ code, item, close }) => {
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
                   <Text style={styles.contentText}>Document Series No</Text>
-                  <Text style={styles.contentText2}>Customer Name</Text>
-                  <Text style={styles.contentText2}>Pallet No.</Text>
-                  <Text style={styles.contentText2}>Profit Center</Text>
-                  <Text style={styles.contentText2}>Sub Profit Center</Text>
-                  <Text style={styles.contentText2}>Warehouse</Text>
-                  <Text style={styles.contentText2}>Warehouse Location</Text>
+                  <Text style={styles.contentText2}>Derpartment</Text>
+                  <Text style={styles.contentText2}>MR No</Text>
                 </View>
                 <View>
                   <Text style={styles.contentText}>{document_series_no}</Text>
-                  <Text style={styles.contentText2}>{customer_name}</Text>
-                  <Text style={styles.contentText2}>{pallet_no}</Text>
-                  <Text style={styles.contentText2}>{profit_center}</Text>
-                  <Text style={styles.contentText2}>{sub_profit_center}</Text>
-                  <Text style={styles.contentText2}>{warehouse}</Text>
-                  <Text style={styles.contentText2}>{wh_location}</Text>
+                  <Text style={styles.contentText2}>{department}</Text>
+                  <Text style={styles.contentText2}>{mr_no}</Text>
                 </View>
               </View>
               <View style={styles.qrcode}>
@@ -213,19 +201,19 @@ const BasicDocument = ({ code, item, close }) => {
                 <Text style={styles.row1}>Item Code</Text>
                 <Text style={styles.row2}>Item Description</Text>
                 <Text style={styles.row3}>Qty</Text>
-                <Text style={styles.row4}>Oum</Text>
+                <Text style={styles.row4}>Serial No</Text>
                 <Text style={styles.row5}>Remarks</Text>
               </View>
 
-              {items.map((item, index) => {
+              {items.map((item) => {
                 return (
-                  <View key={index} style={[styles.row, styles.body]}>
+                  <View key={item.id} style={[styles.row, styles.body]}>
                     <Text style={[styles.row1, { marginRight: "5px" }]}>
                       {item.item_code}
                     </Text>
                     <Text style={styles.row2}>{item.item_description}</Text>
                     <Text style={styles.row3}>{item.qty}</Text>
-                    <Text style={styles.row4}>{item.uom}</Text>
+                    <Text style={styles.row4}>{item.serial_no}</Text>
                     <Text style={styles.row5}>{item.remarks}</Text>
                   </View>
                 );
@@ -251,4 +239,4 @@ const BasicDocument = ({ code, item, close }) => {
     </div>
   );
 };
-export default BasicDocument;
+export default FaPdf;

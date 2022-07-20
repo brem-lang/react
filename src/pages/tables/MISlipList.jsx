@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import BasicDocument from "../../components/PDF/basic-document";
+import MiPdf from "../../components/PDF/miPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 function MISlipList() {
-
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
 
@@ -72,7 +71,7 @@ function MISlipList() {
       </div>
 
       {isOpenPdf ? (
-        <BasicDocument
+        <MiPdf
           code={item.document_series_no}
           type={"mi"}
           item={item}
@@ -85,9 +84,11 @@ function MISlipList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
-                  <div className="card-tools">
-                      <Link to="/mi-slip" className="btn btn-success">Add Slip</Link>               
-                     </div>
+                    <div className="card-tools">
+                      <Link to="/mi-slip" className="btn btn-success">
+                        Add Slip
+                      </Link>
+                    </div>
                   </div>
                   <div className="card-body">
                     <table
@@ -132,8 +133,6 @@ function MISlipList() {
           </div>
         </section>
       )}
-
-      
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import BasicDocument from "../../components/PDF/basic-document";
+import MroPdf from "../../components/PDF/mroPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
 
 function MROSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -76,10 +76,9 @@ function MROSlipList() {
       </div>
 
       {isOpenPdf ? (
-        <BasicDocument
+        <MroPdf
           code={item.document_series_no}
           item={item}
-          type={"mro"}
           close={closePdfForm}
         />
       ) : (
@@ -89,9 +88,9 @@ function MROSlipList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
-                  <div className="card-tools">
-                        <Link to="/mro-slip" className="btn btn-success">Add Slip</Link>                
-                          </div>
+                    <h3 className="card-title">
+                      DataTable with default features
+                    </h3>
                   </div>
                   <div className="card-body">
                     <table

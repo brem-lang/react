@@ -1,61 +1,14 @@
 [
   {
-    "document_series_no": "GFI-DM-2022-980",
-    "purpose": "payment",
-    "customer_name": "Alonzo Hauck IV",
-    "order_no": "36983037",
-    "product_name": "Ball",
-    "prepared_by": "Roland Haag",
-    "approved_by": "Paulette Boyer",
-    "released_by": "Kirk Kutch",
-    "items": [
-      {
-        "item_code": "G639-777",
-        "item_description": "Explicabo ullam adipisci ipsa a.",
-        "qty": "419",
-        "uom": "pcs",
-        "remarks": "Good"
-      },
-      {
-        "item_code": "G639-416",
-        "item_description": "Magni voluptas quia.",
-        "qty": "768",
-        "uom": "pcs",
-        "remarks": "Good"
-      },
-      {
-        "item_code": "G639-523",
-        "item_description": "Andrenalin Fortex.",
-        "qty": "150",
-        "uom": "pcs",
-        "remarks": "Good"
-      }
-    ]
-  },
-  {
-    "document_series_no": "GFI-DM-2022-991",
-    "purpose": "payment",
-    "customer_name": "Carlos Hauckes IV",
-    "order_no": "32933039",
-    "product_name": "Ball",
-    "prepared_by": "Roland Haag",
-    "approved_by": "Paulette Boyer",
-    "released_by": "Kirk Kutch",
-    "items": [
-      {
-        "item_code": "G639-727",
-        "item_description": "Explicabo ullam adipisci ipsa a.",
-        "qty": "429",
-        "uom": "pcs",
-        "remarks": "Good"
-      },
-      {
-        "item_code": "G639-416",
-        "item_description": "Magni voluptas quia.",
-        "qty": "268",
-        "uom": "pcs",
-        "remarks": "Good"
-      }
-    ]
+    "id": "1",
+    "id_no": "643",
+    "name_of_employee": "Dr. Melody Wilderman",
+    "department": "Health",
+    "section": "1OB",
+    "asset_code": "590F",
+    "asset_type": "Classified",
+    "asset_description": "Classified",
+    "asset_serial_no": "b0:dc:20:9d:f3:c6",
+    "asset_value": "High"
   }
 ]

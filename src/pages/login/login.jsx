@@ -52,7 +52,12 @@ const LoginPage = () => {
 
       localStorage.setItem("user", JSON.stringify(localdata));
       setDataField(initialVal);
+
       navigate(from, { replace: true });
+      // axios.get("http://172.16.0.118/sanctum/csrf-cookie").then((response) => {
+      //   // Login...
+      //   console.log(response);
+      // });
     } catch (err) {
       console.log(err);
       if (err.response.data.success === false)

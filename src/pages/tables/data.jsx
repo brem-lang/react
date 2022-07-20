@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import WSDM from "../../data/wsdm.json";
-import BasicDocument from "../../components/PDF/basic-document";
+import MiPdf from "../../components/PDF/miPdf";
 
 const DataTable = () => {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -28,7 +28,7 @@ const DataTable = () => {
   return (
     <div className="content-wrapper">
       {isOpenPdf ? (
-        <BasicDocument
+        <MiPdf
           code={item.document_series_no}
           item={item}
           close={closePdfForm}

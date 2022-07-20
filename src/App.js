@@ -41,7 +41,6 @@ import {
 } from "./exporter";
 import RequireAuth from "./routes/RequireAuth";
 
-import ModalPdf from "./components/modal/modal";
 import Spinner from "./components/spinner/spinner.component";
 
 import "./assets/css/app.css";
@@ -63,7 +62,6 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route index element={<Dashboard />} />
               <Route path="/data-table" element={<DataTable />} />
-              <Route path="/modal" element={<ModalPdf />} />
               <Route path="/user/create" element={<CreateUser />} />
 
               <Route path="/mi-slip" element={<MISlip />} />

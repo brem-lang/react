@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import BasicDocument from "../../components/PDF/basic-document";
+import FgPdf from "../../components/PDF/fgPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
@@ -46,25 +46,31 @@ function FGSlipList() {
     return getMiSlipList;
   }, []);
   return (
-    <div className='content-wrapper'>
-    <div className="content-header">
-      <div className="container-fluid">
-        <div className="row mb-2">
-          <div className="col-sm-6">
-            <h1 className="m-0">FG Slip List</h1>
-          </div>{/* /.col */}
-          <div className="col-sm-6">
-            <ol className="breadcrumb float-sm-right">
-              <li className="breadcrumb-item"><a href="#">Home</a></li>
-              <li className="breadcrumb-item active">FG Slip List</li>
-            </ol>
-          </div>{/* /.col */}
-        </div>{/* /.row */}
-      </div>{/* /.container-fluid */}
-    </div>
+    <div className="content-wrapper">
+      <div className="content-header">
+        <div className="container-fluid">
+          <div className="row mb-2">
+            <div className="col-sm-6">
+              <h1 className="m-0">FG Slip List</h1>
+            </div>
+            {/* /.col */}
+            <div className="col-sm-6">
+              <ol className="breadcrumb float-sm-right">
+                <li className="breadcrumb-item">
+                  <a href="#">Home</a>
+                </li>
+                <li className="breadcrumb-item active">FG Slip List</li>
+              </ol>
+            </div>
+            {/* /.col */}
+          </div>
+          {/* /.row */}
+        </div>
+        {/* /.container-fluid */}
+      </div>
 
-    {isOpenPdf ? (
-        <BasicDocument
+      {isOpenPdf ? (
+        <FgPdf
           code={item.document_series_no}
           type={"mi"}
           item={item}
@@ -77,9 +83,11 @@ function FGSlipList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
-                  <div className="card-tools">
-                        <Link to="/fg-slip" className="btn btn-success">Add Slip</Link>                 
-                          </div>
+                    <div className="card-tools">
+                      <Link to="/fg-slip" className="btn btn-success">
+                        Add Slip
+                      </Link>
+                    </div>
                   </div>
                   <div className="card-body">
                     <table
@@ -124,8 +132,8 @@ function FGSlipList() {
           </div>
         </section>
       )}
-</div>
-  )
+    </div>
+  );
 }
 
-export default FGSlipList
+export default FGSlipList;
