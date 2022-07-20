@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useForm, useFieldArray} from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const DMSlip = () => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const { register, control, handleSubmit, formState: { errors }} = useForm(
     {
@@ -19,9 +25,32 @@ const DMSlip = () => {
     name: "items"
   });
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data))
-  }
+    // Submit using axios
+    const onSubmit = async (data) => {
+      // console.log(JSON.stringify(data))
+      let config = {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      };
+  
+      try {
+        const res = await axios.post(
+          "http://172.16.0.118/api/create/wsdm",
+          data,
+          config
+        );
+  
+        if (res.data.success === true) {
+          Swal.fire("Slip Add", "DM slip add", "success").then(() =>
+            navigate("/dm-logs")
+          );
+        }
+        console.log(res);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
     return (
       <div className="content-wrapper">
@@ -70,9 +99,9 @@ const DMSlip = () => {
                       <div className="row">                   
                         <div className="col">
                           <div className="form-floating mb-3">
-                            <input {...register("order_number", { required: "Order Number is required" })} type="number" 
+                            <input {...register("order_no", { required: "Order Number is required" })} type="number" 
                              className="form-control" placeholder="Order Number" autoComplete="off"/>
-                             <p>{errors.order_number?.message}</p>
+                             <p>{errors.order_no?.message}</p>
                           </div>
                         </div>
                         <div className="col-6">
@@ -167,7 +196,7 @@ const DMSlip = () => {
                           </div>
                         </div>
                       </div>
-                      <button type="submit" className="btn btn-primary">Save and Print</button>
+                      <button type="submit" className="btn btn-primary">Save</button>
                     </div>
                   </form>
                 </div>

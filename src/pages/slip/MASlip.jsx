@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useForm, useFieldArray} from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const MASlip = () => {
+
+  const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const { register, control, handleSubmit, formState: { errors }} = useForm(
     {
@@ -19,56 +26,99 @@ const MASlip = () => {
     name: "items"
   });
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data))
-  }
+    // Submit using axios
+    const onSubmit = async (data) => {
+      // console.log(JSON.stringify(data))
+      let config = {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      };
+  
+      try {
+        const res = await axios.post(
+          "http://172.16.0.118/api/create/wsma",
+          data,
+          config
+        );
+  
+        if (res.data.success === true) {
+          Swal.fire("Slip Add", "MA slip add", "success").then(() =>
+            navigate("/ma-logs")
+          );
+        }
+        console.log(res);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-    return (
-      <div className="content-wrapper">
-        {/* Content Header (Page header) */}
-        <div className="content-header">
-          <div className="container-fluid">
-            <div className="row mb-2">
-              <div className="col-sm-6">
-                <h1 className="m-0">FA Slip</h1>
-              </div>{/* /.col */}
-              <div className="col-sm-6">
-                <ol className="breadcrumb float-sm-right">
-                  <li className="breadcrumb-item"><a href="#">Home</a></li>
-                  <li className="breadcrumb-item active">FA Slip</li>
-                </ol>
-              </div>{/* /.col */}
-            </div>{/* /.row */}
-          </div>{/* /.container-fluid */}
+  return (
+    <div className="content-wrapper">
+      {/* Content Header (Page header) */}
+      <div className="content-header">
+        <div className="container-fluid">
+          <div className="row mb-2">
+            <div className="col-sm-6">
+              <h1 className="m-0">MA Slip</h1>
+            </div>
+            {/* /.col */}
+            <div className="col-sm-6">
+              <ol className="breadcrumb float-sm-right">
+                <li className="breadcrumb-item">
+                  <a href="#">Home</a>
+                </li>
+                <li className="breadcrumb-item active">MA Slip</li>
+              </ol>
+            </div>
+            {/* /.col */}
+          </div>
+          {/* /.row */}
         </div>
-        {/* /.content-header */}
-        {/* Main content */}
-        <section className="content">
-          <div className="container-fluid">
-            <div className="py-12">
-              <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">              
-                <div className="card">
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    {/* @csrf                               */}
-                    <div className="card-body">                           
-                      <div className="row">
-                        <div className="col">
-                          <div className="form-floating mb-3">
-                            <input type="text" {...register("department", { required: "Department is required" })}  
-                             className="form-control" placeholder="Department" autoComplete="off" />
-                                <p>{errors.department?.message}</p>
-                          </div> 
-                        </div>
-                        <div className="col">
-                          <div className="form-floating mb-3">
-                            <input type="text" {...register("mr_no", { required: "MR Number is required" })}  
-                             className="form-control" placeholder="MR Number" autoComplete="off" />
-                                <p>{errors.mr_no?.message}</p>
-                          </div> 
+        {/* /.container-fluid */}
+      </div>
+      {/* /.content-header */}
+      {/* Main content */}
+      <section className="content">
+        <div className="container-fluid">
+          <div className="py-12">
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+              <div className="card">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  {/* @csrf                               */}
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            type="text"
+                            {...register("department", {
+                              required: "Department is required",
+                            })}
+                            className="form-control"
+                            placeholder="Department"
+                            autoComplete="off"
+                          />
+                          <p>{errors.department?.message}</p>
                         </div>
                       </div>
-                      {/*Dynamic Fields Begin*/}
-                      <div className="row">
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            type="text"
+                            {...register("mr_no", {
+                              required: "MR Number is required",
+                            })}
+                            className="form-control"
+                            placeholder="MR Number"
+                            autoComplete="off"
+                          />
+                          <p>{errors.mr_no?.message}</p>
+                        </div>
+                      </div>
+                    </div>
+                    {/*Dynamic Fields Begin*/}
+                    <div className="row">
                         <div className="col text-right">
                           <div className="form-floating mb-3">
                           <button onClick={(e) => {
@@ -105,9 +155,9 @@ const MASlip = () => {
                           </div>
                           <div className="col">
                             <div className="form-floating mb-3">
-                              <input {...register(`items.${index}.uom`,{required:true})} type="text" 
-                              placeholder="UOM " className="form-control" autoComplete="off" />
-                               {errors.items && <p>UOM is required</p>}
+                              <input {...register(`items.${index}.serial_no`,{required:true})} type="text" 
+                              placeholder="Serial Number " className="form-control" autoComplete="off" />
+                               {errors.serial_no && <p>Serial is required</p>}
                             </div>
                           </div>
                           <div className="col">
@@ -126,43 +176,65 @@ const MASlip = () => {
                         )
                       })}
 
-                      {/*Dynamic Fields End*/}
+                    {/*Dynamic Fields End*/}
 
-                      <div className="row">
-                        <div className="col">
-                          <div className="form-floating mb-3">
-                            <input type="text" {...register("prepared_by", { required: "Prepared by is required" })} 
-                            placeholder="Prepared by" className="form-control" autoComplete="off" />
-                             <p>{errors.prepared_by?.message}</p>
-                          </div> 
-                        </div>
-                        <div className="col">
-                          <div className="form-floating mb-3">
-                            <input type="text" {...register("approved_by", { required: "Approved by is required" })}
-                             placeholder="Approved by" className="form-control" autoComplete="off" />
-                              <p>{errors.approved_by?.message}</p>
-                          </div>
-                        </div>
-                        <div className="col">
-                          <div className="form-floating mb-3">
-                            <input {...register("released_by", { required: "Release by is required" })} type="text" 
-                            placeholder="Release by" className="form-control" autoComplete="off" />
-                              <p>{errors.released_by?.message}</p>
-                          </div>
+                    <div className="row">
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            type="text"
+                            {...register("prepared_by", {
+                              required: "Prepared by is required",
+                            })}
+                            placeholder="Prepared by"
+                            className="form-control"
+                            autoComplete="off"
+                          />
+                          <p>{errors.prepared_by?.message}</p>
                         </div>
                       </div>
-                      <button type="submit" className="btn btn-primary">Save and Print</button>
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            type="text"
+                            {...register("approved_by", {
+                              required: "Approved by is required",
+                            })}
+                            placeholder="Approved by"
+                            className="form-control"
+                            autoComplete="off"
+                          />
+                          <p>{errors.approved_by?.message}</p>
+                        </div>
+                      </div>
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            {...register("released_by", {
+                              required: "Release by is required",
+                            })}
+                            type="text"
+                            placeholder="Release by"
+                            className="form-control"
+                            autoComplete="off"
+                          />
+                          <p>{errors.released_by?.message}</p>
+                        </div>
+                      </div>
                     </div>
-                  </form>
-                </div>
-              </div> 
+                    <button type="submit" className="btn btn-primary">
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </section>
-        {/* /.content */}
-      </div>
+        </div>
+      </section>
+      {/* /.content */}
+    </div>
+  );
+};
 
-    );
-  };
-  
-  export default MASlip;
+export default MASlip;

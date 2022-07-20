@@ -1,18 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-function MRSlipList() {
+
+function MROReturnList() {
   return (
     <div className='content-wrapper'>
     <div className="content-header">
       <div className="container-fluid">
         <div className="row mb-2">
           <div className="col-sm-6">
-            <h1 className="m-0">MR Slip List</h1>
+            <h1 className="m-0">MRO Return Slip Log</h1>
           </div>{/* /.col */}
           <div className="col-sm-6">
             <ol className="breadcrumb float-sm-right">
               <li className="breadcrumb-item"><a href="#">Home</a></li>
-              <li className="breadcrumb-item active">MR Slip List</li>
+              <li className="breadcrumb-item active">MRO Return Slip Log</li>
             </ol>
           </div>{/* /.col */}
         </div>{/* /.row */}
@@ -25,9 +25,7 @@ function MRSlipList() {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="card">
                         <div className="card-header">
-                        <div className="card-tools">
-                        <Link to="/mr-slip" className="btn btn-success">Add Slip</Link>          
-                          </div>
+                            <h3 className="card-title">DataTable with default features</h3>
                         </div>    
                         <div className="card-body">
                         <table id="example1" className="table table-bordered table-striped">
@@ -67,8 +65,8 @@ function MRSlipList() {
             </div>
         </div>
     </section>
-</div>
+    </div>
   )
 }
 
-export default MRSlipList
+export default MROReturnList

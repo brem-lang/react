@@ -1,11 +1,41 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useForm, useFieldArray} from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 export default function ServiceCall() {
+
+    const { auth } = useAuth();
+    const navigate = useNavigate();
     const { register, control, handleSubmit, formState: { errors }} = useForm();
-    const onSubmit = (data) => {
-      console.log(JSON.stringify(data))
-    }
+      // Submit using axios
+      const onSubmit = async (data) => {
+        // console.log(JSON.stringify(data))
+        let config = {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        };
+    
+        try {
+          const res = await axios.post(
+            "http://172.16.0.118/api/create/servicecall",
+            data,
+            config
+          );
+    
+          if (res.data.success === true) {
+            Swal.fire("Slip Add", "Service Call slip add", "success").then(() =>
+              navigate("/mr-logs")
+            );
+          }
+          console.log(res);
+        } catch (err) {
+          console.error(err);
+        }
+      };
 
   return (
     <div className="content-wrapper">
@@ -45,32 +75,32 @@ export default function ServiceCall() {
                         </div>
                         <div className="col">
                             <div className="form-floating mb-3">
-                                <input type="text"  {...register("contact_person", { required: "Contact Person is required" })}  
-                                 className="form-control" placeholder="Contact Person" autoComplete="off" />
-                                    <p>{errors.contact_person?.message}</p>
+                                <input type="number"  {...register("contact_number", { required: "Contact Number is required" })}  
+                                 className="form-control" placeholder="Contact Number" autoComplete="off" />
+                                    <p>{errors.contact_number?.message}</p>
                             </div> 
                         </div>
                         <div className="col">
                             <div className="form-floating mb-3">
-                                <input type="text"  {...register("phone_number", { required: "Phone Number is required" })} 
+                                <input type="text"  {...register("phone_no", { required: "Phone Number is required" })} 
                                   className="form-control" placeholder="Phone number" autoComplete="off" />
-                                    <p>{errors.phone_number?.message}</p>
+                                    <p>{errors.phone_no?.message}</p>
                             </div> 
                         </div>
                         <div className="col">
                             <div className="form-floating mb-3">
                                 <input type="text"  {...register("status", { required: "Status is required" })} 
                                   className="form-control" placeholder="Status" autoComplete="off" />
-                                    <p>{errors.phone_number?.message}</p>
+                                    <p>{errors.status?.message}</p>
                             </div> 
                         </div>
                     </div>     
                     <div className="row">
                         <div className="col">
                             <div className="form-floating mb-3">
-                                <input type="text"  {...register("item_number", { required: "Item Number is required" })}   
+                                <input type="text"  {...register("item_no", { required: "Item Number is required" })}   
                                  className="form-control" placeholder="Item number" autoComplete="off"/>
-                                    <p>{errors.item_number?.message}</p>
+                                    <p>{errors.item_no?.message}</p>
                             </div>
                         </div>
                         <div className="col">
@@ -82,25 +112,25 @@ export default function ServiceCall() {
                         </div>
                         <div className="col">
                             <div className="form-floating mb-3">
-                                <input type="text"{...register("mfr_serial_number", { required: "MFR Serial Number is required" })} 
+                                <input type="text"{...register("mfr_serial_no", { required: "MFR Serial Number is required" })} 
                                   className="form-control" placeholder="Mfr Serial number" autoComplete="off" />
-                                    <p>{errors.mfr_serial_number?.message}</p>
+                                    <p>{errors.mfr_serial_no?.message}</p>
                             </div> 
                         </div>
                         <div className="col">
                             <div className="form-floating mb-3">
-                                <input type="text"  {...register("serial_number", { required: "Serial Number is required" })}  
+                                <input type="text"  {...register("serial_no", { required: "Serial Number is required" })}  
                                  className="form-control" placeholder="Serial number" autoComplete="off" />
-                                    <p>{errors.serial_number?.message}</p>
+                                    <p>{errors.serial_no?.message}</p>
                             </div> 
                         </div>
                     </div>        
                     <div className="row">
                         <div className="col">
                             <div className="form-floating mb-3">
-                                <input type="text"  {...register("object", { required: "Object is required" })}  
-                                 className="form-control" placeholder="Object" autoComplete="off"/>
-                                    <p>{errors.object?.message}</p>
+                                <input type="text"  {...register("subject", { required: "Subject is required" })}  
+                                 className="form-control" placeholder="Subject" autoComplete="off"/>
+                                    <p>{errors.subject?.message}</p>
                             </div>
                         </div>
                         <div className="col">
@@ -155,7 +185,7 @@ export default function ServiceCall() {
                             </div> 
                         </div>
                     </div>     
-                    <button type="submit" className="btn btn-primary">Save and Print</button>
+                    <button type="submit" className="btn btn-primary">Save</button>
                     </div>
                 </form>
                 </div>

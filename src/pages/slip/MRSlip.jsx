@@ -1,13 +1,41 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useForm, useFieldArray} from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 
 const MRSlip = () => {
-
+  const { auth } = useAuth();
+  const navigate = useNavigate();
   const { register, control, handleSubmit, formState: { errors }} = useForm();
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data))
-  }
+    // Submit using axios
+    const onSubmit = async (data) => {
+      // console.log(JSON.stringify(data))
+      let config = {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      };
+  
+      try {
+        const res = await axios.post(
+          "http://172.16.0.118/api/create/memorandum",
+          data,
+          config
+        );
+  
+        if (res.data.success === true) {
+          Swal.fire("Slip Add", "MR slip add", "success").then(() =>
+            navigate("/mr-logs")
+          );
+        }
+        console.log(res);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
 
     return (
@@ -41,9 +69,9 @@ const MRSlip = () => {
                     <div className="row">
                       <div className="col">
                         <div className="form-floating mb-3">
-                          <input type="text" {...register("id_number", { required: "ID Number is required" })} 
+                          <input type="text" {...register("id_no", { required: "ID Number is required" })} 
                            className="form-control" placeholder="ID number" autoComplete="off"/>
-                            <p>{errors.id_number?.message}</p>
+                            <p>{errors.id_no?.message}</p>
                         </div>
                       </div>
                       <div className="col">
@@ -94,9 +122,9 @@ const MRSlip = () => {
                       </div>
                       <div className="col">
                         <div className="form-floating mb-3">
-                          <input type="text" {...register("asset_number", { required: "Asset Number is required" })} 
+                          <input type="text" {...register("asset_serial_no", { required: "Asset Number is required" })} 
                           className="form-control" placeholder="Asset Serial Number" autoComplete="off" />
-                          <p>{errors.asset_number?.message}</p>
+                          <p>{errors.asset_serial_no?.message}</p>
                         </div> 
                       </div>
                       <div className="col">
@@ -107,7 +135,7 @@ const MRSlip = () => {
                         </div> 
                       </div>
                     </div>                     
-                    <button type="submit" className="btn btn-primary">Save and Print</button>
+                    <button type="submit" className="btn btn-primary">Save</button>
                   </div>
                 </form>
               </div>

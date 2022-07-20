@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useForm, useFieldArray} from "react-hook-form";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 
-const FGSlip = () => {
-
-  const { auth } = useAuth();
-  const navigate = useNavigate();
+const MISlip = () => {
 
   const { register, control, handleSubmit, formState: { errors }} = useForm(
     {
@@ -26,33 +19,13 @@ const FGSlip = () => {
     name: "items"
   });
 
-    // Submit using axios
-    const onSubmit = async (data) => {
-      // console.log(JSON.stringify(data))
-      let config = {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      };
-  
-      try {
-        const res = await axios.post(
-          "http://172.16.0.118/api/create/wsfg",
-          data,
-          config
-        );
-  
-        if (res.data.success === true) {
-          Swal.fire("Slip Add", "FG slip add", "success").then(() =>
-            navigate("/fg-logs")
-          );
-        }
-        console.log(res);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
+  const onSubmit = (data) => {
+    const value = {
+        type:"MRO",
+        data
+    }
+    console.log(JSON.stringify(value))
+  }
     return (
       <div className="content-wrapper">
         {/* Content Header (Page header) */}
@@ -60,12 +33,12 @@ const FGSlip = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1 className="m-0">FG Slip</h1>
+                <h1 className="m-0">MRO Return Slip</h1>
               </div>{/* /.col */}
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item"><a href="#">Home</a></li>
-                  <li className="breadcrumb-item active">FG Slip</li>
+                  <li className="breadcrumb-item active">MRO Return Slip</li>
                 </ol>
               </div>{/* /.col */}
             </div>{/* /.row */}
@@ -84,27 +57,40 @@ const FGSlip = () => {
                       <div className="row">
                         <div className="col">
                           <div className="form-floating mb-3">
-                            <input type="number" {...register("batch_no", { required: "Batch Number is required" })}  
-                             className="form-control" placeholder="Batch Number" autoComplete="off" />
-                              <p>{errors.batch_no?.message}</p>
+                            <input {...register("date", { required: "Date is required" })} type="date" className="form-control" placeholder="Date" autoComplete="off"/>
+                            <p>{errors.date?.message}</p>
+                          </div>
+                        </div>
+                        <div className="col">
+                          <div className="form-floating mb-3">
+                            <input type="text" {...register("qr_no", { required: "QR Number is required" })} className="form-control" placeholder="QR Number" autoComplete="off" />
+                            <p>{errors.qr_no?.message}</p>
+                          </div> 
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <div className="form-floating mb-3">
+                            <input type="text" {...register("department", { required: "Department is required" })}  
+                            className="form-control" placeholder="Department" autoComplete="off" />
+                            <p>{errors.department?.message}</p>
                           </div> 
                         </div>
                         <div className="col">
                           <div className="form-floating mb-3">
-                            <input type="number" {...register("pallet_no", { required: "Pallet Number is required" })}  
-                             className="form-control"  placeholder="Pallet Number" autoComplete="off" />
-                              <p>{errors.pallet_no?.message}</p>
-                          </div> 
+                            <input type="text" {...register("mr_no", { required: "MR Number is required" })} 
+                            className="form-control" placeholder="MR Number" autoComplete="off"/>
+                            <p>{errors.mr_no?.message}</p>
+                          </div>
                         </div>
                       </div>
-
                       <div className="row">
                         <div className="col-6">
                           <div className="form-floating mb-3">
-                            <input type="text" {...register("location", { required: "Location is required" })}  
-                             className="form-control" placeholder="Location" autoComplete="off"/>
-                              <p>{errors.location?.message}</p>
-                          </div>
+                            <input type="text" {...register("withdrawal_slip_no", { required: "Withdrawal Slip Number is required" })}  
+                            className="form-control" placeholder="Withdrawal Slip Number" autoComplete="off" />
+                            <p>{errors.withdrawal_slip_no?.message}</p>
+                          </div> 
                         </div>
                       </div>
                       {/*Dynamic Fields Begin*/}
@@ -205,4 +191,4 @@ const FGSlip = () => {
     );
   };
   
-  export default FGSlip;
+  export default MISlip;

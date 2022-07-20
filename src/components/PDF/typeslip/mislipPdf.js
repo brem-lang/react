@@ -1,5 +1,6 @@
-import QRCode from "qrcode";
 import { useEffect, useState } from "react";
+
+import QRCode from "qrcode";
 
 import {
   Document,
@@ -124,10 +125,11 @@ const styles = StyleSheet.create({
   },
 });
 
-// Create Document Component
-const BasicDocument = ({ code, item, close }) => {
+const MiSlipPdf = ({ code, item, close, styles }) => {
   const [url] = useState(`localhost:3000/verify/${code}`);
   const [qrcodes, setQrcodes] = useState("");
+
+  console.log(styles);
 
   const {
     approved_by,
@@ -142,6 +144,8 @@ const BasicDocument = ({ code, item, close }) => {
     warehouse,
     wh_location,
   } = item;
+
+  console.log(item, "MI SLIP");
 
   useEffect(() => {
     const GenerateQRCode = () => {
@@ -251,4 +255,5 @@ const BasicDocument = ({ code, item, close }) => {
     </div>
   );
 };
-export default BasicDocument;
+
+export default MiSlipPdf;

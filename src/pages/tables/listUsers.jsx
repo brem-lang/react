@@ -87,20 +87,17 @@ function ListUsers() {
           <form>
             <div class="card-body">
               <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter Name" />
+              </div>
+              <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" />
-
               </div>
-                <div class="form-group">
-                  <label>Roles</label>
-                    <select class="form-control">
-                      <option>option 1</option>
-                      <option>option 2</option>
-                      <option>option 3</option>
-                      <option>option 4</option>
-                      <option>option 5</option>
-                    </select>
-                </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Password</label>
+                <input type="password" className="form-control" id="exampleInputEmail1" placeholder="Enter password" />
+              </div>
               </div>
             </form>
           </Modal.Body>

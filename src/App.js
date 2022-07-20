@@ -2,12 +2,10 @@ import React, { Suspense } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-
 import {
   Layout,
   Dashboard,
   DataTable,
-  CreateWsmi,
   Document,
   LoginPage,
   Unauthorized,
@@ -27,7 +25,19 @@ import {
   FASlipList,
   MASlipList,
   MRSlipList,
-  Logs
+  Logs,
+  MISlipReturn,
+  MROSlipReturn,
+  DMSlipReturn,
+  FGSlipReturn,
+  FASlipReturn,
+  MASlipReturn,
+  MISlipReturnLogs,
+  MROSlipReturnLogs,
+  DMSlipReturnLogs,
+  FGSlipReturnLogs,
+  FASlipReturnLogs,
+  MASlipReturnLogs,
 } from "./exporter";
 import RequireAuth from "./routes/RequireAuth";
 
@@ -42,7 +52,6 @@ function App() {
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
-      
         {/* Public Routes */}
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/verify/*" element={<Document />} />
@@ -55,10 +64,8 @@ function App() {
               <Route index element={<Dashboard />} />
               <Route path="/data-table" element={<DataTable />} />
               <Route path="/modal" element={<ModalPdf />} />
-              <Route path="/create/wsmi" element={<CreateWsmi />} />
               <Route path="/user/create" element={<CreateUser />} />
-              
-              
+
               <Route path="/mi-slip" element={<MISlip />} />
               <Route path="/mro-slip" element={<MROSlip />} />
               <Route path="/dm-slip" element={<DMSlip />} />
@@ -68,13 +75,28 @@ function App() {
               <Route path="/mr-slip" element={<MRSlip />} />
               <Route path="/service-call" element={<ServiceCall />} />
               {/* slip tables */}
-              <Route path="/mi-list" element={<MISlipList />} />
-              <Route path="/mro-list" element={<MROSlipList />} />
-              <Route path="/dm-list" element={<DMSlipList />} />
-              <Route path="/fg-list" element={<FGSlipList />} />
-              <Route path="/fa-list" element={<FASlipList />} />
-              <Route path="/ma-list" element={<MASlipList />} />
-              <Route path="/mr-list" element={<MRSlipList />} />
+              <Route path="/mi-logs" element={<MISlipList />} />
+              <Route path="/mro-logs" element={<MROSlipList />} />
+              <Route path="/dm-logs" element={<DMSlipList />} />
+              <Route path="/fg-logs" element={<FGSlipList />} />
+              <Route path="/fa-logs" element={<FASlipList />} />
+              <Route path="/ma-logs" element={<MASlipList />} />
+              <Route path="/mr-logs" element={<MRSlipList />} />
+
+              {/* return slip */}
+              <Route path="/mi-return" element={<MISlipReturn />} />
+              <Route path="/mro-return" element={<MROSlipReturn />} />
+              <Route path="/dm-return" element={<DMSlipReturn />} />
+              <Route path="/fg-return" element={<FGSlipReturn />} />
+              <Route path="/fa-return" element={<FASlipReturn />} />
+              <Route path="/ma-return" element={<MASlipReturn />} />
+              {/* return slip table */}
+              <Route path="/mi-return-logs" element={<MISlipReturnLogs />} />
+              <Route path="/mro-return-logs" element={<MROSlipReturnLogs />} />
+              <Route path="/dm-return-logs" element={<DMSlipReturnLogs />} />
+              <Route path="/fg-return-logs" element={<FGSlipReturnLogs />} />
+              <Route path="/fa-return-logs" element={<FASlipReturnLogs />} />
+              <Route path="/ma-return-logs" element={<MASlipReturnLogs />} />
               {/* tables */}
               <Route path="/users" element={<UserList />} />
               <Route path="/logs" element={<Logs />} />

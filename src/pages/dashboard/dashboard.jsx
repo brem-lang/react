@@ -32,9 +32,7 @@ const Dashboard = () => {
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-                <a href="/" className="small-box-footer">
-                  <i className="fas fa-arrow-circle-right"></i>
-                </a>
+
               </div>
             </div>
             <div className="col-lg-3 col-6">
@@ -49,9 +47,7 @@ const Dashboard = () => {
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-                <a href="/" className="small-box-footer">
-                  <i className="fas fa-arrow-circle-right"></i>
-                </a>
+
               </div>
             </div>
             <div className="col-lg-3 col-6">
@@ -64,9 +60,7 @@ const Dashboard = () => {
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-                <a href="/" className="small-box-footer">
-                  <i className="fas fa-arrow-circle-right"></i>
-                </a>
+
               </div>
             </div>
             <div className="col-lg-3 col-6">
@@ -79,9 +73,6 @@ const Dashboard = () => {
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-                <a href="/" className="small-box-footer">
-                <i className="fas fa-arrow-circle-right"></i>
-                </a>
               </div>
             </div>
           </div>
@@ -97,9 +88,7 @@ const Dashboard = () => {
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-                <a href="/" className="small-box-footer">
-                  <i className="fas fa-arrow-circle-right"></i>
-                </a>
+
               </div>
             </div>
             <div className="col-lg-3 col-6">
@@ -114,9 +103,7 @@ const Dashboard = () => {
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-                <a href="/" className="small-box-footer">
-                  <i className="fas fa-arrow-circle-right"></i>
-                </a>
+
               </div>
             </div>
             <div className="col-lg-3 col-6">
@@ -129,9 +116,7 @@ const Dashboard = () => {
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-                <a href="/" className="small-box-footer">
-                  <i className="fas fa-arrow-circle-right"></i>
-                </a>
+
               </div>
             </div>
           </div>

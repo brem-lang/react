@@ -1,6 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import BasicDocument from "../../components/PDF/basic-document";
+import { miListData } from "../../features/slip-list/slipListSlice";
+import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
+
 
 function MASlipList() {
+  const [isOpenPdf, setIsOpenPdf] = useState(false);
+  const [item, setItem] = useState([]);
+
+  const { auth } = useAuth();
+  const miSlipData = useSelector((state) => state.slipList.value);
+  const dispatch = useDispatch();
+
+  const handlePdf = (e, item) => {
+    e.preventDefault();
+    setItem(item);
+    setIsOpenPdf(true);
+  };
+
+  const closePdfForm = (e) => {
+    setIsOpenPdf(false);
+    setItem([]);
+  };
+
+  useEffect(() => {
+    const getMiSlipList = async () => {
+      const config = {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      };
+
+      try {
+        const res = await axios.get("http://172.16.0.118/api/get/wsma", config);
+        dispatch(miListData({ ...miSlipData, miList: res.data.data }));
+      } catch (err) {
+        if (err.code === "ERR_BAD_REQUEST") {
+          alert("Error getting data, Unauthorized user!");
+        }
+
+        console.log(err);
+      }
+    };
+
+    return getMiSlipList;
+  }, []);
   return (
     <div className='content-wrapper'>
     <div className="content-header">
@@ -19,52 +64,67 @@ function MASlipList() {
       </div>{/* /.container-fluid */}
     </div>
 
-    <section className='content'>
-        <div className='container-fluid'>
+    {isOpenPdf ? (
+        <BasicDocument
+          code={item.document_series_no}
+          type={"mi"}
+          item={item}
+          close={closePdfForm}
+        />
+      ) : (
+        <section className="content">
+          <div className="container-fluid">
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="card">
-                        <div className="card-header">
-                            <h3 className="card-title">DataTable with default features</h3>
-                        </div>    
-                        <div className="card-body">
-                        <table id="example1" className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>Document Series No</th>
-                                <th>Prepared by</th>
-                                <th>Approved by</th>
-                                <th>Release by</th>
-                                <th>Actions</th>
+              <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="card">
+                  <div className="card-header">
+                  <div className="card-tools">
+                              <Link to="/ma-slip" className="btn btn-success">Add Slip</Link>
+                          </div>
+                  </div>
+                  <div className="card-body">
+                    <table
+                      id="example1"
+                      className="table table-bordered table-striped"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Document Series No</th>
+                          <th>Prepared by</th>
+                          <th>Approved by</th>
+                          <th>Release by</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {miSlipData.miList.map((item) => {
+                          return (
+                            <tr key={item.id}>
+                              <td>{item.document_series_no}</td>
+                              <td>{item.prepared_by}</td>
+                              <td>{item.approved_by}</td>
+                              <td>{item.released_by}</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className="btn btn-outline-warning"
+                                  onClick={(e) => handlePdf(e, item)}
+                                >
+                                  <i class="fas fa-file-pdf info"></i>
+                                </button>
+                              </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Internet Explorer 4.0</td>
-                                <td>Win 95+</td>
-                                <td>GFI+DateToday+Document Series No</td>
-                                <td>
-                                <i class="fas fa-file-pdf"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Internet Explorer 4.0</td>
-                                <td>Win 95+</td>
-                                <td>GFI+DateToday+Document Series No</td>
-                                <td>
-                                <i class="fas fa-file-pdf"></i>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        </div>                        
-                    </div>
-                </div>           
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
+        </section>
+      )}
 </div>
   )
 }

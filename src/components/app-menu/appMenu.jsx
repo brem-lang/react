@@ -20,7 +20,7 @@ const AppMenu = () => {
           className="brand-image img-circle elevation-3"
           style={{ opacity: "0.8" }}
         />
-        <span className="brand-text font-weight-light">AdminLTE 3</span>
+        <span className="brand-text font-weight-light">Gensan Feedmil, Inc.</span>
       </Link>
 
       <div className="sidebar">
@@ -119,7 +119,7 @@ const AppMenu = () => {
               >
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
-                  Slip
+                Withdrawal Slip 
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </Link>
@@ -183,56 +183,159 @@ const AppMenu = () => {
               >
                 <i class="nav-icon fas fa-table"></i>
                 <p>
-                  Slip List
+                Withdrawal Slip Log
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </Link>
 
               <ul className="nav nav-treeview">
                 <li className="nav-item">
-                  <Link to="/mi-list" className="nav-link">
+                  <Link to="/mi-logs" className="nav-link">
                     <i className="far fa-circle nav-icon"></i>
                     <p>MI</p>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/mro-list" className="nav-link">
+                  <Link to="/mro-logs" className="nav-link">
                     <i className="far fa-circle nav-icon"></i>
                     <p>MRO</p>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/dm-list" className="nav-link">
+                  <Link to="/dm-logs" className="nav-link">
                     <i className="far fa-circle nav-icon"></i>
                     <p>DM</p>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/fg-list" className="nav-link">
+                  <Link to="/fg-logs" className="nav-link">
                     <i className="far fa-circle nav-icon"></i>
                     <p>FG</p>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/fa-list" className="nav-link">
+                  <Link to="/fa-logs" className="nav-link">
                     <i className="far fa-circle nav-icon"></i>
                     <p>FA</p>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/ma-list" className="nav-link">
+                  <Link to="/ma-logs" className="nav-link">
                     <i className="far fa-circle nav-icon"></i>
                     <p>MA</p>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/mr-list" className="nav-link">
+                  <Link to="/mr-logs" className="nav-link">
                     <i className="far fa-circle nav-icon"></i>
                     <p>MR</p>
                   </Link>
                 </li>
             </ul>
           </li>   
+
+          <li className="nav-item">
+            <Link
+                to="/"
+                className="nav-link"
+              >
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Return Slip
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </Link>
+
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <Link to="/mi-return" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MI</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/mro-return" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MRO</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/dm-return" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>DM</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fg-return" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FG</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fa-return" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FA</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/ma-return" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MA</p>
+                  </Link>
+                </li>
+            </ul>
+          </li> 
+
+          <li className="nav-item">
+            <Link
+                to="/"
+                className="nav-link"
+              >
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                Return Slip Log
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </Link>
+              <ul className="nav nav-treeview">
+                <li className="nav-item">
+                  <Link to="/mi-return-logs" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MI</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/mro-return-logs" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MRO</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/dm-return-logs" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>DM</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fg-return-logs" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FG</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/fa-return-logs" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>FA</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/ma-return-logs" className="nav-link">
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>MA</p>
+                  </Link>
+                </li>
+            </ul>
+          </li>  
             {/* <li className="nav-item">
               <a href="pages/widgets.html" className="nav-link">
                 <i className="nav-icon fas fa-th"></i>

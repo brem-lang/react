@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useForm, useFieldArray} from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 
 const FASlip = () => {
+
+  const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const { register, control, handleSubmit, formState: { errors }} = useForm(
     {
@@ -20,9 +27,32 @@ const FASlip = () => {
     name: "items"
   });
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data))
-  }
+    // Submit using axios
+    const onSubmit = async (data) => {
+      // console.log(JSON.stringify(data))
+      let config = {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      };
+  
+      try {
+        const res = await axios.post(
+          "http://172.16.0.118/api/create/wsfa",
+          data,
+          config
+        );
+  
+        if (res.data.success === true) {
+          Swal.fire("Slip Add", "FA slip add", "success").then(() =>
+            navigate("/fa-logs")
+          );
+        }
+        console.log(res);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
     return (
       <div className="content-wrapper">
@@ -62,7 +92,7 @@ const FASlip = () => {
                         </div>
                         <div className="col-6">
                           <div className="form-floating mb-3">
-                            <input name="mr_no" {...register("mr_no", { required: "MR is required" })} type="text" 
+                            <input name="mr_no" {...register("mr_no", { required: "MR is required" })} type="number" 
                             className="form-control" placeholder="MR Number" autoComplete="off" />
                              <p>{errors.mr_no?.message}</p>
                           </div> 
@@ -106,9 +136,9 @@ const FASlip = () => {
                           </div>
                           <div className="col">
                             <div className="form-floating mb-3">
-                              <input {...register(`items.${index}.uom`,{required:true})} type="text" 
-                              placeholder="UOM " className="form-control" autoComplete="off" />
-                               {errors.items && <p>UOM is required</p>}
+                              <input {...register(`items.${index}.serial_no`,{required:true})} type="text" 
+                              placeholder="Serial Number " className="form-control" autoComplete="off" />
+                               {errors.serial_no && <p>Serial is required</p>}
                             </div>
                           </div>
                           <div className="col">
@@ -152,7 +182,7 @@ const FASlip = () => {
                           </div>
                         </div>
                       </div>
-                      <button type="submit" className="btn btn-primary">Save and Print</button>
+                      <button type="submit" className="btn btn-primary">Save</button>
                     </div>
                   </form>
                 </div>

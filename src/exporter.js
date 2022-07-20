@@ -11,9 +11,6 @@ const DataTable = React.lazy(() => import("./pages/tables/data"));
 const UserList = React.lazy(() => import("./pages/tables/listUsers"));
 const Logs = React.lazy(() => import("./pages/tables/Logs"));
 
-
-const CreateWsmi = React.lazy(() => import("./pages/wsmi/create-wsmi"));
-
 const Document = React.lazy(() => import("./pages/verify/document"));
 
 const LoginPage = React.lazy(() => import("./pages/login/login"));
@@ -30,6 +27,14 @@ const MASlip = React.lazy(() => import("./pages/slip/MASlip"));
 const MRSlip = React.lazy(() => import("./pages/slip/MRSlip"));
 const ServiceCall = React.lazy(() => import("./pages/slip/ServiceCall"));
 
+// return slip
+const MISlipReturn = React.lazy(() => import("./pages/return/MIReturnSlip"));
+const MROSlipReturn = React.lazy(() => import("./pages/return/MROReturnSlip"));
+const DMSlipReturn = React.lazy(() => import("./pages/return/DMReturnSlip"));
+const FGSlipReturn = React.lazy(() => import("./pages/return/FGReturnSlip"));
+const FASlipReturn = React.lazy(() => import("./pages/return/FAReturnSlip"));
+const MASlipReturn = React.lazy(() => import("./pages/return/MAReturnSlip"));
+
 // slip tables
 const MISlipList = React.lazy(() => import("./pages/tables/MISlipList"));
 const MROSlipList = React.lazy(() => import("./pages/tables/MROSlipList"));
@@ -39,6 +44,14 @@ const FASlipList = React.lazy(() => import("./pages/tables/FASlipList"));
 const MASlipList = React.lazy(() => import("./pages/tables/MASlipList"));
 const MRSlipList = React.lazy(() => import("./pages/tables/MRSlipList"));
 
+// return slip logs
+const MISlipReturnLogs = React.lazy(() => import("./pages/returnTables/MIReturnList"));
+const MROSlipReturnLogs = React.lazy(() => import("./pages/returnTables/MROReturnList"));
+const DMSlipReturnLogs = React.lazy(() => import("./pages/returnTables/DMReturnList"));
+const FGSlipReturnLogs = React.lazy(() => import("./pages/returnTables/FGReturnList"));
+const FASlipReturnLogs = React.lazy(() => import("./pages/returnTables/FAReturnList"));
+const MASlipReturnLogs = React.lazy(() => import("./pages/returnTables/MAReturnList"));
+
 
 export {
   Layout,
@@ -46,7 +59,6 @@ export {
   Dashboardv2,
   Dashboardv3,
   DataTable,
-  CreateWsmi,
   Document,
   LoginPage,
   Unauthorized,
@@ -66,5 +78,17 @@ export {
   FASlipList,
   MASlipList,
   MRSlipList,
-  Logs
+  Logs,
+  MISlipReturn,
+  MROSlipReturn,
+  DMSlipReturn,
+  FGSlipReturn,
+  FASlipReturn,
+  MASlipReturn,
+  MISlipReturnLogs,
+  MROSlipReturnLogs,
+  DMSlipReturnLogs,
+  FGSlipReturnLogs,
+  FASlipReturnLogs,
+  MASlipReturnLogs,
 };
