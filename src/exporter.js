@@ -67,26 +67,6 @@ const MASlipReturnLogs = React.lazy(() =>
   import("./pages/returnTables/MAReturnList")
 );
 
-// return slip logs
-const MISlipReturnLogs = React.lazy(() =>
-  import("./pages/returnTables/MIReturnList")
-);
-const MROSlipReturnLogs = React.lazy(() =>
-  import("./pages/returnTables/MROReturnList")
-);
-const DMSlipReturnLogs = React.lazy(() =>
-  import("./pages/returnTables/DMReturnList")
-);
-const FGSlipReturnLogs = React.lazy(() =>
-  import("./pages/returnTables/FGReturnList")
-);
-const FASlipReturnLogs = React.lazy(() =>
-  import("./pages/returnTables/FAReturnList")
-);
-const MASlipReturnLogs = React.lazy(() =>
-  import("./pages/returnTables/MAReturnList")
-);
-
 export {
   Layout,
   Dashboard,
