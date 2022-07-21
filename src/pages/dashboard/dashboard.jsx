@@ -1,4 +1,48 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import useAuth from "../../hooks/useAuth";
+
 const Dashboard = () => {
+  const { auth } = useAuth();
+
+  const [dmCount, setdmCount] = useState("");
+  const [faCount, setfaCount] = useState("");
+  const [fgCount, setfgCount] = useState("");
+  const [maCount, setmaCount] = useState("");
+  const [memorandumCount, setmemorandumCount] = useState("");
+  const [miCount, setmiCount] = useState("");
+  const [mroCount, setmroCount] = useState("");
+  const [servicecallCount, setservicecallCount] = useState("");
+
+  useEffect(() => {
+    const getdata = async () => {
+      const config = {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      };
+
+      try {
+        const res = await axios.get(
+          "http://172.16.0.118/api/get/formcount",
+          config
+        );
+        setdmCount(res.data.data.dmCount);
+        setfaCount(res.data.data.faCount);
+        setfgCount(res.data.data.fgCount);
+        setmaCount(res.data.data.maCount);
+        setmemorandumCount(res.data.data.memorandumCount);
+        setmiCount(res.data.data.miCount);
+        setmroCount(res.data.data.mroCount);
+        setservicecallCount(res.data.data.servicecallCount);
+      } catch (err) {
+        if (err.code === "ERR_BAD_REQUEST") {
+          alert("Error getting data, Unauthorized user!");
+        }
+        console.log(err);
+      }
+    };
+    return getdata;
+  }, []);
+
   return (
     <div className="content-wrapper">
       <div className="content-header">
@@ -25,48 +69,43 @@ const Dashboard = () => {
             <div className="col-lg-3 col-6">
               <div className="small-box bg-info">
                 <div className="inner">
-                  <h3>150</h3>
+                  <h3>{miCount}</h3>
 
                   <p>MI</p>
                 </div>
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-
               </div>
             </div>
             <div className="col-lg-3 col-6">
               <div className="small-box bg-success">
                 <div className="inner">
-                  <h3>
-                    53
-                  </h3>
+                  <h3>{mroCount}</h3>
 
                   <p>MRO</p>
                 </div>
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-
               </div>
             </div>
             <div className="col-lg-3 col-6">
               <div className="small-box bg-warning">
                 <div className="inner">
-                  <h3>44</h3>
+                  <h3>{dmCount}</h3>
 
                   <p>DM</p>
                 </div>
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-
               </div>
             </div>
             <div className="col-lg-3 col-6">
               <div className="small-box bg-danger">
                 <div className="inner">
-                  <h3>65</h3>
+                  <h3>{fgCount}</h3>
 
                   <p>FG</p>
                 </div>
@@ -76,52 +115,58 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="row">
             <div className="col-lg-3 col-6">
               <div className="small-box bg-info">
                 <div className="inner">
-                  <h3>150</h3>
+                  <h3>{faCount}</h3>
 
                   <p>FA</p>
                 </div>
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-
               </div>
             </div>
             <div className="col-lg-3 col-6">
               <div className="small-box bg-success">
                 <div className="inner">
-                  <h3>
-                    53
-                  </h3>
+                  <h3>{maCount}</h3>
 
                   <p>MA</p>
                 </div>
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
-
               </div>
             </div>
             <div className="col-lg-3 col-6">
               <div className="small-box bg-warning">
                 <div className="inner">
-                  <h3>44</h3>
+                  <h3>{memorandumCount}</h3>
 
                   <p>MR</p>
                 </div>
                 <div className="icon">
                   <i className="ion ion-stats-bars"></i>
                 </div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-6">
+              <div className="small-box bg-danger">
+                <div className="inner">
+                  <h3>{servicecallCount}</h3>
 
+                  <p>Service Call</p>
+                </div>
+                <div className="icon">
+                  <i className="ion ion-stats-bars"></i>
+                </div>
               </div>
             </div>
           </div>
 
-          
           {/* <div className="row">
             <section className="col-lg-7 connectedSortable">
               <div className="card">
@@ -816,9 +861,6 @@ const Dashboard = () => {
               </div>
             </section>
           </div> */}
-
-
-          
         </div>
       </section>
     </div>

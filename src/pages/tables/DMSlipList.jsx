@@ -56,7 +56,7 @@ function DMSlipList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">DM Slip List</h1>
+              <h1 className="m-0">DM Slip Log</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -64,7 +64,7 @@ function DMSlipList() {
                 <li className="breadcrumb-item">
                   <a href="#">Home</a>
                 </li>
-                <li className="breadcrumb-item active">DM Slip List</li>
+                <li className="breadcrumb-item active">DM Slip Log</li>
               </ol>
             </div>
             {/* /.col */}

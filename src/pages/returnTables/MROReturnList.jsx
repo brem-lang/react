@@ -1,6 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { miListData } from "../../features/slip-list/slipListSlice";
+import useAuth from "../../hooks/useAuth";
 
 function MROReturnList() {
+  const { auth } = useAuth();
+  const miSlipData = useSelector((state) => state.slipList.value);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getMiSlipList = async () => {
+      const config = {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      };
+
+      try {
+        const res = await axios.get(
+          "http://172.16.0.118/api/get/returnslip?form=mro",
+          config
+        );
+        dispatch(miListData({ ...miSlipData, miList: res.data }));
+        console.log(res.data);
+      } catch (err) {
+        if (err.code === "ERR_BAD_REQUEST") {
+          alert("Error getting data, Unauthorized user!");
+        }
+
+        console.log(err);
+      }
+    };
+
+    return getMiSlipList;
+  }, []);
   return (
     <div className="content-wrapper">
       <div className="content-header">
@@ -43,31 +75,32 @@ function MROReturnList() {
                     <thead>
                       <tr>
                         <th>Document Series No</th>
-                        <th>Prepared by</th>
-                        <th>Approved by</th>
-                        <th>Release by</th>
+                        <th>Department</th>
+                        <th>MR Number</th>
+                        <th>Received by</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Trident</td>
-                        <td>Internet Explorer 4.0</td>
-                        <td>Win 95+</td>
-                        <td>GFI+DateToday+Document Series No</td>
-                        <td>
-                          <i className="fas fa-file-pdf"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Trident</td>
-                        <td>Internet Explorer 4.0</td>
-                        <td>Win 95+</td>
-                        <td>GFI+DateToday+Document Series No</td>
-                        <td>
-                          <i className="fas fa-file-pdf"></i>
-                        </td>
-                      </tr>
+                      {miSlipData.miList.map((item) => {
+                        return (
+                          <tr key={item.id}>
+                            <td>{item.document_series_no}</td>
+                            <td>{item.department}</td>
+                            <td>{item.mr_no}</td>
+                            <td>{item.received_by}</td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-outline-warning"
+                                // onClick={(e) => handlePdf(e, item)}
+                              >
+                                <i class="fas fa-file-pdf info"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>

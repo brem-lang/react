@@ -57,7 +57,7 @@ function MISlipList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">MI Slip List</h1>
+              <h1 className="m-0">MI Slip Log</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -65,7 +65,7 @@ function MISlipList() {
                 <li className="breadcrumb-item">
                   <a href="#">Home</a>
                 </li>
-                <li className="breadcrumb-item active">MI Slip List</li>
+                <li className="breadcrumb-item active">MI Slip Log</li>
               </ol>
             </div>
             {/* /.col */}
@@ -78,7 +78,6 @@ function MISlipList() {
       {isOpenPdf ? (
         <MiPdf
           code={item.document_series_no}
-          type={"mi"}
           item={item}
           close={closePdfForm}
         />

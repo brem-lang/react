@@ -43,15 +43,49 @@ const FGSlipList = React.lazy(() => import("./pages/tables/FGSlipList"));
 const FASlipList = React.lazy(() => import("./pages/tables/FASlipList"));
 const MASlipList = React.lazy(() => import("./pages/tables/MASlipList"));
 const MRSlipList = React.lazy(() => import("./pages/tables/MRSlipList"));
+const ServiceCallList = React.lazy(() =>
+  import("./pages/tables/ServiceCallList")
+);
 
 // return slip logs
-const MISlipReturnLogs = React.lazy(() => import("./pages/returnTables/MIReturnList"));
-const MROSlipReturnLogs = React.lazy(() => import("./pages/returnTables/MROReturnList"));
-const DMSlipReturnLogs = React.lazy(() => import("./pages/returnTables/DMReturnList"));
-const FGSlipReturnLogs = React.lazy(() => import("./pages/returnTables/FGReturnList"));
-const FASlipReturnLogs = React.lazy(() => import("./pages/returnTables/FAReturnList"));
-const MASlipReturnLogs = React.lazy(() => import("./pages/returnTables/MAReturnList"));
+const MISlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/MIReturnList")
+);
+const MROSlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/MROReturnList")
+);
+const DMSlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/DMReturnList")
+);
+const FGSlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/FGReturnList")
+);
+const FASlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/FAReturnList")
+);
+const MASlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/MAReturnList")
+);
 
+// return slip logs
+const MISlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/MIReturnList")
+);
+const MROSlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/MROReturnList")
+);
+const DMSlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/DMReturnList")
+);
+const FGSlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/FGReturnList")
+);
+const FASlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/FAReturnList")
+);
+const MASlipReturnLogs = React.lazy(() =>
+  import("./pages/returnTables/MAReturnList")
+);
 
 export {
   Layout,
@@ -91,4 +125,5 @@ export {
   FGSlipReturnLogs,
   FASlipReturnLogs,
   MASlipReturnLogs,
+  ServiceCallList,
 };

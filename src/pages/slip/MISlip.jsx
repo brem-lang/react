@@ -266,7 +266,7 @@ const MISlip = () => {
                                     : "",
                                 }}
                               />
-                              {errors?.items?.[index]?.item_code && (
+                              {errors?.items?.[index]?.item_description && (
                                 <p>Item Description is Required</p>
                               )}
                             </div>

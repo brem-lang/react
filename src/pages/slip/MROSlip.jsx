@@ -99,6 +99,11 @@ const MROSlip = () => {
                             className="form-control"
                             placeholder="Profit Center"
                             autoComplete="off"
+                            style={{
+                              border: errors.profit_center
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.profit_center?.message}</p>
                         </div>
@@ -113,6 +118,11 @@ const MROSlip = () => {
                             className="form-control"
                             placeholder="Sub-Profit Center"
                             autoComplete="off"
+                            style={{
+                              border: errors.sub_profit_center
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.sub_profit_center?.message}</p>
                         </div>
@@ -129,6 +139,9 @@ const MROSlip = () => {
                             className="form-control"
                             placeholder="Cost Center"
                             autoComplete="off"
+                            style={{
+                              border: errors.cost_center ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.cost_center?.message}</p>
                         </div>
@@ -169,8 +182,15 @@ const MROSlip = () => {
                                 placeholder="Item Code"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.item_code
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Item Code is required</p>}
+                              {errors?.items?.[index]?.item_code && (
+                                <p>Item Code is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -184,9 +204,15 @@ const MROSlip = () => {
                                 placeholder="Item Description"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]
+                                    ?.item_description
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && (
-                                <p>Item Description is required</p>
+                              {errors?.items?.[index]?.item_description && (
+                                <p>Item Description is Required</p>
                               )}
                             </div>
                           </div>
@@ -196,12 +222,19 @@ const MROSlip = () => {
                                 {...register(`items.${index}.qty`, {
                                   required: true,
                                 })}
-                                type="text"
+                                type="number"
                                 placeholder="Qty"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.qty
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Qty is required</p>}
+                              {errors?.items?.[index]?.qty && (
+                                <p>QTY is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -214,8 +247,15 @@ const MROSlip = () => {
                                 placeholder="UOM "
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.uom
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>UOM is required</p>}
+                              {errors?.items?.[index]?.uom && (
+                                <p>UOM is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -228,8 +268,15 @@ const MROSlip = () => {
                                 placeholder="Remarks"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.remarks
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Remarks is required</p>}
+                              {errors?.items?.[index]?.remarks && (
+                                <p>Remarks is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col-md-auto">
@@ -259,6 +306,9 @@ const MROSlip = () => {
                             placeholder="Prepared by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.prepared_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.prepared_by?.message}</p>
                         </div>
@@ -273,6 +323,9 @@ const MROSlip = () => {
                             placeholder="Approved by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.approved_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.approved_by?.message}</p>
                         </div>
@@ -287,6 +340,9 @@ const MROSlip = () => {
                             placeholder="Release by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.released_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.released_by?.message}</p>
                         </div>

@@ -56,7 +56,7 @@ function FGSlipList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">FG Slip List</h1>
+              <h1 className="m-0">FG Slip Log</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -64,7 +64,7 @@ function FGSlipList() {
                 <li className="breadcrumb-item">
                   <a href="#">Home</a>
                 </li>
-                <li className="breadcrumb-item active">FG Slip List</li>
+                <li className="breadcrumb-item active">FG Slip Log</li>
               </ol>
             </div>
             {/* /.col */}
@@ -77,7 +77,6 @@ function FGSlipList() {
       {isOpenPdf ? (
         <FgPdf
           code={item.document_series_no}
-          type={"mi"}
           item={item}
           close={closePdfForm}
         />

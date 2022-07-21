@@ -81,13 +81,16 @@ const MRSlip = () => {
                       <div className="col">
                         <div className="form-floating mb-3">
                           <input
-                            type="text"
+                            type="number"
                             {...register("id_no", {
                               required: "ID Number is required",
                             })}
                             className="form-control"
                             placeholder="ID number"
                             autoComplete="off"
+                            style={{
+                              border: errors.id_no ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.id_no?.message}</p>
                         </div>
@@ -102,6 +105,11 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Name of Employee"
                             autoComplete="off"
+                            style={{
+                              border: errors.name_of_employee
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.name_of_employee?.message}</p>
                         </div>
@@ -116,6 +124,9 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Department"
                             autoComplete="off"
+                            style={{
+                              border: errors.department ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.department?.message}</p>
                         </div>
@@ -132,6 +143,9 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Section"
                             autoComplete="off"
+                            style={{
+                              border: errors.section ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.section?.message}</p>
                         </div>
@@ -146,6 +160,9 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Asset Code"
                             autoComplete="off"
+                            style={{
+                              border: errors.asset_code ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.asset_code?.message}</p>
                         </div>
@@ -160,6 +177,9 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Asset Type"
                             autoComplete="off"
+                            style={{
+                              border: errors.asset_type ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.asset_type?.message}</p>
                         </div>
@@ -176,6 +196,11 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Asset Description"
                             autoComplete="off"
+                            style={{
+                              border: errors.asset_description
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.asset_description?.message}</p>
                         </div>
@@ -190,6 +215,11 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Asset Serial Number"
                             autoComplete="off"
+                            style={{
+                              border: errors.asset_serial_no
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.asset_serial_no?.message}</p>
                         </div>
@@ -204,6 +234,9 @@ const MRSlip = () => {
                             className="form-control"
                             placeholder="Asset Value  "
                             autoComplete="off"
+                            style={{
+                              border: errors.asset_value ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.asset_value?.message}</p>
                         </div>

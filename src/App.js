@@ -38,6 +38,7 @@ import {
   FGSlipReturnLogs,
   FASlipReturnLogs,
   MASlipReturnLogs,
+  ServiceCallList,
 } from "./exporter";
 import RequireAuth from "./routes/RequireAuth";
 
@@ -80,7 +81,7 @@ function App() {
               <Route path="/fa-logs" element={<FASlipList />} />
               <Route path="/ma-logs" element={<MASlipList />} />
               <Route path="/mr-logs" element={<MRSlipList />} />
-
+              <Route path="/servicecall-logs" element={<ServiceCallList />} />
               {/* return slip */}
               <Route path="/mi-return" element={<MISlipReturn />} />
               <Route path="/mro-return" element={<MROSlipReturn />} />

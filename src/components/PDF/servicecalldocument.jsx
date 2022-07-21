@@ -1,8 +1,6 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 
-import { APP_URL } from "../../api/axios";
-
 import {
   Document,
   Page,
@@ -127,8 +125,8 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const DmPdf = ({ code, item, close }) => {
-  const [url] = useState(`${APP_URL}/verify?key=${code}`);
+const BasicDocument = ({ code, item, close }) => {
+  const [url] = useState(`localhost:3000/verify/${code}`);
   const [qrcodes, setQrcodes] = useState("");
 
   const {
@@ -189,9 +187,11 @@ const DmPdf = ({ code, item, close }) => {
                 <View style={{ marginRight: 20 }}>
                   <Text style={styles.contentText}>Document Series No</Text>
                   <Text style={styles.contentText2}>Customer Name</Text>
-                  <Text style={styles.contentText2}>Purpose</Text>
-                  <Text style={styles.contentText2}>Order No</Text>
-                  <Text style={styles.contentText2}>Product Name</Text>
+                  <Text style={styles.contentText2}>Pallet No.</Text>
+                  <Text style={styles.contentText2}>Profit Center</Text>
+                  <Text style={styles.contentText2}>Sub Profit Center</Text>
+                  <Text style={styles.contentText2}>Warehouse</Text>
+                  <Text style={styles.contentText2}>Warehouse Location</Text>
                 </View>
                 <View>
                   <Text style={styles.contentText}>{document_series_no}</Text>
@@ -213,19 +213,19 @@ const DmPdf = ({ code, item, close }) => {
                 <Text style={styles.row1}>Item Code</Text>
                 <Text style={styles.row2}>Item Description</Text>
                 <Text style={styles.row3}>Qty</Text>
-                <Text style={styles.row4}>Oum</Text>
+                <Text style={styles.row4}>Serial Number</Text>
                 <Text style={styles.row5}>Remarks</Text>
               </View>
 
-              {items.map((item) => {
+              {items.map((item, index) => {
                 return (
-                  <View key={item.id} style={[styles.row, styles.body]}>
+                  <View key={index} style={[styles.row, styles.body]}>
                     <Text style={[styles.row1, { marginRight: "5px" }]}>
                       {item.item_code}
                     </Text>
                     <Text style={styles.row2}>{item.item_description}</Text>
                     <Text style={styles.row3}>{item.qty}</Text>
-                    <Text style={styles.row4}>{item.uom}</Text>
+                    <Text style={styles.row4}>{item.serial_no}</Text>
                     <Text style={styles.row5}>{item.remarks}</Text>
                   </View>
                 );
@@ -251,4 +251,4 @@ const DmPdf = ({ code, item, close }) => {
     </div>
   );
 };
-export default DmPdf;
+export default BasicDocument;

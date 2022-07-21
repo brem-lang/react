@@ -99,6 +99,9 @@ const MASlip = () => {
                             className="form-control"
                             placeholder="Department"
                             autoComplete="off"
+                            style={{
+                              border: errors.department ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.department?.message}</p>
                         </div>
@@ -113,6 +116,9 @@ const MASlip = () => {
                             className="form-control"
                             placeholder="MR Number"
                             autoComplete="off"
+                            style={{
+                              border: errors.mr_no ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.mr_no?.message}</p>
                         </div>
@@ -133,7 +139,7 @@ const MASlip = () => {
                                 remarks: "",
                               });
                             }}
-                            className="btn btn-success"
+                            class="btn btn-success"
                           >
                             Add Fields..
                           </button>
@@ -153,8 +159,15 @@ const MASlip = () => {
                                 placeholder="Item Code"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.item_code
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Item Code is required</p>}
+                              {errors?.items?.[index]?.item_code && (
+                                <p>Item Code is required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -168,8 +181,14 @@ const MASlip = () => {
                                 placeholder="Item Description"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]
+                                    ?.item_description
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && (
+                              {errors?.items?.[index]?.item_description && (
                                 <p>Item Description is required</p>
                               )}
                             </div>
@@ -180,12 +199,19 @@ const MASlip = () => {
                                 {...register(`items.${index}.qty`, {
                                   required: true,
                                 })}
-                                type="text"
+                                type="number"
                                 placeholder="Qty"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.qty
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Qty is required</p>}
+                              {errors?.items?.[index]?.qty && (
+                                <p>Qty is required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -198,8 +224,15 @@ const MASlip = () => {
                                 placeholder="Serial Number "
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.serial_no
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.serial_no && <p>Serial is required</p>}
+                              {errors?.items?.[index]?.serial_no && (
+                                <p>Serial is required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -212,8 +245,15 @@ const MASlip = () => {
                                 placeholder="Remarks"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.remarks
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Remarks is required</p>}
+                              {errors?.items?.[index]?.remarks && (
+                                <p>Remarks is required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col-md-auto">
@@ -243,6 +283,9 @@ const MASlip = () => {
                             placeholder="Prepared by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.prepared_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.prepared_by?.message}</p>
                         </div>
@@ -257,6 +300,9 @@ const MASlip = () => {
                             placeholder="Approved by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.approved_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.approved_by?.message}</p>
                         </div>
@@ -271,6 +317,9 @@ const MASlip = () => {
                             placeholder="Release by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.released_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.released_by?.message}</p>
                         </div>

@@ -11,6 +11,7 @@ const AppMenu = () => {
   //   trees.Treeview('init');
   // },
   // []);
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <Link to="/" className="brand-link">
@@ -406,6 +407,12 @@ const AppMenu = () => {
                     <i className="far fa-circle nav-icon"></i>
                     <p>MI</p>
                   </Link>
+                  <li className="nav-item">
+                    <Link to="/servicecall-logs" className="nav-link">
+                      <i className="far fa-circle nav-icon"></i>
+                      <p>Service Call</p>
+                    </Link>
+                  </li>
                 </li>
                 <li className="nav-item">
                   <Link

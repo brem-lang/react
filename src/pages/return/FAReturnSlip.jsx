@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 function FAReturnSlip() {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     control,
@@ -19,12 +26,29 @@ function FAReturnSlip() {
     name: "items",
   });
 
-  const onSubmit = (data) => {
-    const value = {
-      type: "FA",
-      data,
+  // Submit using axios
+  const onSubmit = async (data) => {
+    console.log(JSON.stringify(data));
+    let config = {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
     };
-    console.log(JSON.stringify(value));
+    try {
+      const res = await axios.post(
+        "http://172.16.0.118/api/create/returnslip",
+        data,
+        config
+      );
+      if (res.data.success === true) {
+        Swal.fire("Slip Add", "FA Return slip add", "success").then(() =>
+          navigate("/fa-return-logs")
+        );
+      }
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div className="content-wrapper">
@@ -58,41 +82,15 @@ function FAReturnSlip() {
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div className="card">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  {/* @csrf                               */}
                   <div className="card-body">
                     <div className="row">
                       <div className="col">
                         <div className="form-floating mb-3">
                           <input
-                            {...register("date", {
-                              required: "Date is required",
-                            })}
-                            type="date"
-                            className="form-control"
-                            placeholder="Date"
-                            autoComplete="off"
+                            type="hidden"
+                            {...register("withdrawal_form")}
+                            value={"fa"}
                           />
-                          <p>{errors.date?.message}</p>
-                        </div>
-                      </div>
-                      <div className="col">
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            {...register("qr_no", {
-                              required: "QR Number is required",
-                            })}
-                            className="form-control"
-                            placeholder="QR Number"
-                            autoComplete="off"
-                          />
-                          <p>{errors.qr_no?.message}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col">
-                        <div className="form-floating mb-3">
                           <input
                             type="text"
                             {...register("department", {
@@ -101,6 +99,9 @@ function FAReturnSlip() {
                             className="form-control"
                             placeholder="Department"
                             autoComplete="off"
+                            style={{
+                              border: errors.department ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.department?.message}</p>
                         </div>
@@ -115,6 +116,9 @@ function FAReturnSlip() {
                             className="form-control"
                             placeholder="MR Number"
                             autoComplete="off"
+                            style={{
+                              border: errors.mr_no ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.mr_no?.message}</p>
                         </div>
@@ -131,6 +135,11 @@ function FAReturnSlip() {
                             className="form-control"
                             placeholder="Withdrawal Slip Number"
                             autoComplete="off"
+                            style={{
+                              border: errors.withdrawal_slip_no
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.withdrawal_slip_no?.message}</p>
                         </div>
@@ -151,7 +160,7 @@ function FAReturnSlip() {
                                 remarks: "",
                               });
                             }}
-                            className="btn btn-success"
+                            class="btn btn-success"
                           >
                             Add Fields..
                           </button>
@@ -171,8 +180,15 @@ function FAReturnSlip() {
                                 placeholder="Item Code"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.item_code
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Item Code is required</p>}
+                              {errors?.items?.[index]?.item_code && (
+                                <p>Item Code is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -186,9 +202,15 @@ function FAReturnSlip() {
                                 placeholder="Item Description"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]
+                                    ?.item_description
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && (
-                                <p>Item Description is required</p>
+                              {errors?.items?.[index]?.item_description && (
+                                <p>Item Description is Required</p>
                               )}
                             </div>
                           </div>
@@ -198,12 +220,19 @@ function FAReturnSlip() {
                                 {...register(`items.${index}.qty`, {
                                   required: true,
                                 })}
-                                type="text"
+                                type="number"
                                 placeholder="Qty"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.qty
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Qty is required</p>}
+                              {errors?.items?.[index]?.qty && (
+                                <p>QTY is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -216,29 +245,43 @@ function FAReturnSlip() {
                                 placeholder="UOM "
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.uom
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>UOM is required</p>}
+                              {errors?.items?.[index]?.uom && (
+                                <p>UOM is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
                             <div className="form-floating mb-3">
                               <input
                                 type="text"
-                                {...register(`items.${index}.remarks`, {
+                                {...register(`items.${index}.reason`, {
                                   required: true,
                                 })}
-                                placeholder="Remarks"
+                                placeholder="Reason"
                                 className="form-control"
                                 autoComplete="off"
+                                style={{
+                                  border: errors?.items?.[index]?.reason
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors.items && <p>Remarks is required</p>}
+                              {errors?.items?.[index]?.reason && (
+                                <p>Remarks is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col-md-auto">
                             <div className="form-floating ">
                               <button
                                 onClick={() => remove(index)}
-                                className="btn btn-danger"
+                                class="btn btn-danger"
                               >
                                 Remove
                               </button>
@@ -261,6 +304,9 @@ function FAReturnSlip() {
                             placeholder="Prepared by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.prepared_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.prepared_by?.message}</p>
                         </div>
@@ -275,6 +321,9 @@ function FAReturnSlip() {
                             placeholder="Approved by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.approved_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.approved_by?.message}</p>
                         </div>
@@ -282,15 +331,18 @@ function FAReturnSlip() {
                       <div className="col">
                         <div className="form-floating mb-3">
                           <input
-                            {...register("released_by", {
-                              required: "Release by is required",
+                            {...register("received_by", {
+                              required: "Recieved by is required",
                             })}
                             type="text"
-                            placeholder="Release by"
+                            placeholder="Received by"
                             className="form-control"
                             autoComplete="off"
+                            style={{
+                              border: errors.received_by ? "1px solid red" : "",
+                            }}
                           />
-                          <p>{errors.released_by?.message}</p>
+                          <p>{errors.received_by?.message}</p>
                         </div>
                       </div>
                     </div>

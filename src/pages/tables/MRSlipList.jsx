@@ -103,10 +103,10 @@ function MRSlipList() {
                       <thead>
                         <tr>
                           <th>Document Series No</th>
-                          <th>Name Of Employee</th>
+                          <th>Name of Employee</th>
                           <th>Section</th>
-                          <th>Department</th>
-                          <th>Action</th>
+                          <th>Asset Code</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -116,7 +116,7 @@ function MRSlipList() {
                               <td>{item.document_series_no}</td>
                               <td>{item.name_of_employee}</td>
                               <td>{item.section}</td>
-                              <td>{item.department}</td>
+                              <td>{item.asset_code}</td>
                               <td>
                                 <button
                                   type="button"
