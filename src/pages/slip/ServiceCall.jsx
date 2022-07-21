@@ -35,7 +35,7 @@ export default function ServiceCall() {
       if (res.data.success === true) {
         dispatch(miListData({ ...slipList, scState: true }));
         Swal.fire("Slip Add", "Service Call slip add", "success").then(() =>
-          navigate("/mr-logs")
+          navigate("/servicecall-logs")
         );
       }
     } catch (err) {

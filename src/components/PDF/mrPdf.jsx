@@ -140,8 +140,6 @@ const MrPdf = ({ code, close }) => {
   const [url] = useState(`${APP_URL}/verify?key=${code}`);
   const [qrcodes, setQrcodes] = useState("");
 
-  console.log(item);
-
   const {
     asset_code,
     asset_description,

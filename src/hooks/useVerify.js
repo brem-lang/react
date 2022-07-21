@@ -8,11 +8,8 @@ const useVerifyToken = () => {
 
     if (isLoggedIn) {
       const foundUser = JSON.parse(isLoggedIn);
-      console.log(foundUser);
 
       setAuth((prev) => {
-        console.log(JSON.stringify(prev));
-
         return {
           ...prev,
           token: foundUser.data.token,

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import { useSelector, useDispatch } from "react-redux";
 // import BasicDocument from "../../components/PDF/basic-document";
 
@@ -14,16 +14,17 @@ function ServiceCallList() {
 
   useEffect(() => {
     const getMiSlipList = async () => {
+      if (miSlipData?.scState === false) return;
+
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
       };
 
       try {
-        const res = await axios.get(
-          "http://172.16.0.118/api/get/servicecall",
-          config
+        const res = await axios.get("/api/get/servicecall", config);
+        dispatch(
+          miListData({ ...miSlipData, scList: res.data.data, scState: false })
         );
-        dispatch(miListData({ ...miSlipData, miList: res.data.data }));
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
           alert("Error getting data, Unauthorized user!");
@@ -87,7 +88,7 @@ function ServiceCallList() {
                       </tr>
                     </thead>
                     <tbody>
-                      {miSlipData.miList.map((item) => {
+                      {miSlipData.scList.map((item) => {
                         return (
                           <tr key={item.item_no}>
                             <td>{item.customer_name}</td>

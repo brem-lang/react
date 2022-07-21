@@ -3,7 +3,6 @@ import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import {
-  Layout,
   Dashboard,
   DataTable,
   Document,
@@ -40,13 +39,13 @@ import {
   MASlipReturnLogs,
   ServiceCallList,
 } from "./exporter";
+import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
-
 import Spinner from "./components/spinner/spinner.component";
-
-import "./assets/css/app.css";
 import CreateUser from "./pages/users/create-user";
 import PersistLogin from "./routes/PersistLogin";
+
+import "./assets/css/app.css";
 
 function App() {
   return (

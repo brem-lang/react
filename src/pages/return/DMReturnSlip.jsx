@@ -6,9 +6,14 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
+import { miListData } from "../../features/slip-list/slipListSlice";
+
 function DMReturnSlip() {
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const slipList = useSelector((state) => state.slipList.value);
 
   const {
     register,
@@ -29,7 +34,6 @@ function DMReturnSlip() {
 
   // Submit using axios
   const onSubmit = async (data) => {
-    console.log(JSON.stringify(data));
     let config = {
       headers: {
         Authorization: `Bearer ${auth.token}`,
@@ -42,11 +46,11 @@ function DMReturnSlip() {
         config
       );
       if (res.data.success === true) {
+        dispatch(miListData({ ...slipList, dmRState: true }));
         Swal.fire("Slip Add", "DM Return slip add", "success").then(() =>
           navigate("/dm-return-logs")
         );
       }
-      console.log(res);
     } catch (err) {
       console.error(err);
     }

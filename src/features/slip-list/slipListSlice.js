@@ -9,6 +9,13 @@ const initialStateValue = {
   maList: [],
   mrList: [],
   serviceCall: [],
+  miRList: [],
+  scList: [],
+  mroRList: [],
+  dmRList: [],
+  fgRList: [],
+  faRList: [],
+  maRList: [],
 };
 
 export const listSlice = createSlice({

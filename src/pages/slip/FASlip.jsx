@@ -331,10 +331,10 @@ const FASlip = () => {
                         </div>
                       </div>
                       {/*  */}
-                      <button type="submit" className="btn btn-primary">
-                        Save
-                      </button>
                     </div>
+                    <button type="submit" className="btn btn-primary">
+                      Save
+                    </button>
                   </div>
                   {/**card-body */}
                 </form>

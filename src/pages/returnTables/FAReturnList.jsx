@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
@@ -12,17 +12,17 @@ function FAReturnList() {
 
   useEffect(() => {
     const getMiSlipList = async () => {
+      if (miSlipData?.faRState === false) return;
+
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
       };
 
       try {
-        const res = await axios.get(
-          "http://172.16.0.118/api/get/returnslip?form=fa",
-          config
+        const res = await axios.get("/api/get/returnslip?form=fa", config);
+        dispatch(
+          miListData({ ...miSlipData, faRList: res.data, faRState: false })
         );
-        dispatch(miListData({ ...miSlipData, miList: res.data }));
-        console.log(res.data);
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
           alert("Error getting data, Unauthorized user!");
@@ -84,7 +84,7 @@ function FAReturnList() {
                       </tr>
                     </thead>
                     <tbody>
-                      {miSlipData.miList.map((item) => {
+                      {miSlipData.faRList.map((item) => {
                         return (
                           <tr key={item.id}>
                             <td>{item.document_series_no}</td>

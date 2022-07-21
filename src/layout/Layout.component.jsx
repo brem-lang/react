@@ -1,24 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-const AppHeader = React.lazy(() =>
-  import("../components/app-header/appHeader")
-);
-const AppMenu = React.lazy(() => import("../components/app-menu/appMenu"));
-const AppFooter = React.lazy(() =>
-  import("../components/app-footer/appFooter")
-);
+import AppHeader from "../components/app-header/appHeader";
+import AppMenu from "../components/app-menu/appMenu";
+import AppFooter from "../components/app-footer/appFooter";
+import AppSetting from "../components/app-setting/appSetting";
 
-const AppSetting = React.lazy(() =>
-  import("../components/app-setting/appSetting")
-);
-
-const trees = window.$('[data-widget="treeview"]'); 
-trees.Treeview('init'); 
-
+const trees = window.$('[data-widget="treeview"]');
+trees.Treeview("init");
 
 const Layout = () => {
-  
   return (
     <div className="wrapper">
       <AppHeader />
