@@ -9,13 +9,13 @@ const VerifyDocument = ({ verifyDocument }) => {
   return (
     <section className="content">
       <div className="card">
-        <div class="card-header">
-          <h3 class="card-title">Verify Document</h3>
+        <div className="card-header">
+          <h3 className="card-title">Verify Document</h3>
         </div>
 
         <div className="card-body">
           <form onClick={(e) => verifyDocument(e)} style={styles.verifyBtn}>
-            <button type="button" class="btn btn-outline-warning">
+            <button type="button" className="btn btn-outline-warning">
               VERIFY
             </button>
           </form>

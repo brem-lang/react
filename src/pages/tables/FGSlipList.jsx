@@ -49,7 +49,8 @@ function FGSlipList() {
     };
 
     return getMiSlipList;
-  }, []);
+  }, [auth.token, miSlipData, dispatch]);
+
   return (
     <div className="content-wrapper">
       <div className="content-header">
@@ -62,7 +63,7 @@ function FGSlipList() {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">FG Slip Log</li>
               </ol>

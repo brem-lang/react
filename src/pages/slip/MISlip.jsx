@@ -7,6 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { miListData } from "../../features/slip-list/slipListSlice";
+import { Link } from "react-router-dom";
 
 const MISlip = () => {
   const { auth } = useAuth();
@@ -67,7 +68,7 @@ const MISlip = () => {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">MI Slip</li>
               </ol>

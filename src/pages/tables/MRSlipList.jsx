@@ -50,7 +50,7 @@ function MRSlipList() {
     };
 
     return getMroSlipList;
-  }, []);
+  }, [auth.token, miSlipData, dispatch]);
 
   return (
     <div className="content-wrapper">
@@ -64,7 +64,7 @@ function MRSlipList() {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">MR Slip List</li>
               </ol>

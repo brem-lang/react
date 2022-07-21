@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import MroPdf from "../../components/PDF/mroPdf";
@@ -50,7 +51,7 @@ function MROSlipList() {
     };
 
     return getMroSlipList;
-  }, []);
+  }, [auth.token, miSlipData, dispatch]);
 
   return (
     <div className="content-wrapper">
@@ -64,7 +65,7 @@ function MROSlipList() {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">MRO Slip Log</li>
               </ol>

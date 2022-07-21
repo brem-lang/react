@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const MISlip = () => {
   const { auth } = useAuth();
@@ -63,7 +64,7 @@ const MISlip = () => {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">MRO Return Slip</li>
               </ol>
@@ -160,7 +161,7 @@ const MISlip = () => {
                                 remarks: "",
                               });
                             }}
-                            class="btn btn-success"
+                            className="btn btn-success"
                           >
                             Add Fields..
                           </button>
@@ -281,7 +282,7 @@ const MISlip = () => {
                             <div className="form-floating ">
                               <button
                                 onClick={() => remove(index)}
-                                class="btn btn-danger"
+                                className="btn btn-danger"
                               >
                                 Remove
                               </button>

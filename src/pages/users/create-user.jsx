@@ -31,7 +31,7 @@ const CreateUser = () => {
       return alert("Password do not match");
 
     try {
-      const res = await axios.post("/api/auth/register", formData);
+      await axios.post("/api/auth/register", formData);
     } catch (err) {
       console.log(err);
     }

@@ -7,6 +7,7 @@ import axios from "../../api/axios";
 
 import { useSelector, useDispatch } from "react-redux";
 import { miListData } from "../../features/slip-list/slipListSlice";
+import { Link } from "react-router-dom";
 
 const MASlip = () => {
   const { auth } = useAuth();
@@ -67,7 +68,7 @@ const MASlip = () => {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">MA Slip</li>
               </ol>
@@ -139,7 +140,7 @@ const MASlip = () => {
                                 remarks: "",
                               });
                             }}
-                            class="btn btn-success"
+                            className="btn btn-success"
                           >
                             Add Fields..
                           </button>

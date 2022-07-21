@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 function ListUsers() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ function ListUsers() {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">List of Users</li>
               </ol>
@@ -101,16 +102,30 @@ function ListUsers() {
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter Name" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Enter Name"
+                />
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+                <input
+                  type="email"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Enter email"
+                />
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Password</label>
-                <input type="password" className="form-control" id="exampleInputEmail1" placeholder="Enter password" />
-              </div>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Enter password"
+                />
               </div>
             </div>
           </form>

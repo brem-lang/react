@@ -1,13 +1,11 @@
-import { Link } from "react-router-dom";
-
 const AppHeader = () => {
   return (
     <nav className="main-header navbar navbar-expand navbar-white navbar-light">
       {/* <!-- Left navbar links --> */}
 
       {/* <!-- Right navbar links --> */}
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
           <a
             className="nav-link"
             data-widget="control-sidebar"

@@ -29,33 +29,13 @@ const AppMenu = () => {
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
-            <img
-              src={Logo}
-              className="img-circle elevation-2"
-              alt="User Image"
-            />
+            <img src={Logo} className="img-circle elevation-2" alt="User" />
           </div>
           <div className="info">
             <Link to="/" className="d-block">
               admin@email.com
             </Link>
           </div>
-        </div>
-
-        <div className="form-inline">
-          {/* <div className="input-group" data-widget="sidebar-search">
-            <input
-              className="form-control form-control-sidebar"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <div className="input-group-append">
-              <button className="btn btn-sidebar">
-                <i className="fas fa-search fa-fw"></i>
-              </button>
-            </div>
-          </div> */}
         </div>
 
         <nav className="mt-2">
@@ -76,8 +56,8 @@ const AppMenu = () => {
             </li>
 
             <li className="nav-item">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className={`nav-link 
                 ${location === "/mi-slip" && "active"}
                 ${location === "/mro-slip" && "active"}
@@ -94,7 +74,7 @@ const AppMenu = () => {
                   Withdrawal Slip
                   <i className="fas fa-angle-left right"></i>
                 </p>
-              </a>
+              </Link>
 
               <ul className="nav nav-treeview">
                 <li className="nav-item">
@@ -190,7 +170,7 @@ const AppMenu = () => {
 
             <li className="nav-item">
               <a
-                href="#"
+                href="/"
                 className={`nav-link 
                 ${location === "/mi-logs" && "active"}
                 ${location === "/mro-logs" && "active"}
@@ -291,7 +271,7 @@ const AppMenu = () => {
 
             <li className="nav-item">
               <a
-                href="#"
+                href="/"
                 className={`nav-link
                 ${location === "/mi-return" && "active"}
                 ${location === "/mro-return" && "active"}
@@ -380,7 +360,7 @@ const AppMenu = () => {
 
             <li className="nav-item">
               <a
-                href="#"
+                href="/"
                 className={`nav-link
               ${location === "/mi-return-logs" && "active"}
               ${location === "/mro-return-logs" && "active"}

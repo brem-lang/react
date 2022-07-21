@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 function DMReturnList() {
   const { auth } = useAuth();
@@ -32,7 +33,8 @@ function DMReturnList() {
     };
 
     return getMiSlipList;
-  }, []);
+  }, [auth.token, dispatch, miSlipData]);
+
   return (
     <div className="content-wrapper">
       <div className="content-header">
@@ -45,7 +47,7 @@ function DMReturnList() {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to="#">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">DM Return Slip Log</li>
               </ol>
@@ -95,7 +97,7 @@ function DMReturnList() {
                                 className="btn btn-outline-warning"
                                 // onClick={(e) => handlePdf(e, item)}
                               >
-                                <i class="fas fa-file-pdf info"></i>
+                                <i className="fas fa-file-pdf info"></i>
                               </button>
                             </td>
                           </tr>

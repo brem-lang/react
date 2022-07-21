@@ -2,8 +2,8 @@ const ValidDocument = ({ data, close }) => {
   return (
     <section className="content">
       <div className="card" style={{ height: "min(80vh)" }}>
-        <div class="card-header">
-          <h3 class="card-title">Gensan Feedmil, Inc.</h3>
+        <div className="card-header">
+          <h3 className="card-title">Gensan Feedmil, Inc.</h3>
           <button
             className="btn btn-primary"
             style={{ float: "right" }}

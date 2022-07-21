@@ -149,8 +149,6 @@ const MrPdf = ({ code, close }) => {
     asset_type,
     asset_value,
     department,
-    id_no,
-    name_of_employee,
     section,
   } = item;
 

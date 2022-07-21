@@ -41,7 +41,7 @@ const Dashboard = () => {
       }
     };
     return getdata;
-  }, []);
+  }, [auth.token]);
 
   return (
     <div className="content-wrapper">
