@@ -217,7 +217,7 @@ const MISlip = () => {
                                 remarks: "",
                               });
                             }}
-                            class="btn btn-success"
+                            className="btn btn-success"
                           >
                             Add Fields..
                           </button>
@@ -338,7 +338,7 @@ const MISlip = () => {
                             <div className="form-floating ">
                               <button
                                 onClick={() => remove(index)}
-                                class="btn btn-danger"
+                                className="btn btn-danger"
                               >
                                 Remove
                               </button>

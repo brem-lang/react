@@ -72,7 +72,7 @@ const DataTable = () => {
                           className="btn btn-outline-warning"
                           onClick={(e) => handlePdf(e, item)}
                         >
-                          <i class="fas fa-file-pdf info"></i>
+                          <i className="fas fa-file-pdf info"></i>
                         </button>
                       </td>
                     </tr>

@@ -37,7 +37,6 @@ function MRSlipList() {
 
       try {
         const res = await axios.get("/api/get/memorandum", config);
-        console.log(res);
         dispatch(
           miListData({ ...miSlipData, mrList: res.data.data, mrState: false })
         );
@@ -124,7 +123,7 @@ function MRSlipList() {
                                   className="btn btn-outline-warning"
                                   onClick={(e) => handlePdf(e, item)}
                                 >
-                                  <i class="fas fa-file-pdf info"></i>
+                                  <i className="fas fa-file-pdf info"></i>
                                 </button>
                               </td>
                             </tr>
