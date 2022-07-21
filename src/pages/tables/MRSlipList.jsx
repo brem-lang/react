@@ -1,74 +1,146 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-function MRSlipList() {
-  return (
-    <div className='content-wrapper'>
-    <div className="content-header">
-      <div className="container-fluid">
-        <div className="row mb-2">
-          <div className="col-sm-6">
-            <h1 className="m-0">MR Slip List</h1>
-          </div>{/* /.col */}
-          <div className="col-sm-6">
-            <ol className="breadcrumb float-sm-right">
-              <li className="breadcrumb-item"><a href="#">Home</a></li>
-              <li className="breadcrumb-item active">MR Slip List</li>
-            </ol>
-          </div>{/* /.col */}
-        </div>{/* /.row */}
-      </div>{/* /.container-fluid */}
-    </div>
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-    <section className='content'>
-        <div className='container-fluid'>
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="card">
-                        <div className="card-header">
-                        <div className="card-tools">
-                        <Link to="/mr-slip" className="btn btn-success">Add Slip</Link>          
-                          </div>
-                        </div>    
-                        <div className="card-body">
-                        <table id="example1" className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>Document Series No</th>
-                                <th>Prepared by</th>
-                                <th>Approved by</th>
-                                <th>Release by</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Internet Explorer 4.0</td>
-                                <td>Win 95+</td>
-                                <td>GFI+DateToday+Document Series No</td>
-                                <td>
-                                <i class="fas fa-file-pdf"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Internet Explorer 4.0</td>
-                                <td>Win 95+</td>
-                                <td>GFI+DateToday+Document Series No</td>
-                                <td>
-                                <i class="fas fa-file-pdf"></i>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        </div>                        
-                    </div>
-                </div>           
+import { useSelector, useDispatch } from "react-redux";
+import MrPdf from "../../components/PDF/mrPdf";
+import { miListData } from "../../features/slip-list/slipListSlice";
+import useAuth from "../../hooks/useAuth";
+
+import axios from "../../api/axios";
+
+function MRSlipList() {
+  const [isOpenPdf, setIsOpenPdf] = useState(false);
+  const [item, setItem] = useState([]);
+
+  const { auth } = useAuth();
+  const miSlipData = useSelector((state) => state.slipList.value);
+  const dispatch = useDispatch();
+
+  const handlePdf = (e, item) => {
+    e.preventDefault();
+    setItem(item);
+    setIsOpenPdf(true);
+  };
+
+  const closePdfForm = (e) => {
+    setIsOpenPdf(false);
+    setItem([]);
+  };
+
+  useEffect(() => {
+    const getMroSlipList = async () => {
+      if (miSlipData?.mrState === false) return;
+
+      const config = {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      };
+
+      try {
+        const res = await axios.get("/api/get/memorandum", config);
+        console.log(res);
+        dispatch(
+          miListData({ ...miSlipData, mrList: res.data.data, mrState: false })
+        );
+      } catch (err) {
+        if (err.code === "ERR_BAD_REQUEST") {
+          alert("Error getting data, Unauthorized user!");
+        }
+
+        console.log(err);
+      }
+    };
+
+    return getMroSlipList;
+  }, []);
+
+  return (
+    <div className="content-wrapper">
+      <div className="content-header">
+        <div className="container-fluid">
+          <div className="row mb-2">
+            <div className="col-sm-6">
+              <h1 className="m-0">MR Slip List</h1>
             </div>
+            {/* /.col */}
+            <div className="col-sm-6">
+              <ol className="breadcrumb float-sm-right">
+                <li className="breadcrumb-item">
+                  <a href="#">Home</a>
+                </li>
+                <li className="breadcrumb-item active">MR Slip List</li>
+              </ol>
+            </div>
+            {/* /.col */}
+          </div>
+          {/* /.row */}
         </div>
-    </section>
-</div>
-  )
+        {/* /.container-fluid */}
+      </div>
+
+      {isOpenPdf ? (
+        <MrPdf
+          code={item.document_series_no}
+          item={item}
+          close={closePdfForm}
+        />
+      ) : (
+        <section className="content">
+          <div className="container-fluid">
+            <div className="py-12">
+              <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-tools">
+                      <Link to="/mr-slip" className="btn btn-success">
+                        Add Slip
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="card-body">
+                    <table
+                      id="example1"
+                      className="table table-bordered table-striped"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Document Series No</th>
+                          <th>Name Of Employee</th>
+                          <th>Section</th>
+                          <th>Department</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {miSlipData.mrList.map((item) => {
+                          return (
+                            <tr key={item.id}>
+                              <td>{item.document_series_no}</td>
+                              <td>{item.name_of_employee}</td>
+                              <td>{item.section}</td>
+                              <td>{item.department}</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className="btn btn-outline-warning"
+                                  onClick={(e) => handlePdf(e, item)}
+                                >
+                                  <i class="fas fa-file-pdf info"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+    </div>
+  );
 }
 
-export default MRSlipList
+export default MRSlipList;

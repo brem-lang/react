@@ -1,5 +1,6 @@
-import axios from "axios";
 import useAuth from "./useAuth";
+
+import axios from "../api/axios";
 
 const useLogout = () => {
   const { auth, setAuth } = useAuth();
@@ -12,7 +13,7 @@ const useLogout = () => {
     };
 
     try {
-      await axios.post("http://172.16.0.118/api/auth/logout", config);
+      await axios.post("/api/auth/logout", config);
     } catch (err) {
       console.error(err);
     }

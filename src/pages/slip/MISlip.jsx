@@ -1,14 +1,18 @@
-import axios from "axios";
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
-
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+
+import axios from "../../api/axios";
+import { useSelector, useDispatch } from "react-redux";
+import { miListData } from "../../features/slip-list/slipListSlice";
 
 const MISlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const slipList = useSelector((state) => state.slipList.value);
 
   const {
     register,
@@ -37,18 +41,14 @@ const MISlip = () => {
     };
 
     try {
-      const res = await axios.post(
-        "http://172.16.0.118/api/create/wsmi",
-        data,
-        config
-      );
+      const res = await axios.post("/api/create/wsmi", data, config);
 
       if (res.data.success === true) {
+        dispatch(miListData({ ...slipList, miState: true }));
         Swal.fire("Slip Add", "MI slip add", "success").then(() =>
           navigate("/mi-logs")
         );
       }
-      console.log(res);
     } catch (err) {
       console.error(err);
     }
@@ -99,7 +99,11 @@ const MISlip = () => {
                             className="form-control"
                             placeholder="Customer Name"
                             autoComplete="off"
-                            style={{ border: errors.customer_name ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.customer_name
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.customer_name?.message}</p>
                         </div>
@@ -114,7 +118,9 @@ const MISlip = () => {
                             className="form-control"
                             placeholder="Pallet Number"
                             autoComplete="off"
-                            style={{ border: errors.pallet_no ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.pallet_no ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.pallet_no?.message}</p>
                         </div>
@@ -131,7 +137,9 @@ const MISlip = () => {
                             className="form-control"
                             placeholder="Warehouse Location"
                             autoComplete="off"
-                            style={{ border: errors.wh_location ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.wh_location ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.wh_location?.message}</p>
                         </div>
@@ -146,7 +154,9 @@ const MISlip = () => {
                             className="form-control"
                             placeholder="Warehouse"
                             autoComplete="off"
-                            style={{ border: errors.warehouse ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.warehouse ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.warehouse?.message}</p>
                         </div>
@@ -163,7 +173,11 @@ const MISlip = () => {
                             className="form-control"
                             placeholder="Profit Center"
                             autoComplete="off"
-                            style={{ border: errors.profit_center ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.profit_center
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.profit_center?.message}</p>
                         </div>
@@ -178,7 +192,11 @@ const MISlip = () => {
                             className="form-control"
                             placeholder="Sub-Profit Center"
                             autoComplete="off"
-                            style={{ border: errors.sub_profit_center ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.sub_profit_center
+                                ? "1px solid red"
+                                : "",
+                            }}
                           />
                           <p>{errors.sub_profit_center?.message}</p>
                         </div>
@@ -219,9 +237,15 @@ const MISlip = () => {
                                 placeholder="Item Code"
                                 className="form-control"
                                 autoComplete="off"
-                                style={{ border: errors?.items?.[index]?.item_code ? '1px solid red' : '' }}
+                                style={{
+                                  border: errors?.items?.[index]?.item_code
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors?.items?.[index]?.item_code && <p>Item Code is Required</p>}
+                              {errors?.items?.[index]?.item_code && (
+                                <p>Item Code is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -235,9 +259,16 @@ const MISlip = () => {
                                 placeholder="Item Description"
                                 className="form-control"
                                 autoComplete="off"
-                                style={{ border: errors?.items?.[index]?.item_description ? '1px solid red' : '' }}
+                                style={{
+                                  border: errors?.items?.[index]
+                                    ?.item_description
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                                {errors?.items?.[index]?.item_code && <p>Item Description is Required</p>}
+                              {errors?.items?.[index]?.item_code && (
+                                <p>Item Description is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -250,9 +281,15 @@ const MISlip = () => {
                                 placeholder="Qty"
                                 className="form-control"
                                 autoComplete="off"
-                                style={{ border: errors?.items?.[index]?.qty ? '1px solid red' : '' }}
+                                style={{
+                                  border: errors?.items?.[index]?.qty
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                               {errors?.items?.[index]?.qty && <p>QTY is Required</p>}
+                              {errors?.items?.[index]?.qty && (
+                                <p>QTY is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -265,9 +302,15 @@ const MISlip = () => {
                                 placeholder="UOM "
                                 className="form-control"
                                 autoComplete="off"
-                                style={{ border: errors?.items?.[index]?.uom ? '1px solid red' : '' }}
+                                style={{
+                                  border: errors?.items?.[index]?.uom
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors?.items?.[index]?.uom && <p>UOM is Required</p>}
+                              {errors?.items?.[index]?.uom && (
+                                <p>UOM is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col">
@@ -280,9 +323,15 @@ const MISlip = () => {
                                 placeholder="Remarks"
                                 className="form-control"
                                 autoComplete="off"
-                                style={{ border: errors?.items?.[index]?.remarks ? '1px solid red' : '' }}
+                                style={{
+                                  border: errors?.items?.[index]?.remarks
+                                    ? "1px solid red"
+                                    : "",
+                                }}
                               />
-                              {errors?.items?.[index]?.remarks && <p>Remarks is Required</p>}
+                              {errors?.items?.[index]?.remarks && (
+                                <p>Remarks is Required</p>
+                              )}
                             </div>
                           </div>
                           <div className="col-md-auto">
@@ -312,7 +361,9 @@ const MISlip = () => {
                             placeholder="Prepared by"
                             className="form-control"
                             autoComplete="off"
-                            style={{ border: errors.prepared_by ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.prepared_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.prepared_by?.message}</p>
                         </div>
@@ -327,7 +378,9 @@ const MISlip = () => {
                             placeholder="Approved by"
                             className="form-control"
                             autoComplete="off"
-                            style={{ border: errors.approved_by ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.approved_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.approved_by?.message}</p>
                         </div>
@@ -342,7 +395,9 @@ const MISlip = () => {
                             placeholder="Release by"
                             className="form-control"
                             autoComplete="off"
-                            style={{ border: errors.released_by ? '1px solid red' : '' }}
+                            style={{
+                              border: errors.released_by ? "1px solid red" : "",
+                            }}
                           />
                           <p>{errors.released_by?.message}</p>
                         </div>

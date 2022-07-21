@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import DmPdf from "../../components/PDF/dmPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
+
+import axios from "../../api/axios";
 
 function DMSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -27,13 +28,17 @@ function DMSlipList() {
 
   useEffect(() => {
     const getMiSlipList = async () => {
+      if (miSlipData?.dmState === false) return;
+
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
       };
 
       try {
-        const res = await axios.get("http://172.16.0.118/api/get/wsdm", config);
-        dispatch(miListData({ ...miSlipData, miList: res.data.data }));
+        const res = await axios.get("/api/get/wsdm", config);
+        dispatch(
+          miListData({ ...miSlipData, dmList: res.data.data, dmState: false })
+        );
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
           alert("Error getting data, Unauthorized user!");
@@ -103,7 +108,7 @@ function DMSlipList() {
                         </tr>
                       </thead>
                       <tbody>
-                        {miSlipData.miList.map((item) => {
+                        {miSlipData.dmList.map((item) => {
                           return (
                             <tr key={item.id}>
                               <td>{item.document_series_no}</td>

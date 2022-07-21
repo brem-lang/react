@@ -1,6 +1,8 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 
+import { APP_URL } from "../../api/axios";
+
 import {
   Document,
   Page,
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const DmPdf = ({ code, item, close }) => {
-  const [url] = useState(`localhost:3500/verify?key=${code}/${item.id}`);
+  const [url] = useState(`${APP_URL}/verify?key=${code}`);
   const [qrcodes, setQrcodes] = useState("");
 
   const {

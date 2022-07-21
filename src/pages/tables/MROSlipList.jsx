@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import MroPdf from "../../components/PDF/mroPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
+
+import axios from "../../api/axios";
 
 function MROSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -27,18 +28,18 @@ function MROSlipList() {
 
   useEffect(() => {
     const getMroSlipList = async () => {
+      if (miSlipData?.mroState === false) return;
+
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
       };
 
       try {
-        const res = await axios.get(
-          "http://172.16.0.118/api/get/wsmro",
-          config
-        );
+        const res = await axios.get("/api/get/wsmro", config);
 
-        console.log(res);
-        dispatch(miListData({ ...miSlipData, mroList: res.data.data }));
+        dispatch(
+          miListData({ ...miSlipData, mroList: res.data.data, mroState: false })
+        );
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
           alert("Error getting data, Unauthorized user!");

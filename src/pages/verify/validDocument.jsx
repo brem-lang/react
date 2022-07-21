@@ -1,9 +1,16 @@
-const ValidDocument = () => {
+const ValidDocument = ({ data, close }) => {
   return (
     <section className="content">
       <div className="card" style={{ height: "min(80vh)" }}>
         <div class="card-header">
           <h3 class="card-title">Gensan Feedmil, Inc.</h3>
+          <button
+            className="btn btn-primary"
+            style={{ float: "right" }}
+            onClick={() => close()}
+          >
+            Close
+          </button>
         </div>
 
         <div className="card-body clearfix" style={{ maxHeight: "10rem" }}>
@@ -18,23 +25,23 @@ const ValidDocument = () => {
         <div className="card-body">
           <div className="form-group" style={{ display: "flex" }}>
             <label style={{ marginRight: 12 }}>Document No.:</label>
-            <p>GFI-DM-2022-980</p>
+            <p>{data.document_series_no}</p>
           </div>
           <div className="form-group" style={{ display: "flex" }}>
-            <label style={{ marginRight: 12 }}>Document Type:</label>
-            <p>Merchandise</p>
+            <label style={{ marginRight: 12 }}>Customer Name:</label>
+            <p>{data.customer_name}</p>
           </div>
           <div className="form-group" style={{ display: "flex" }}>
-            <label style={{ marginRight: 12 }}>Document Type:</label>
-            <p>Merchandise</p>
+            <label style={{ marginRight: 12 }}>Prepared by:</label>
+            <p>{data.prepared_by}</p>
           </div>
           <div className="form-group" style={{ display: "flex" }}>
-            <label style={{ marginRight: 12 }}>Document Date:</label>
-            <p>21 June 2022</p>
+            <label style={{ marginRight: 12 }}>Released by:</label>
+            <p>{data.released_by}</p>
           </div>
           <div className="form-group" style={{ display: "flex" }}>
-            <label style={{ marginRight: 12 }}>Department:</label>
-            <p>Human Resource Management Office</p>
+            <label style={{ marginRight: 12 }}>Approved by:</label>
+            <p>{data.approved_by}</p>
           </div>
         </div>
       </div>

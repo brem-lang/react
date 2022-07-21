@@ -1,6 +1,8 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 
+import { APP_URL } from "../../api/axios";
+
 import {
   Document,
   Page,
@@ -8,7 +10,6 @@ import {
   View,
   StyleSheet,
   PDFViewer,
-  Image,
 } from "@react-pdf/renderer";
 
 import itemData from "../../data/wsdm.json";
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
 // const MrPdf = ({ code, item, close }) => {
 const MrPdf = ({ code, close }) => {
   const item = itemData[0];
-  const [url] = useState(`localhost:3500/verify?key=${code}/${item.id}`);
+  const [url] = useState(`${APP_URL}/verify?key=${code}`);
   const [qrcodes, setQrcodes] = useState("");
 
   console.log(item);

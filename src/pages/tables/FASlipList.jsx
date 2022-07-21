@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import FaPdf from "../../components/PDF/faPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+
+import axios from "../../api/axios";
 
 function FASlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -27,13 +28,17 @@ function FASlipList() {
 
   useEffect(() => {
     const getMiSlipList = async () => {
+      if (miSlipData?.faState === false) return;
+
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
       };
 
       try {
-        const res = await axios.get("http://172.16.0.118/api/get/wsfa", config);
-        dispatch(miListData({ ...miSlipData, miList: res.data.data }));
+        const res = await axios.get("/api/get/wsfa", config);
+        dispatch(
+          miListData({ ...miSlipData, faList: res.data.data, faState: false })
+        );
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
           alert("Error getting data, Unauthorized user!");
@@ -104,7 +109,7 @@ function FASlipList() {
                         </tr>
                       </thead>
                       <tbody>
-                        {miSlipData.miList.map((item) => {
+                        {miSlipData.faList.map((item) => {
                           return (
                             <tr key={item.id}>
                               <td>{item.document_series_no}</td>

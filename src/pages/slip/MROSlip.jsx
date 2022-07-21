@@ -1,14 +1,19 @@
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import axios from "../../api/axios";
+
+import { useSelector, useDispatch } from "react-redux";
+import { miListData } from "../../features/slip-list/slipListSlice";
 
 const MROSlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const slipList = useSelector((state) => state.slipList.value);
 
   const {
     register,
@@ -29,7 +34,6 @@ const MROSlip = () => {
 
   //
   const onSubmit = async (data) => {
-    // console.log(JSON.stringify(data))
     let config = {
       headers: {
         Authorization: `Bearer ${auth.token}`,
@@ -37,18 +41,14 @@ const MROSlip = () => {
     };
 
     try {
-      const res = await axios.post(
-        "http://172.16.0.118/api/create/wsmro",
-        data,
-        config
-      );
+      const res = await axios.post("/api/create/wsmro", data, config);
 
       if (res.data.success === true) {
+        dispatch(miListData({ ...slipList, mroState: true }));
         Swal.fire("Slip Add", "MRO slip add", "success").then(() =>
           navigate("/mro-logs")
         );
       }
-      console.log(res);
     } catch (err) {
       console.error(err);
     }

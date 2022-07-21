@@ -1,8 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
+import axios from "../../api/axios";
 
 import useAuth from "../../hooks/useAuth";
 
@@ -34,30 +35,27 @@ const LoginPage = () => {
       formData.append("email", dataField.email);
       formData.append("password", dataField.pwd);
 
-      const res = await axios.post(
-        "http://172.16.0.118/api/auth/login",
-        formData
-      );
+      await axios.get("/sanctum/csrf-cookie").then(async () => {
+        // console.log(response);
 
-      setAuth({
-        token: res.data.token,
-        status: res.data.status,
-        user: dataField.email,
+        const res = await axios.post("/api/auth/login", formData);
+
+        setAuth({
+          token: res.data.token,
+          status: res.data.status,
+          user: dataField.email,
+        });
+
+        const localdata = {
+          data: res.data,
+          email: dataField.email,
+        };
+
+        localStorage.setItem("user", JSON.stringify(localdata));
+        setDataField(initialVal);
+
+        navigate(from, { replace: true });
       });
-
-      const localdata = {
-        data: res.data,
-        email: dataField.email,
-      };
-
-      localStorage.setItem("user", JSON.stringify(localdata));
-      setDataField(initialVal);
-
-      navigate(from, { replace: true });
-      // axios.get("http://172.16.0.118/sanctum/csrf-cookie").then((response) => {
-      //   // Login...
-      //   console.log(response);
-      // });
     } catch (err) {
       console.log(err);
       if (err.response.data.success === false)
@@ -125,7 +123,7 @@ const LoginPage = () => {
               </div>
               <div className="row">
                 <div className="col-8">
-                  <div className="icheck-primary">
+                  <div className="icheck-primary d-none">
                     <input
                       type="checkbox"
                       id="persist"

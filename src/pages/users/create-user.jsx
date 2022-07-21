@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import axios from "../../api/axios";
 
 const initialValue = {
   name: "",
@@ -31,11 +31,7 @@ const CreateUser = () => {
       return alert("Password do not match");
 
     try {
-      const res = await axios.post(
-        "http://172.16.0.118/api/auth/register",
-        formData
-      );
-      console.log(res);
+      const res = await axios.post("/api/auth/register", formData);
     } catch (err) {
       console.log(err);
     }

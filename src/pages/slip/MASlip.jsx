@@ -1,57 +1,58 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useForm, useFieldArray} from "react-hook-form";
+import React from "react";
+import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import axios from "../../api/axios";
+
+import { useSelector, useDispatch } from "react-redux";
+import { miListData } from "../../features/slip-list/slipListSlice";
 
 const MASlip = () => {
-
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const slipList = useSelector((state) => state.slipList.value);
 
-  const { register, control, handleSubmit, formState: { errors }} = useForm(
-    {
-      defaultValues: {
-        items: [{ item_code: "", item_description: "",qty:"",uom: "", remarks: ""}]
-      }
-    }
-  );
   const {
-    fields,
-    append,
-    remove,
-  } = useFieldArray({
+    register,
     control,
-    name: "items"
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      items: [
+        { item_code: "", item_description: "", qty: "", uom: "", remarks: "" },
+      ],
+    },
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "items",
   });
 
-    // Submit using axios
-    const onSubmit = async (data) => {
-      // console.log(JSON.stringify(data))
-      let config = {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      };
-  
-      try {
-        const res = await axios.post(
-          "http://172.16.0.118/api/create/wsma",
-          data,
-          config
-        );
-  
-        if (res.data.success === true) {
-          Swal.fire("Slip Add", "MA slip add", "success").then(() =>
-            navigate("/ma-logs")
-          );
-        }
-        console.log(res);
-      } catch (err) {
-        console.error(err);
-      }
+  // Submit using axios
+  const onSubmit = async (data) => {
+    // console.log(JSON.stringify(data))
+    let config = {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
     };
+
+    try {
+      const res = await axios.post("/api/create/wsma", data, config);
+
+      if (res.data.success === true) {
+        dispatch(miListData({ ...slipList, maState: true }));
+        Swal.fire("Slip Add", "MA slip add", "success").then(() =>
+          navigate("/ma-logs")
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="content-wrapper">
@@ -119,62 +120,115 @@ const MASlip = () => {
                     </div>
                     {/*Dynamic Fields Begin*/}
                     <div className="row">
-                        <div className="col text-right">
-                          <div className="form-floating mb-3">
-                          <button onClick={(e) => {
-                            e.preventDefault()
-                            append({ item_code: "", item_description: "", qty: "", uom: "", remarks: "" });
-                          }} class="btn btn-success">Add Fields..
+                      <div className="col text-right">
+                        <div className="form-floating mb-3">
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              append({
+                                item_code: "",
+                                item_description: "",
+                                qty: "",
+                                uom: "",
+                                remarks: "",
+                              });
+                            }}
+                            class="btn btn-success"
+                          >
+                            Add Fields..
                           </button>
-                          </div>
                         </div>
                       </div>
-                      {fields.map((items, index) => {     
-                        return(
-                          <div className="row" key={items.id}>
+                    </div>
+                    {fields.map((items, index) => {
+                      return (
+                        <div className="row" key={items.id}>
                           <div className="col">
                             <div className="form-floating mb-3">
-                              <input {...register(`items.${index}.item_code`,{required:true})}  type="text" 
-                              placeholder="Item Code" className="form-control" autoComplete="off" />
+                              <input
+                                {...register(`items.${index}.item_code`, {
+                                  required: true,
+                                })}
+                                type="text"
+                                placeholder="Item Code"
+                                className="form-control"
+                                autoComplete="off"
+                              />
                               {errors.items && <p>Item Code is required</p>}
-                            </div> 
-                          </div>
-                          <div className="col">
-                            <div className="form-floating mb-3">
-                              <input {...register(`items.${index}.item_description`,{required:true})} type="text" 
-                              placeholder="Item Description" className="form-control" autoComplete="off" />
-                              {errors.items && <p>Item Description is required</p>}
                             </div>
                           </div>
                           <div className="col">
                             <div className="form-floating mb-3">
-                              <input {...register(`items.${index}.qty`,{required:true})} type="text" 
-                              placeholder="Qty" className="form-control" autoComplete="off" />
+                              <input
+                                {...register(
+                                  `items.${index}.item_description`,
+                                  { required: true }
+                                )}
+                                type="text"
+                                placeholder="Item Description"
+                                className="form-control"
+                                autoComplete="off"
+                              />
+                              {errors.items && (
+                                <p>Item Description is required</p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="col">
+                            <div className="form-floating mb-3">
+                              <input
+                                {...register(`items.${index}.qty`, {
+                                  required: true,
+                                })}
+                                type="text"
+                                placeholder="Qty"
+                                className="form-control"
+                                autoComplete="off"
+                              />
                               {errors.items && <p>Qty is required</p>}
                             </div>
                           </div>
                           <div className="col">
                             <div className="form-floating mb-3">
-                              <input {...register(`items.${index}.serial_no`,{required:true})} type="text" 
-                              placeholder="Serial Number " className="form-control" autoComplete="off" />
-                               {errors.serial_no && <p>Serial is required</p>}
+                              <input
+                                {...register(`items.${index}.serial_no`, {
+                                  required: true,
+                                })}
+                                type="text"
+                                placeholder="Serial Number "
+                                className="form-control"
+                                autoComplete="off"
+                              />
+                              {errors.serial_no && <p>Serial is required</p>}
                             </div>
                           </div>
                           <div className="col">
                             <div className="form-floating mb-3">
-                              <input type="text" {...register(`items.${index}.remarks`,{required:true})} 
-                              placeholder="Remarks" className="form-control" autoComplete="off" />
-                               {errors.items && <p>Remarks is required</p>}
+                              <input
+                                type="text"
+                                {...register(`items.${index}.remarks`, {
+                                  required: true,
+                                })}
+                                placeholder="Remarks"
+                                className="form-control"
+                                autoComplete="off"
+                              />
+                              {errors.items && <p>Remarks is required</p>}
                             </div>
                           </div>
                           <div className="col-md-auto">
                             <div className="form-floating ">
-                              <button onClick={() => remove(index)} class="btn btn-danger">Remove</button>
+                              <button
+                                onClick={() => remove(index)}
+                                class="btn btn-danger"
+                              >
+                                Remove
+                              </button>
                             </div>
                           </div>
                         </div>
-                        )
-                      })}
+                      );
+                    })}
 
                     {/*Dynamic Fields End*/}
 

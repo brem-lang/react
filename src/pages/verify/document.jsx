@@ -1,32 +1,47 @@
-// import axios from "../../api/axios";
-// import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { axiosVerifyDoc } from "../../api/axios";
+import { useLocation } from "react-router-dom";
 
-// import VerifyDocument from "./verifyDocument";
+import VerifyDocument from "./verifyDocument";
 import ValidDocument from "./validDocument";
 
 const Document = () => {
-  // const location = useLocation().pathname;
+  const location = useLocation();
+  const [valid, setValid] = useState(false);
+  const [errorDoc, setErrorDoc] = useState(false);
+  const [verifiedData, setVerifiedData] = useState({});
 
-  // const verifyDocument = async (e) => {
-  //   e.preventDefault();
+  const verifyDocument = async (e) => {
+    e.preventDefault();
 
-  //   const data = { document_no: location.split("/")[2] };
-  //   console.log(data);
+    const val = location.search.split("=")[1];
 
-  //   const form = new FormData();
-  //   form.append("data", JSON.stringify(data));
+    try {
+      const res = await axiosVerifyDoc({
+        params: {
+          key: val,
+        },
+      });
 
-  //   try {
-  //     const res = await axios.get(
-  //       "https://data.endpoint.space/cl5qfl04b004609mlc692cvyt",
-  //       form
-  //     );
+      if (res.data.success === true) {
+        setVerifiedData(res.data.data);
+        setValid(true);
+        setErrorDoc(false);
+      }
+    } catch (err) {
+      if (err.code === "ERR_BAD_REQUEST") {
+        setErrorDoc(true);
+      }
 
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+      console.log(err);
+    }
+  };
+
+  const closeVerify = () => {
+    setValid(false);
+    setErrorDoc(false);
+    setVerifiedData({});
+  };
 
   return (
     <div>
@@ -41,8 +56,20 @@ const Document = () => {
         </div>
       </section>
 
-      {/* <VerifyDocument verifyDocument={verifyDocument} /> */}
-      <ValidDocument />
+      {valid === false && <VerifyDocument verifyDocument={verifyDocument} />}
+
+      {errorDoc && (
+        <div className="card-body clearfix" style={{ maxHeight: "10rem" }}>
+          <blockquote className="quote-danger">
+            <p>This document is not a valid documents</p>
+            <small>
+              from <cite title="Source Title">Gensan Feedmil, inc.</cite>
+            </small>
+          </blockquote>
+        </div>
+      )}
+
+      {valid && <ValidDocument data={verifiedData} close={closeVerify} />}
     </div>
   );
 };

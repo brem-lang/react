@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import MiPdf from "../../components/PDF/miPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+
+import axios from "../../api/axios";
 
 function MISlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -27,13 +28,17 @@ function MISlipList() {
 
   useEffect(() => {
     const getMiSlipList = async () => {
+      if (miSlipData?.miState === false) return;
+
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
       };
 
       try {
-        const res = await axios.get("http://172.16.0.118/api/get/wsmi", config);
-        dispatch(miListData({ ...miSlipData, miList: res.data.data }));
+        const res = await axios.get("/api/get/wsmi", config);
+        dispatch(
+          miListData({ ...miSlipData, miList: res.data.data, miState: false })
+        );
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
           alert("Error getting data, Unauthorized user!");
@@ -44,7 +49,7 @@ function MISlipList() {
     };
 
     return getMiSlipList;
-  }, []);
+  }, [miSlipData?.miState]);
 
   return (
     <div className="content-wrapper">
