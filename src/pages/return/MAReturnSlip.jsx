@@ -239,20 +239,20 @@ function MAReturnSlip() {
                           <div className="col">
                             <div className="form-floating mb-3">
                               <input
-                                {...register(`items.${index}.uom`, {
+                                {...register(`items.${index}.serial_no`, {
                                   required: true,
                                 })}
                                 type="text"
-                                placeholder="UOM "
+                                placeholder="Serial Number"
                                 className="form-control"
                                 autoComplete="off"
                                 style={{
-                                  border: errors?.items?.[index]?.uom
+                                  border: errors?.items?.[index]?.serial_no
                                     ? "1px solid red"
                                     : "",
                                 }}
                               />
-                              {errors?.items?.[index]?.uom && (
+                              {errors?.items?.[index]?.serial_no && (
                                 <p>UOM is Required</p>
                               )}
                             </div>
