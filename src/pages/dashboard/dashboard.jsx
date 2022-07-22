@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 
 const Dashboard = () => {
@@ -15,16 +15,14 @@ const Dashboard = () => {
   const [servicecallCount, setservicecallCount] = useState("");
 
   useEffect(() => {
+    
     const getdata = async () => {
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
       };
 
       try {
-        const res = await axios.get(
-          "http://172.16.0.118/api/get/formcount",
-          config
-        );
+        const res = await axios.get("/api/get/formcount", config);
         setdmCount(res.data.data.dmCount);
         setfaCount(res.data.data.faCount);
         setfgCount(res.data.data.fgCount);

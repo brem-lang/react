@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../api/axios";
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -40,11 +40,7 @@ function FGReturnSlip() {
       },
     };
     try {
-      const res = await axios.post(
-        "http://172.16.0.118/api/create/returnslip",
-        data,
-        config
-      );
+      const res = await axios.post("/api/create/returnslip",data, config);
       if (res.data.success === true) {
         dispatch(miListData({ ...slipList, fgRState: true }));
         Swal.fire("Slip Add", "FG Return slip add", "success").then(() =>
