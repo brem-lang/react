@@ -68,6 +68,12 @@ function FGReturnList() {
                   <h3 className="card-title">
                     DataTable with default features
                   </h3>
+                  {/*  */}
+                  <div className="card-tools">
+                    <Link to="/fg-return" className="btn btn-success">
+                      Add Slip
+                    </Link>
+                  </div>
                 </div>
                 <div className="card-body">
                   <table

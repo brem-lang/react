@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosVerifyDoc } from "../../api/axios";
 import { useLocation } from "react-router-dom";
 
-import VerifyDocument from "./verifyDocument";
 import ValidDocument from "./validDocument";
 
 const Document = () => {
@@ -11,37 +10,32 @@ const Document = () => {
   const [errorDoc, setErrorDoc] = useState(false);
   const [verifiedData, setVerifiedData] = useState({});
 
-  const verifyDocument = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const verifyDocument = async () => {
+      const val = location.search.split("=")[1];
 
-    const val = location.search.split("=")[1];
+      try {
+        const res = await axiosVerifyDoc({
+          params: {
+            key: val,
+          },
+        });
 
-    try {
-      const res = await axiosVerifyDoc({
-        params: {
-          key: val,
-        },
-      });
+        if (res.data.success === true) {
+          setVerifiedData(res.data.data);
+          setValid(true);
+          setErrorDoc(false);
+        }
+      } catch (err) {
+        if (err.code === "ERR_BAD_REQUEST") {
+          setErrorDoc(true);
+        }
 
-      if (res.data.success === true) {
-        setVerifiedData(res.data.data);
-        setValid(true);
-        setErrorDoc(false);
+        console.log(err);
       }
-    } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        setErrorDoc(true);
-      }
-
-      console.log(err);
-    }
-  };
-
-  const closeVerify = () => {
-    setValid(false);
-    setErrorDoc(false);
-    setVerifiedData({});
-  };
+    };
+    return verifyDocument;
+  }, []);
 
   return (
     <div>
@@ -56,7 +50,7 @@ const Document = () => {
         </div>
       </section>
 
-      {valid === false && <VerifyDocument verifyDocument={verifyDocument} />}
+      {/* {valid === false && <VerifyDocument verifyDocument={verifyDocument} />} */}
 
       {errorDoc && (
         <div className="card-body clearfix" style={{ maxHeight: "10rem" }}>
@@ -69,7 +63,7 @@ const Document = () => {
         </div>
       )}
 
-      {valid && <ValidDocument data={verifiedData} close={closeVerify} />}
+      {valid && <ValidDocument data={verifiedData} />}
     </div>
   );
 };

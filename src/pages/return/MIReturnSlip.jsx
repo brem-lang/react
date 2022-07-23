@@ -40,7 +40,7 @@ const MISlip = () => {
       },
     };
     try {
-      const res = await axios.post("/api/create/returnslip",data, config);
+      const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         dispatch(miListData({ ...slipList, miRState: true }));
         Swal.fire("Slip Add", "MI Return slip add", "success").then(() =>

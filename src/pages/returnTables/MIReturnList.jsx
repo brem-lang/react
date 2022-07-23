@@ -68,7 +68,14 @@ function MIReturnList() {
                   <h3 className="card-title">
                     DataTable with default features
                   </h3>
+                  {/*  */}
+                  <div className="card-tools">
+                    <Link to="/mi-return" className="btn btn-success">
+                      Add Slip
+                    </Link>
+                  </div>
                 </div>
+
                 <div className="card-body">
                   <table
                     id="example1"

@@ -1,16 +1,9 @@
-const ValidDocument = ({ data, close }) => {
+const ValidDocument = ({ data }) => {
   return (
     <section className="content">
       <div className="card" style={{ height: "min(80vh)" }}>
         <div className="card-header">
           <h3 className="card-title">Gensan Feedmil, Inc.</h3>
-          <button
-            className="btn btn-primary"
-            style={{ float: "right" }}
-            onClick={() => close()}
-          >
-            Close
-          </button>
         </div>
 
         <div className="card-body clearfix" style={{ maxHeight: "10rem" }}>
