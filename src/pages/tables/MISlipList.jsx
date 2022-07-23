@@ -5,11 +5,13 @@ import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 
-import axios from "../../api/axios";
+import QRCode from "qrcode";
+import axios, { APP_URL } from "../../api/axios";
 
 function MISlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
+  const [generatedQR, setGeneratedQR] = useState("");
 
   const { auth } = useAuth();
   const miSlipData = useSelector((state) => state.slipList.value);
@@ -17,8 +19,22 @@ function MISlipList() {
 
   const handlePdf = (e, item) => {
     e.preventDefault();
+
+    const rawCode = `${APP_URL}/verify?key=${item.document_series_no}`;
+
     setItem(item);
-    setIsOpenPdf(true);
+    QRCode.toDataURL(
+      rawCode,
+      {
+        width: 800,
+        margin: 2,
+      },
+      (err, url) => {
+        if (err) return console.error(err);
+        setGeneratedQR(url);
+        setIsOpenPdf(true);
+      }
+    );
   };
 
   const closePdfForm = (e) => {
@@ -76,11 +92,7 @@ function MISlipList() {
       </div>
 
       {isOpenPdf ? (
-        <MiPdf
-          code={item.document_series_no}
-          item={item}
-          close={closePdfForm}
-        />
+        <MiPdf code={generatedQR} item={item} close={closePdfForm} />
       ) : (
         <section className="content">
           <div className="container-fluid">
@@ -88,6 +100,7 @@ function MISlipList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
+                    {/*  */}
                     <div className="card-tools">
                       <Link to="/mi-slip" className="btn btn-success">
                         Add Slip
