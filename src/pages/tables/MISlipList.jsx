@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import QRCode from "qrcode";
 import axios, { APP_URL } from "../../api/axios";
 
+import Spinner from "../../components/spinner/spinner.component";
+
 function MISlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
@@ -16,6 +18,8 @@ function MISlipList() {
   const { auth } = useAuth();
   const miSlipData = useSelector((state) => state.slipList.value);
   const dispatch = useDispatch();
+
+  const itemArr = miListData.miList;
 
   const handlePdf = (e, item) => {
     e.preventDefault();
@@ -92,7 +96,9 @@ function MISlipList() {
         {/* /.container-fluid */}
       </div>
 
-      {isOpenPdf ? (
+      {itemArr ? (
+        <Spinner />
+      ) : isOpenPdf ? (
         <MiPdf code={generatedQR} item={item} close={closePdfForm} />
       ) : (
         <section className="content">
