@@ -1,8 +1,3 @@
-import QRCode from "qrcode";
-import { useEffect, useState } from "react";
-
-import { APP_URL } from "../../api/axios";
-
 import {
   Document,
   Page,
@@ -128,9 +123,6 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const DmPdf = ({ code, item, close }) => {
-  const [url] = useState(`${APP_URL}/verify?key=${code}`);
-  const [qrcodes, setQrcodes] = useState("");
-
   const {
     approved_by,
     customer_name,
@@ -144,26 +136,6 @@ const DmPdf = ({ code, item, close }) => {
     warehouse,
     wh_location,
   } = item;
-
-  useEffect(() => {
-    const GenerateQRCode = () => {
-      if (url !== "") {
-        QRCode.toDataURL(
-          url,
-          {
-            width: 800,
-            margin: 2,
-          },
-          (err, url) => {
-            if (err) return console.error(err);
-            setQrcodes(url);
-          }
-        );
-      }
-    };
-
-    return GenerateQRCode;
-  }, [url, qrcodes]);
 
   return (
     <div>
@@ -204,7 +176,7 @@ const DmPdf = ({ code, item, close }) => {
                 </View>
               </View>
               <View style={styles.qrcode}>
-                <Image src={qrcodes} />
+                <Image src={code} />
               </View>
             </View>
 

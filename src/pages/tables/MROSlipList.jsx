@@ -6,11 +6,13 @@ import MroPdf from "../../components/PDF/mroPdf";
 import { miListData } from "../../features/slip-list/slipListSlice";
 import useAuth from "../../hooks/useAuth";
 
-import axios from "../../api/axios";
+import QRCode from "qrcode";
+import axios, { APP_URL } from "../../api/axios";
 
 function MROSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
+  const [generatedQR, setGeneratedQR] = useState("");
 
   const { auth } = useAuth();
   const miSlipData = useSelector((state) => state.slipList.value);
@@ -18,13 +20,28 @@ function MROSlipList() {
 
   const handlePdf = (e, item) => {
     e.preventDefault();
+
+    const rawCode = `${APP_URL}/verify?key=${item.document_series_no}`;
+
     setItem(item);
-    setIsOpenPdf(true);
+    QRCode.toDataURL(
+      rawCode,
+      {
+        width: 800,
+        margin: 2,
+      },
+      (err, url) => {
+        if (err) return console.error(err);
+        setGeneratedQR(url);
+        setIsOpenPdf(true);
+      }
+    );
   };
 
   const closePdfForm = (e) => {
     setIsOpenPdf(false);
     setItem([]);
+    setGeneratedQR("");
   };
 
   useEffect(() => {
@@ -78,11 +95,7 @@ function MROSlipList() {
       </div>
 
       {isOpenPdf ? (
-        <MroPdf
-          code={item.document_series_no}
-          item={item}
-          close={closePdfForm}
-        />
+        <MroPdf code={generatedQR} item={item} close={closePdfForm} />
       ) : (
         <section className="content">
           <div className="container-fluid">
