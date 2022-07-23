@@ -16,6 +16,7 @@ const initialStateValue = {
   fgRList: [],
   faRList: [],
   maRList: [],
+  slipState: true,
 };
 
 export const listSlice = createSlice({

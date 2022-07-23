@@ -52,6 +52,7 @@ const LoginPage = () => {
         };
 
         localStorage.setItem("user", JSON.stringify(localdata));
+        localStorage.setItem("gft", JSON.stringify(true));
         setDataField(initialVal);
 
         navigate(from, { replace: true });
