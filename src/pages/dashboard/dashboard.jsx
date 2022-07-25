@@ -61,7 +61,9 @@ const Dashboard = () => {
       </div>
 
       <section className="content">
+        
         <div className="container-fluid">
+          <div className="col-xs-4 text-center"><h1 >Total Number of Forms Created</h1></div>
           <div className="row">
             <div className="col-lg-3 col-6">
               <div className="small-box bg-info">

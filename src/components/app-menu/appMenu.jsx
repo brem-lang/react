@@ -60,7 +60,7 @@ const AppMenu = () => {
               </ul>
             </li>
 
-            <li className="nav-item menu-open">
+            {/* <li className="nav-item menu-open">
               <Link
                 to="#"
                 className={`nav-link 
@@ -171,7 +171,7 @@ const AppMenu = () => {
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
 
             <li className="nav-item menu-open">
               <Link
@@ -183,12 +183,12 @@ const AppMenu = () => {
                 ${location === "/fg-logs" && "active"}
                 ${location === "/fa-logs" && "active"}
                 ${location === "/ma-logs" && "active"}
-                ${location === "/mr-logs" && "active"}
+                ${location === "/mr-logs" && "active"}                             
                 `}
               >
-                <i className="nav-icon fas fa-table"></i>
+                <i className="nav-icon fas fa-edit"></i>
                 <p>
-                  Withdrawal Slip Log
+                  Withdrawal Slip
                   <i className="fas fa-angle-left right"></i>
                 </p>
               </Link>
@@ -271,10 +271,21 @@ const AppMenu = () => {
                     <p>MR</p>
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link
+                    to="/servicecall-logs"
+                    className={`nav-link ${
+                      location === "/servicecall-logs" && "active"
+                    }`}
+                  >
+                    <i className="far fa-circle nav-icon"></i>
+                    <p>Service Call</p>
+                  </Link>
+                </li>
               </ul>
             </li>
 
-            <li className="nav-item menu-open">
+            {/* <li className="nav-item menu-open">
               <Link
                 to="#"
                 className={`nav-link
@@ -361,7 +372,7 @@ const AppMenu = () => {
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
 
             <li className="nav-item menu-open">
               <Link
@@ -378,7 +389,7 @@ const AppMenu = () => {
               >
                 <i className="nav-icon fas fa-table"></i>
                 <p>
-                  Return Slip Log
+                  Return Slip 
                   <i className="fas fa-angle-left right"></i>
                 </p>
               </Link>
@@ -394,7 +405,7 @@ const AppMenu = () => {
                     <p>MI</p>
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link
                     to="/servicecall-logs"
                     className={`nav-link ${
@@ -404,7 +415,7 @@ const AppMenu = () => {
                     <i className="far fa-circle nav-icon"></i>
                     <p>Service Call</p>
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link
                     to="/mro-return-logs"
@@ -462,6 +473,7 @@ const AppMenu = () => {
                 </li>
               </ul>
             </li>
+
           </ul>
         </nav>
       </div>

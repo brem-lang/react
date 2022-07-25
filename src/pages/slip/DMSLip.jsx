@@ -58,7 +58,7 @@ const DMSlip = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">DM Slip</h1>
+              <h1 className="m-0">Direct Material Withdrawal Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -66,7 +66,7 @@ const DMSlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">DM Slip</li>
+                <li className="breadcrumb-item active">Direct Material Withdrawal Slip</li>
               </ol>
             </div>
             {/* /.col */}
@@ -145,12 +145,7 @@ const DMSlip = () => {
                               <p>{errors.order_no?.message}</p>
                             </div>
                           </div>
-                        </div>
-
-                        {/*  */}
-                        {/*  */}
-
-                        <div className="col-6">
+                          <div className="col-6">
                           <div className="form-floating mb-3">
                             <input
                               {...register("product_name", {
@@ -169,6 +164,11 @@ const DMSlip = () => {
                             <p>{errors.product_name?.message}</p>
                           </div>
                         </div>
+                        </div>
+
+                        {/*  */}
+                        {/*  */}
+
 
                         {/*  */}
                         {/*Dynamic Fields Begin*/}

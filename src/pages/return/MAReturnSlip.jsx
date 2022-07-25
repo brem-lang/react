@@ -55,7 +55,7 @@ function MAReturnSlip() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">MA Return Slip</h1>
+              <h1 className="m-0">Minor Asset Item Return Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -63,7 +63,7 @@ function MAReturnSlip() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">MA Return Slip</li>
+                <li className="breadcrumb-item active">Minor Asset Item Return Slip</li>
               </ol>
             </div>
             {/* /.col */}

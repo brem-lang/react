@@ -58,7 +58,7 @@ const MROSlip = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">MRO Slip</h1>
+              <h1 className="m-0">Maintence, Repairs, Operations Withdrawal Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -66,7 +66,7 @@ const MROSlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">MRO Slip</li>
+                <li className="breadcrumb-item active">Maintence, Repairs, Operations Withdrawal Slip</li>
               </ol>
             </div>
             {/* /.col */}

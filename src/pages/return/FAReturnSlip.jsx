@@ -55,7 +55,7 @@ function FAReturnSlip() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">FA Return Slip</h1>
+              <h1 className="m-0">Fixed Asset Item Return Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -63,7 +63,7 @@ function FAReturnSlip() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">FA Return Slip</li>
+                <li className="breadcrumb-item active">Fixed Asset Item Return Slip</li>
               </ol>
             </div>
             {/* /.col */}

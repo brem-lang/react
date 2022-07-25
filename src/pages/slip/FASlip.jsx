@@ -59,7 +59,7 @@ const FASlip = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">FA Slip</h1>
+              <h1 className="m-0">Fixed Asset Item Withdrawal Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -67,7 +67,7 @@ const FASlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">FA Slip</li>
+                <li className="breadcrumb-item active">Fixed Asset Item Withdrawal Slip</li>
               </ol>
             </div>
             {/* /.col */}

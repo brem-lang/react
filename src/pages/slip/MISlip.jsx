@@ -59,7 +59,7 @@ const MISlip = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">MI Slip</h1>
+              <h1 className="m-0">Merchandise Withdrawal Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -67,7 +67,7 @@ const MISlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">MI Slip</li>
+                <li className="breadcrumb-item active">Merchandise Withdrawal Slip</li>
               </ol>
             </div>
             {/* /.col */}
