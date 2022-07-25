@@ -5,7 +5,10 @@ import {
   View,
   StyleSheet,
   PDFViewer,
+  Image,
 } from "@react-pdf/renderer";
+
+import Logo from "../../assets/images/gfi.jpg";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -27,6 +30,12 @@ const styles = StyleSheet.create({
     padding: "10",
     backgroundColor: "black",
     color: "white",
+  },
+  logo: {
+    width: 150,
+    height: 66,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
   //
@@ -85,27 +94,27 @@ const styles = StyleSheet.create({
   },
   // So Declarative and unDRY 👌
   row1: {
-    width: "15%",
+    width: "16.67%",
     borderRight: "1px solid black",
   },
   row2: {
-    width: "20%",
+    width: "16.67%",
     borderRight: "1px solid black",
   },
   row3: {
-    width: "19%",
+    width: "16.67%",
     borderRight: "1px solid black",
   },
   row4: {
-    width: "15%",
+    width: "16.67%",
     borderRight: "1px solid black",
   },
   row5: {
-    width: "25%",
+    width: "16.67%",
     borderRight: "1px solid black",
   },
   row6: {
-    width: "25%",
+    width: "16.67%",
   },
 
   // Footer
@@ -151,9 +160,7 @@ const MrPdf = ({ code, item, close }) => {
         <Document>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
-            <View style={styles.section}>
-              <Text style={styles.title}>Gensan Feedmill, Inc.</Text>
-            </View>
+            <Image style={styles.logo} src={Logo} />
 
             <View style={styles.table}>
               <View style={[styles.row, styles.bold, styles.header]}>
@@ -167,9 +174,7 @@ const MrPdf = ({ code, item, close }) => {
               </View>
 
               <View style={[styles.row, styles.body]}>
-                <Text style={[styles.row1, { marginRight: "5px" }]}>
-                  {asset_code}
-                </Text>
+                <Text style={styles.row1}>{asset_code}</Text>
                 <Text style={styles.row2}>{asset_description}</Text>
                 <Text style={styles.row3}>{asset_serial_no}</Text>
                 <Text style={styles.row4}>{asset_type}</Text>

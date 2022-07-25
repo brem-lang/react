@@ -8,6 +8,8 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
+import Logo from "../../assets/images/gfi.jpg";
+
 // Create styles
 const styles = StyleSheet.create({
   page: {
@@ -28,6 +30,12 @@ const styles = StyleSheet.create({
     padding: "10",
     backgroundColor: "black",
     color: "white",
+  },
+  logo: {
+    width: 150,
+    height: 66,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
   //
@@ -86,23 +94,23 @@ const styles = StyleSheet.create({
   },
   // So Declarative and unDRY 👌
   row1: {
-    width: "25%",
+    width: "20%",
     borderRight: "1px solid black",
   },
   row2: {
-    width: "25%",
+    width: "20%",
     borderRight: "1px solid black",
   },
   row3: {
-    width: "10%",
+    width: "20%",
     borderRight: "1px solid black",
   },
   row4: {
-    width: "15%",
+    width: "20%",
     borderRight: "1px solid black",
   },
   row5: {
-    width: "25%",
+    width: "20%",
   },
 
   // Footer
@@ -148,9 +156,7 @@ const MaPdf = ({ code, item, close }) => {
         <Document>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
-            <View style={styles.section}>
-              <Text style={styles.title}>Gensan Feedmill, Inc.</Text>
-            </View>
+            <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
@@ -182,9 +188,7 @@ const MaPdf = ({ code, item, close }) => {
               {items.map((item) => {
                 return (
                   <View key={item.id} style={[styles.row, styles.body]}>
-                    <Text style={[styles.row1, { marginRight: "5px" }]}>
-                      {item.item_code}
-                    </Text>
+                    <Text style={styles.row1}>{item.item_code}</Text>
                     <Text style={styles.row2}>{item.item_description}</Text>
                     <Text style={styles.row3}>{item.qty}</Text>
                     <Text style={styles.row4}>{item.serial_no}</Text>

@@ -1,19 +1,16 @@
-import axios from "../../api/axios";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-import { miListData } from "../../features/slip-list/slipListSlice";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
 
 const MISlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const slipList = useSelector((state) => state.slipList.value);
+  const { setIsMiR } = useContext(SlipContext);
 
   const {
     register,
@@ -42,7 +39,7 @@ const MISlip = () => {
     try {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
-        dispatch(miListData({ ...slipList, miRState: true }));
+        setIsMiR(true);
         Swal.fire("Slip Add", "MI Return slip add", "success").then(() =>
           navigate("/mi-return-logs")
         );

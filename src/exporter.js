@@ -50,7 +50,7 @@ export { default as DMSlipList } from "./pages/tables/DMSlipList";
 export { default as FGSlipList } from "./pages/tables/FGSlipList";
 export { default as FASlipList } from "./pages/tables/FASlipList";
 export { default as MASlipList } from "./pages/tables/MASlipList";
-export { default as MRSlipList } from "./pages/tables/MASlipList";
+export { default as MRSlipList } from "./pages/tables/MRSlipList";
 export { default as ServiceCallList } from "./pages/tables/ServiceCallList";
 
 // return slip logs

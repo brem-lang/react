@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 
-import Logo from "../../assets/images/qrcode.png";
+import Avatar from "../../assets/images/qrcode.png";
+import Logo from "../../assets/images/gfi.jpg";
 
 const AppMenu = () => {
   const location = useLocation().pathname;
@@ -14,15 +15,13 @@ const AppMenu = () => {
           className="brand-image img-circle elevation-3"
           style={{ opacity: "0.8" }}
         />
-        <span className="brand-text font-weight-light">
-          Gensan Feedmil, Inc.
-        </span>
+        <span className="brand-text font-weight-light">GFI</span>
       </Link>
 
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
-            <img src={Logo} className="img-circle elevation-2" alt="User" />
+            <img src={Avatar} className="img-circle elevation-2" alt="User" />
           </div>
           <div className="info">
             <Link to="/" className="d-block">

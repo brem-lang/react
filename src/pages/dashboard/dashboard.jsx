@@ -15,7 +15,6 @@ const Dashboard = () => {
   const [servicecallCount, setservicecallCount] = useState("");
 
   useEffect(() => {
-    
     const getdata = async () => {
       const config = {
         headers: { Authorization: `Bearer ${auth.token}` },
@@ -54,7 +53,7 @@ const Dashboard = () => {
                 <li className="breadcrumb-item">
                   <a href="/">Home</a>
                 </li>
-                <li className="breadcrumb-item active">Dashboard v1</li>
+                <li className="breadcrumb-item active">Dashboard</li>
               </ol>
             </div>
           </div>

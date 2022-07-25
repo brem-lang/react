@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
+import { SlipProvider } from "./context/slip-provider";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -16,9 +17,11 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
+          <SlipProvider>
+            <Routes>
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </SlipProvider>
         </AuthProvider>
       </BrowserRouter>
     </Provider>

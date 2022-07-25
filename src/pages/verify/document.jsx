@@ -35,7 +35,7 @@ const Document = () => {
       }
     };
     return verifyDocument;
-  }, []);
+  }, [location]);
 
   return (
     <div>

@@ -1,39 +1,83 @@
-import React, { useEffect } from "react";
-import axios from "../../api/axios";
-import { useSelector, useDispatch } from "react-redux";
-import { miListData } from "../../features/slip-list/slipListSlice";
-import useAuth from "../../hooks/useAuth";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import QRCode from "qrcode";
+
+import axios, { APP_URL } from "../../api/axios";
+import Spinner from "../../components/spinner/spinner.component";
+import { SlipContext } from "../../context/slip-provider";
+import useAuth from "../../hooks/useAuth";
+import MroRPdf from "../../components/PDF/mroReturnPdf";
 
 function MROReturnList() {
+  const [isOpenPdf, setIsOpenPdf] = useState(false);
+  const [item, setItem] = useState([]);
+  const [generatedQR, setGeneratedQR] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
-  const miSlipData = useSelector((state) => state.slipList.value);
-  const dispatch = useDispatch();
+  const { mroRList, setMroRList, isMroR, setIsMroR } = useContext(SlipContext);
 
-  useEffect(() => {
-    const getMiSlipList = async () => {
-      if (miSlipData?.mroRState === false) return;
+  const itemArr = mroRList;
 
-      const config = {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      };
+  const handlePdf = (e, item) => {
+    e.preventDefault();
 
-      try {
-        const res = await axios.get("/api/get/returnslip?form=mro", config);
-        dispatch(
-          miListData({ ...miSlipData, mroRList: res.data, mroRState: false })
-        );
-      } catch (err) {
-        if (err.code === "ERR_BAD_REQUEST") {
-          alert("Error getting data, Unauthorized user!");
-        }
+    const rawCode = `${APP_URL}/verify?key=${item.document_series_no}`;
 
-        console.log(err);
+    setItem(item);
+    QRCode.toDataURL(
+      rawCode,
+      {
+        width: 800,
+        margin: 2,
+      },
+      (err, url) => {
+        if (err) return console.error(err);
+        setGeneratedQR(url);
+        setIsOpenPdf(true);
       }
+    );
+  };
+
+  const closePdfForm = (e) => {
+    setIsOpenPdf(false);
+    setItem([]);
+    setGeneratedQR("");
+  };
+
+  const getSlipList = useCallback(async () => {
+    if (isMroR === false) return;
+
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
     };
 
-    return getMiSlipList;
-  }, [auth.token, dispatch, miSlipData]);
+    setIsLoading(true);
+    try {
+      const res = await axios.get("/api/get/returnslip?form=mro", config);
+      setMroRList(res.data);
+      setIsMroR(false);
+    } catch (err) {
+      if (err.code === "ERR_BAD_REQUEST") {
+        alert("Error getting data, Unauthorized user!");
+      }
+
+      console.log(err);
+    }
+
+    setIsLoading(false);
+  }, [auth, setMroRList, isMroR, setIsMroR]);
+
+  useEffect(() => {
+    if (isMroR === true) {
+      getSlipList();
+    }
+  }, [isMroR, getSlipList]);
+
+  useEffect(() => {
+    if (itemArr.length === 0) {
+      getSlipList();
+    }
+  }, [itemArr, getSlipList]);
 
   return (
     <div className="content-wrapper">
@@ -59,64 +103,70 @@ function MROReturnList() {
         {/* /.container-fluid */}
       </div>
 
-      <section className="content">
-        <div className="container-fluid">
-          <div className="py-12">
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-              <div className="card">
-                <div className="card-header">
-                  <h3 className="card-title">
-                    DataTable with default features
-                  </h3>
-                  {/*  */}
-                  <div className="card-tools">
-                    <Link to="/mro-return" className="btn btn-success">
-                      Add Slip
-                    </Link>
+      {isLoading === true ? (
+        <Spinner />
+      ) : isOpenPdf ? (
+        <MroRPdf code={generatedQR} item={item} close={closePdfForm} />
+      ) : (
+        <section className="content">
+          <div className="container-fluid">
+            <div className="py-12">
+              <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="card">
+                  <div className="card-header">
+                    <h3 className="card-title">
+                      DataTable with default features
+                    </h3>
+                    {/*  */}
+                    <div className="card-tools">
+                      <Link to="/mro-return" className="btn btn-success">
+                        Add Slip
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="card-body">
-                  <table
-                    id="example1"
-                    className="table table-bordered table-striped"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Document Series No</th>
-                        <th>Department</th>
-                        <th>MR Number</th>
-                        <th>Received by</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {miSlipData.mroRList.map((item) => {
-                        return (
-                          <tr key={item.id}>
-                            <td>{item.document_series_no}</td>
-                            <td>{item.department}</td>
-                            <td>{item.mr_no}</td>
-                            <td>{item.received_by}</td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-outline-warning"
-                                // onClick={(e) => handlePdf(e, item)}
-                              >
-                                <i className="fas fa-file-pdf info"></i>
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                  <div className="card-body">
+                    <table
+                      id="example1"
+                      className="table table-bordered table-striped"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Document Series No</th>
+                          <th>Department</th>
+                          <th>MR Number</th>
+                          <th>Received by</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {itemArr.map((item) => {
+                          return (
+                            <tr key={item.id}>
+                              <td>{item.document_series_no}</td>
+                              <td>{item.department}</td>
+                              <td>{item.mr_no}</td>
+                              <td>{item.received_by}</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className="btn btn-outline-warning"
+                                  onClick={(e) => handlePdf(e, item)}
+                                >
+                                  <i className="fas fa-file-pdf info"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }

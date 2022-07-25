@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
-
-import { useSelector, useDispatch } from "react-redux";
-import MrPdf from "../../components/PDF/mrPdf";
-import { miListData } from "../../features/slip-list/slipListSlice";
-import useAuth from "../../hooks/useAuth";
-
 import QRCode from "qrcode";
+
 import axios, { APP_URL } from "../../api/axios";
+import MrPdf from "../../components/PDF/mrPdf";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
+import Spinner from "../../components/spinner/spinner.component";
 
 function MRSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
-  const miSlipData = useSelector((state) => state.slipList.value);
-  const dispatch = useDispatch();
+  const { mrList, setMrList, isMr, setIsMr } = useContext(SlipContext);
+
+  const itemArr = mrList;
 
   const handlePdf = (e, item) => {
     e.preventDefault();
@@ -44,30 +44,40 @@ function MRSlipList() {
     setGeneratedQR("");
   };
 
-  useEffect(() => {
-    const getMroSlipList = async () => {
-      if (miSlipData?.mrState === false) return;
+  const getSlipList = useCallback(async () => {
+    if (isMr === false) return;
 
-      const config = {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      };
-
-      try {
-        const res = await axios.get("/api/get/memorandum", config);
-        dispatch(
-          miListData({ ...miSlipData, mrList: res.data.data, mrState: false })
-        );
-      } catch (err) {
-        if (err.code === "ERR_BAD_REQUEST") {
-          alert("Error getting data, Unauthorized user!");
-        }
-
-        console.log(err);
-      }
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
     };
 
-    return getMroSlipList;
-  }, [auth.token, miSlipData, dispatch]);
+    setIsLoading(true);
+    try {
+      const res = await axios.get("/api/get/memorandum", config);
+      setMrList(res.data.data);
+      setIsMr(false);
+    } catch (err) {
+      if (err.code === "ERR_BAD_REQUEST") {
+        alert("Error getting data, Unauthorized user!");
+      }
+
+      console.log(err);
+    }
+
+    setIsLoading(false);
+  }, [auth, setMrList, isMr, setIsMr]);
+
+  useEffect(() => {
+    if (isMr === true) {
+      getSlipList();
+    }
+  }, [isMr, getSlipList]);
+
+  useEffect(() => {
+    if (itemArr.length === 0) {
+      getSlipList();
+    }
+  }, [itemArr, getSlipList]);
 
   return (
     <div className="content-wrapper">
@@ -93,7 +103,9 @@ function MRSlipList() {
         {/* /.container-fluid */}
       </div>
 
-      {isOpenPdf ? (
+      {isLoading === true ? (
+        <Spinner />
+      ) : isOpenPdf ? (
         <MrPdf code={generatedQR} item={item} close={closePdfForm} />
       ) : (
         <section className="content">
@@ -123,7 +135,7 @@ function MRSlipList() {
                         </tr>
                       </thead>
                       <tbody>
-                        {miSlipData.mrList.map((item) => {
+                        {itemArr.map((item) => {
                           return (
                             <tr key={item.id}>
                               <td>{item.document_series_no}</td>

@@ -1,20 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "../../api/axios";
 
-import { useSelector, useDispatch } from "react-redux";
-import { miListData } from "../../features/slip-list/slipListSlice";
-import { Link } from "react-router-dom";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
 
 const MROSlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const slipList = useSelector((state) => state.slipList.value);
+  const { setIsMro } = useContext(SlipContext);
 
   const {
     register,
@@ -45,7 +41,7 @@ const MROSlip = () => {
       const res = await axios.post("/api/create/wsmro", data, config);
 
       if (res.data.success === true) {
-        dispatch(miListData({ ...slipList, mroState: true }));
+        setIsMro(true);
         Swal.fire("Slip Add", "MRO slip add", "success").then(() =>
           navigate("/mro-logs")
         );

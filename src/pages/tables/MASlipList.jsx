@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import MaPdf from "../../components/PDF/maPdf";
-import { miListData } from "../../features/slip-list/slipListSlice";
-import useAuth from "../../hooks/useAuth";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
-
 import QRCode from "qrcode";
+
 import axios, { APP_URL } from "../../api/axios";
+import MaPdf from "../../components/PDF/maPdf";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
+import Spinner from "../../components/spinner/spinner.component";
 
 function MASlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
-  const miSlipData = useSelector((state) => state.slipList.value);
-  const dispatch = useDispatch();
+  const { maList, setMaList, isMa, setIsMa } = useContext(SlipContext);
+
+  const itemArr = maList;
 
   const handlePdf = (e, item) => {
     e.preventDefault();
@@ -43,30 +44,40 @@ function MASlipList() {
     setGeneratedQR("");
   };
 
-  useEffect(() => {
-    const getMiSlipList = async () => {
-      if (miSlipData?.maState === false) return;
+  const getSlipList = useCallback(async () => {
+    if (isMa === false) return;
 
-      const config = {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      };
-
-      try {
-        const res = await axios.get("/api/get/wsma", config);
-        dispatch(
-          miListData({ ...miSlipData, maList: res.data.data, maState: false })
-        );
-      } catch (err) {
-        if (err.code === "ERR_BAD_REQUEST") {
-          alert("Error getting data, Unauthorized user!");
-        }
-
-        console.log(err);
-      }
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
     };
 
-    return getMiSlipList;
-  }, [auth.token, miSlipData, dispatch]);
+    setIsLoading(true);
+    try {
+      const res = await axios.get("/api/get/wsma", config);
+      setMaList(res.data.data);
+      setIsMa(false);
+    } catch (err) {
+      if (err.code === "ERR_BAD_REQUEST") {
+        alert("Error getting data, Unauthorized user!");
+      }
+
+      console.log(err);
+    }
+
+    setIsLoading(false);
+  }, [auth, setMaList, isMa, setIsMa]);
+
+  useEffect(() => {
+    if (isMa === true) {
+      getSlipList();
+    }
+  }, [isMa, getSlipList]);
+
+  useEffect(() => {
+    if (itemArr.length === 0) {
+      getSlipList();
+    }
+  }, [itemArr, getSlipList]);
 
   return (
     <div className="content-wrapper">
@@ -92,7 +103,9 @@ function MASlipList() {
         {/* /.container-fluid */}
       </div>
 
-      {isOpenPdf ? (
+      {isLoading === true ? (
+        <Spinner />
+      ) : isOpenPdf ? (
         <MaPdf
           code={generatedQR}
           type={"mi"}
@@ -127,7 +140,7 @@ function MASlipList() {
                         </tr>
                       </thead>
                       <tbody>
-                        {miSlipData.maList.map((item) => {
+                        {itemArr.map((item) => {
                           return (
                             <tr key={item.id}>
                               <td>{item.document_series_no}</td>

@@ -1,19 +1,16 @@
-import axios from "../../api/axios";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-import { miListData } from "../../features/slip-list/slipListSlice";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
 
 function DMReturnSlip() {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const slipList = useSelector((state) => state.slipList.value);
+  const { setIsDmR } = useContext(SlipContext);
 
   const {
     register,
@@ -40,9 +37,9 @@ function DMReturnSlip() {
       },
     };
     try {
-      const res = await axios.post("/api/create/returnslip",data, config);
+      const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
-        dispatch(miListData({ ...slipList, dmRState: true }));
+        setIsDmR(true);
         Swal.fire("Slip Add", "DM Return slip add", "success").then(() =>
           navigate("/dm-return-logs")
         );

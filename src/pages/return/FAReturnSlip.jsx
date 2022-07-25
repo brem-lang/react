@@ -1,19 +1,16 @@
-import axios from "../../api/axios";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-import { miListData } from "../../features/slip-list/slipListSlice";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
 
 function FAReturnSlip() {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const slipList = useSelector((state) => state.slipList.value);
+  const { setIsFaR } = useContext(SlipContext);
 
   const {
     register,
@@ -40,9 +37,9 @@ function FAReturnSlip() {
       },
     };
     try {
-      const res = await axios.post("/api/create/returnslip",data, config);
+      const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
-        dispatch(miListData({ ...slipList, faRState: true }));
+        setIsFaR(true);
         Swal.fire("Slip Add", "FA Return slip add", "success").then(() =>
           navigate("/fa-return-logs")
         );

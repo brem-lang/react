@@ -1,19 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import axios from "../../api/axios";
+import { useNavigate, Link } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-import { miListData } from "../../features/slip-list/slipListSlice";
-import { Link } from "react-router-dom";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
 
 const FGSlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const slipList = useSelector((state) => state.slipList.value);
+  const { setIsFg } = useContext(SlipContext);
 
   const {
     register,
@@ -44,7 +41,7 @@ const FGSlip = () => {
       const res = await axios.post("/api/create/wsfg", data, config);
 
       if (res.data.success === true) {
-        dispatch(miListData({ ...slipList, fgState: true }));
+        setIsFg(true);
         Swal.fire("Slip Add", "FG slip add", "success").then(() =>
           navigate("/fg-logs")
         );

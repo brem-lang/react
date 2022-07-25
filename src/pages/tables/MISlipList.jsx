@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import MiPdf from "../../components/PDF/miPdf";
-import { miListData } from "../../features/slip-list/slipListSlice";
-import useAuth from "../../hooks/useAuth";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
-
 import QRCode from "qrcode";
+import useAuth from "../../hooks/useAuth";
+import MiPdf from "../../components/PDF/miPdf";
 import axios, { APP_URL } from "../../api/axios";
-
 import Spinner from "../../components/spinner/spinner.component";
+
+import { SlipContext } from "../../context/slip-provider";
 
 function MISlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
-  const miSlipData = useSelector((state) => state.slipList.value);
-  const dispatch = useDispatch();
 
-  const itemArr = miListData.miList;
+  const { miList, setMiList, isMi, setIsMi } = useContext(SlipContext);
+
+  const itemArr = miList;
 
   const handlePdf = (e, item) => {
     e.preventDefault();
@@ -47,30 +45,38 @@ function MISlipList() {
     setGeneratedQR("");
   };
 
-  useEffect(() => {
-    const getMiSlipList = async () => {
-      if (miSlipData?.miState === false) return;
-
-      const config = {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      };
-
-      try {
-        const res = await axios.get("/api/get/wsmi", config);
-        dispatch(
-          miListData({ ...miSlipData, miList: res.data.data, miState: false })
-        );
-      } catch (err) {
-        if (err.code === "ERR_BAD_REQUEST") {
-          alert("Error getting data, Unauthorized user!");
-        }
-
-        console.log(err);
-      }
+  const getSlipList = useCallback(async () => {
+    if (isMi === false) return;
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
     };
 
-    return getMiSlipList;
-  }, [auth.token, miSlipData, dispatch]);
+    setIsLoading(true);
+    try {
+      const res = await axios.get("/api/get/wsmi", config);
+      setMiList(res.data.data);
+      setIsMi(false);
+    } catch (err) {
+      if (err.code === "ERR_BAD_REQUEST") {
+        alert("Error getting data, Unauthorized user!");
+      }
+
+      console.log(err);
+    }
+    setIsLoading(false);
+  }, [auth, setMiList, isMi, setIsMi]);
+
+  useEffect(() => {
+    if (isMi === true) {
+      getSlipList();
+    }
+  }, [isMi, getSlipList]);
+
+  useEffect(() => {
+    if (itemArr.length === 0) {
+      getSlipList();
+    }
+  }, [itemArr, getSlipList]);
 
   return (
     <div className="content-wrapper">
@@ -96,7 +102,7 @@ function MISlipList() {
         {/* /.container-fluid */}
       </div>
 
-      {itemArr ? (
+      {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
         <MiPdf code={generatedQR} item={item} close={closePdfForm} />
@@ -129,7 +135,7 @@ function MISlipList() {
                         </tr>
                       </thead>
                       <tbody>
-                        {miSlipData.miList.map((item) => {
+                        {itemArr.map((item) => {
                           return (
                             <tr key={item.id}>
                               <td>{item.document_series_no}</td>

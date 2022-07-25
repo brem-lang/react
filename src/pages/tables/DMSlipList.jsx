@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import DmPdf from "../../components/PDF/dmPdf";
-import { miListData } from "../../features/slip-list/slipListSlice";
-import useAuth from "../../hooks/useAuth";
-
 import QRCode from "qrcode";
+
 import axios, { APP_URL } from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
+import Spinner from "../../components/spinner/spinner.component";
 
 function DMSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
-  const miSlipData = useSelector((state) => state.slipList.value);
-  const dispatch = useDispatch();
+
+  const { dmList, setDmList, isDm, setIsDm } = useContext(SlipContext);
+
+  const itemArr = dmList;
 
   const handlePdf = (e, item) => {
     e.preventDefault();
@@ -43,30 +45,40 @@ function DMSlipList() {
     setItem([]);
   };
 
-  useEffect(() => {
-    const getMiSlipList = async () => {
-      if (miSlipData?.dmState === false) return;
+  const getSlipList = useCallback(async () => {
+    if (isDm === false) return;
 
-      const config = {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      };
-
-      try {
-        const res = await axios.get("/api/get/wsdm", config);
-        dispatch(
-          miListData({ ...miSlipData, dmList: res.data.data, dmState: false })
-        );
-      } catch (err) {
-        if (err.code === "ERR_BAD_REQUEST") {
-          alert("Error getting data, Unauthorized user!");
-        }
-
-        console.log(err);
-      }
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
     };
 
-    return getMiSlipList;
-  }, [auth.token, miSlipData, dispatch]);
+    setIsLoading(true);
+    try {
+      const res = await axios.get("/api/get/wsdm", config);
+      setDmList(res.data.data);
+      setIsDm(false);
+    } catch (err) {
+      if (err.code === "ERR_BAD_REQUEST") {
+        alert("Error getting data, Unauthorized user!");
+      }
+
+      console.log(err);
+    }
+
+    setIsLoading(false);
+  }, [auth, setDmList, isDm, setIsDm]);
+
+  useEffect(() => {
+    if (isDm === true) {
+      getSlipList();
+    }
+  }, [isDm, getSlipList]);
+
+  useEffect(() => {
+    if (itemArr.length === 0) {
+      getSlipList();
+    }
+  }, [itemArr, getSlipList]);
 
   return (
     <div className="content-wrapper">
@@ -92,7 +104,9 @@ function DMSlipList() {
         {/* /.container-fluid */}
       </div>
 
-      {isOpenPdf ? (
+      {isLoading === true ? (
+        <Spinner />
+      ) : isOpenPdf ? (
         <DmPdf code={generatedQR} item={item} close={closePdfForm} />
       ) : (
         <section className="content">
@@ -122,7 +136,7 @@ function DMSlipList() {
                         </tr>
                       </thead>
                       <tbody>
-                        {miSlipData.dmList.map((item) => {
+                        {itemArr.map((item) => {
                           return (
                             <tr key={item.id}>
                               <td>{item.document_series_no}</td>

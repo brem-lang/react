@@ -7,6 +7,7 @@ import {
   PDFViewer,
   Image,
 } from "@react-pdf/renderer";
+import moment from "moment";
 
 import Logo from "../../assets/images/gfi.jpg";
 
@@ -130,21 +131,21 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MiPdf = ({ code, item, close }) => {
+const FaRPdf = ({ code, item, close }) => {
   console.log(item);
+
   const {
+    department,
+    created_at,
+    mr_no,
     approved_by,
-    customer_name,
-    document_series_no,
-    items,
-    pallet_no,
     prepared_by,
-    profit_center,
-    released_by,
-    sub_profit_center,
-    warehouse,
-    wh_location,
+    received_by,
+    items,
+    withdrawal_slip_no,
   } = item;
+
+  const date = moment(created_at).format("ll");
 
   return (
     <div>
@@ -166,22 +167,16 @@ const MiPdf = ({ code, item, close }) => {
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText}>Document Series No</Text>
-                  <Text style={styles.contentText2}>Customer Name</Text>
-                  <Text style={styles.contentText2}>Pallet No.</Text>
-                  <Text style={styles.contentText2}>Profit Center</Text>
-                  <Text style={styles.contentText2}>Sub Profit Center</Text>
-                  <Text style={styles.contentText2}>Warehouse</Text>
-                  <Text style={styles.contentText2}>Warehouse Location</Text>
+                  <Text style={styles.contentText}>Withdrawal Slip No.</Text>
+                  <Text style={styles.contentText2}>Department</Text>
+                  <Text style={styles.contentText2}>MR No.</Text>
+                  <Text style={styles.contentText2}>Date</Text>
                 </View>
                 <View>
-                  <Text style={styles.contentText}>{document_series_no}</Text>
-                  <Text style={styles.contentText2}>{customer_name}</Text>
-                  <Text style={styles.contentText2}>{pallet_no}</Text>
-                  <Text style={styles.contentText2}>{profit_center}</Text>
-                  <Text style={styles.contentText2}>{sub_profit_center}</Text>
-                  <Text style={styles.contentText2}>{warehouse}</Text>
-                  <Text style={styles.contentText2}>{wh_location}</Text>
+                  <Text style={styles.contentText}>{withdrawal_slip_no}</Text>
+                  <Text style={styles.contentText2}>{department}</Text>
+                  <Text style={styles.contentText2}>{mr_no}</Text>
+                  <Text style={styles.contentText2}>{date}</Text>
                 </View>
               </View>
               <View style={styles.qrcode}>
@@ -195,7 +190,7 @@ const MiPdf = ({ code, item, close }) => {
                 <Text style={styles.row2}>Item Description</Text>
                 <Text style={styles.row3}>Qty</Text>
                 <Text style={styles.row4}>Oum</Text>
-                <Text style={styles.row5}>Remarks</Text>
+                <Text style={styles.row5}>Reson</Text>
               </View>
 
               {items.map((item, index) => {
@@ -205,7 +200,7 @@ const MiPdf = ({ code, item, close }) => {
                     <Text style={styles.row2}>{item.item_description}</Text>
                     <Text style={styles.row3}>{item.qty}</Text>
                     <Text style={styles.row4}>{item.uom}</Text>
-                    <Text style={styles.row5}>{item.remarks}</Text>
+                    <Text style={styles.row5}>{item.reason}</Text>
                   </View>
                 );
               })}
@@ -215,13 +210,13 @@ const MiPdf = ({ code, item, close }) => {
               <View style={{ marginRight: 20 }}>
                 <Text>Prepared by</Text>
                 <Text>Aproved by</Text>
-                <Text>Released by</Text>
+                <Text>Recieved by</Text>
               </View>
 
               <View>
                 <Text>{prepared_by}</Text>
                 <Text>{approved_by}</Text>
-                <Text>{released_by}</Text>
+                <Text>{received_by}</Text>
               </View>
             </View>
           </Page>
@@ -230,4 +225,4 @@ const MiPdf = ({ code, item, close }) => {
     </div>
   );
 };
-export default MiPdf;
+export default FaRPdf;
