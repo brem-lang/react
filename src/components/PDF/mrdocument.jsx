@@ -8,6 +8,8 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
+import Logo from "../../assets/images/gfi.jpg";
+
 // Create styles
 const styles = StyleSheet.create({
   page: {
@@ -28,6 +30,13 @@ const styles = StyleSheet.create({
     padding: "10",
     backgroundColor: "black",
     color: "white",
+  },
+  logo: {
+    width: 250,
+    height: 66,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 15,
   },
 
   //
@@ -152,9 +161,7 @@ const BasicDocument = ({ code, item, close }) => {
         <Document>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
-            <View style={styles.section}>
-              <Text style={styles.title}>Gensan Feedmill, Inc.</Text>
-            </View>
+            <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>

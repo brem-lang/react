@@ -7,6 +7,15 @@ import {
   PDFViewer,
   Image,
 } from "@react-pdf/renderer";
+
+import {
+  Table,
+  TableHeader,
+  DataTableCell,
+  TableBody,
+  TableCell,
+} from "@david.kucsai/react-pdf-table";
+
 import moment from "moment";
 
 import Logo from "../../assets/images/gfi.jpg";
@@ -33,10 +42,11 @@ const styles = StyleSheet.create({
     color: "white",
   },
   logo: {
-    width: 150,
+    width: 250,
     height: 66,
     marginLeft: "auto",
     marginRight: "auto",
+    marginBottom: 15,
   },
 
   //
@@ -47,10 +57,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
     marginHorizontal: 10,
-    marginTop: "-19px",
+    marginBottom: 15,
   },
   contentText: {
     fontSize: "12px",
+  },
+  doc_series_no: {
+    fontSize: "8px",
+    marginRight: "auto",
+    marginLeft: "auto",
   },
 
   contentText2: {
@@ -69,7 +84,6 @@ const styles = StyleSheet.create({
   // Table
   table: {
     width: "94%",
-    border: "1px solid black",
     position: "relative",
     alignSelf: "center",
   },
@@ -122,18 +136,21 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-around",
   },
 
   textFooter: {
     textAlign: "right",
   },
+
+  tableText: {
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
 });
 
 // Create Document Component
 const FgRPdf = ({ code, item, close }) => {
-  console.log(item);
-
   const {
     department,
     created_at,
@@ -143,6 +160,7 @@ const FgRPdf = ({ code, item, close }) => {
     received_by,
     items,
     withdrawal_slip_no,
+    document_series_no,
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -181,39 +199,54 @@ const FgRPdf = ({ code, item, close }) => {
               </View>
               <View style={styles.qrcode}>
                 <Image src={code} />
+                <Text style={styles.doc_series_no}>{document_series_no}</Text>
               </View>
             </View>
 
             <View style={styles.table}>
-              <View style={[styles.row, styles.bold, styles.header]}>
-                <Text style={styles.row1}>Item Code</Text>
-                <Text style={styles.row2}>Item Description</Text>
-                <Text style={styles.row3}>Qty</Text>
-                <Text style={styles.row4}>Oum</Text>
-                <Text style={styles.row5}>Reson</Text>
-              </View>
-
-              {items.map((item, index) => {
-                return (
-                  <View key={index} style={[styles.row, styles.body]}>
-                    <Text style={styles.row1}>{item.item_code}</Text>
-                    <Text style={styles.row2}>{item.item_description}</Text>
-                    <Text style={styles.row3}>{item.qty}</Text>
-                    <Text style={styles.row4}>{item.uom}</Text>
-                    <Text style={styles.row5}>{item.reason}</Text>
-                  </View>
-                );
-              })}
+              <Table data={items} zebra>
+                <TableHeader textAlign={"center"} fontSize={12}>
+                  <TableCell style={styles.tableText}>Item Code</TableCell>
+                  <TableCell style={styles.tableText}>
+                    Item Description
+                  </TableCell>
+                  <TableCell style={styles.tableText}>Qty</TableCell>
+                  <TableCell style={styles.tableText}>Uom</TableCell>
+                  <TableCell style={styles.tableText}>Reason</TableCell>
+                </TableHeader>
+                <TableBody fontSize={9} textAlign={"center"}>
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.item_code}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.item_description}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.qty}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.uom}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.reason}
+                  />
+                </TableBody>
+              </Table>
             </View>
 
-            <View style={styles.footer}>
-              <View style={{ marginRight: 20 }}>
+            <View>
+              <View style={styles.footer}>
                 <Text>Prepared by</Text>
                 <Text>Aproved by</Text>
                 <Text>Recieved by</Text>
               </View>
 
-              <View>
+              <View style={styles.footer}>
                 <Text>{prepared_by}</Text>
                 <Text>{approved_by}</Text>
                 <Text>{received_by}</Text>

@@ -8,6 +8,16 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
+import {
+  Table,
+  TableHeader,
+  DataTableCell,
+  TableBody,
+  TableCell,
+} from "@david.kucsai/react-pdf-table";
+
+import moment from "moment";
+
 import Logo from "../../assets/images/gfi.jpg";
 
 // Create styles
@@ -32,10 +42,11 @@ const styles = StyleSheet.create({
     color: "white",
   },
   logo: {
-    width: 150,
+    width: 250,
     height: 66,
     marginLeft: "auto",
     marginRight: "auto",
+    marginBottom: 15,
   },
 
   //
@@ -46,10 +57,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 10,
     marginHorizontal: 10,
-    marginTop: "-19px",
+    marginBottom: 15,
   },
   contentText: {
-    fontSize: "12px",
+    fontSize: "8px",
+    marginRight: "auto",
+    marginLeft: "auto",
   },
 
   contentText2: {
@@ -68,9 +81,9 @@ const styles = StyleSheet.create({
   // Table
   table: {
     width: "94%",
-    border: "1px solid black",
     position: "relative",
     alignSelf: "center",
+    marginBottom: 15,
   },
   row: {
     display: "flex",
@@ -121,11 +134,16 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-around",
   },
 
   textFooter: {
     textAlign: "right",
+  },
+
+  tableText: {
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 });
 
@@ -139,7 +157,10 @@ const MaPdf = ({ code, item, close }) => {
     approved_by,
     released_by,
     items,
+    created_at,
   } = item;
+
+  const date = moment(created_at).format("ll");
 
   return (
     <div>
@@ -161,51 +182,66 @@ const MaPdf = ({ code, item, close }) => {
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText}>Document Series No</Text>
                   <Text style={styles.contentText2}>Derpartment</Text>
                   <Text style={styles.contentText2}>MR No</Text>
+                  <Text style={styles.contentText2}>Date Created</Text>
                 </View>
                 <View>
-                  <Text style={styles.contentText}>{document_series_no}</Text>
                   <Text style={styles.contentText2}>{department}</Text>
                   <Text style={styles.contentText2}>{mr_no}</Text>
+                  <Text style={styles.contentText2}>{date}</Text>
                 </View>
               </View>
               <View style={styles.qrcode}>
                 <Image src={code} />
+                <Text style={styles.contentText}>{document_series_no}</Text>
               </View>
             </View>
 
             <View style={styles.table}>
-              <View style={[styles.row, styles.bold, styles.header]}>
-                <Text style={styles.row1}>Item Code</Text>
-                <Text style={styles.row2}>Item Description</Text>
-                <Text style={styles.row3}>Qty</Text>
-                <Text style={styles.row4}>Serial No</Text>
-                <Text style={styles.row5}>Remarks</Text>
-              </View>
-
-              {items.map((item) => {
-                return (
-                  <View key={item.id} style={[styles.row, styles.body]}>
-                    <Text style={styles.row1}>{item.item_code}</Text>
-                    <Text style={styles.row2}>{item.item_description}</Text>
-                    <Text style={styles.row3}>{item.qty}</Text>
-                    <Text style={styles.row4}>{item.serial_no}</Text>
-                    <Text style={styles.row5}>{item.remarks}</Text>
-                  </View>
-                );
-              })}
+              <Table data={items} zebra>
+                <TableHeader textAlign={"center"} fontSize={12}>
+                  <TableCell style={styles.tableText}>Item Code</TableCell>
+                  <TableCell style={styles.tableText}>
+                    Item Description
+                  </TableCell>
+                  <TableCell style={styles.tableText}>Qty</TableCell>
+                  <TableCell style={styles.tableText}>Serial No.</TableCell>
+                  <TableCell style={styles.tableText}>Remarks</TableCell>
+                </TableHeader>
+                <TableBody fontSize={9} textAlign={"center"}>
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.item_code}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.item_description}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.qty}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.serial_no}
+                  />
+                  <DataTableCell
+                    style={styles.tableText}
+                    getContent={(r) => r.remarks}
+                  />
+                </TableBody>
+              </Table>
             </View>
 
-            <View style={styles.footer}>
-              <View style={{ marginRight: 20 }}>
+            <View>
+              <View style={styles.footer}>
                 <Text>Prepared by</Text>
                 <Text>Aproved by</Text>
                 <Text>Released by</Text>
               </View>
 
-              <View>
+              <View style={styles.footer}>
                 <Text>{prepared_by}</Text>
                 <Text>{approved_by}</Text>
                 <Text>{released_by}</Text>

@@ -106,7 +106,9 @@ function MROSlipList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <MroPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <MroPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

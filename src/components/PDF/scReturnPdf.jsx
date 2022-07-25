@@ -1,149 +1,170 @@
-import //   Document,
-//   Page,
-//   Text,
-//   View,
-//   StyleSheet,
-//   PDFViewer,
-//   Image,
-"@react-pdf/renderer";
-// import moment from "moment";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFViewer,
+  Image,
+} from "@react-pdf/renderer";
+import moment from "moment";
 
-// import Logo from "../../assets/images/gfi.jpg";
+import Logo from "../../assets/images/gfi.jpg";
 
 // Create styles
-// const styles = StyleSheet.create({
-//   page: {
-//     backgroundColor: "#fff",
-//   },
-//   section: {
-//     margin: 10,
-//     padding: 10,
-//   },
-//   viewer: {
-//     width: "100%", //the pdf viewer will take up all of the width and height
-//     height: "80vh",
-//   },
-//   title: {
-//     width: "100%",
-//     textAlign: "center",
-//     letterSpacing: "10px",
-//     padding: "10",
-//     backgroundColor: "black",
-//     color: "white",
-//   },
-//   logo: {
-//     width: 150,
-//     height: 66,
-//     marginLeft: "auto",
-//     marginRight: "auto",
-//   },
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: "#fff",
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+  },
+  viewer: {
+    width: "100%", //the pdf viewer will take up all of the width and height
+    height: "80vh",
+  },
+  title: {
+    width: "100%",
+    textAlign: "center",
+    letterSpacing: "10px",
+    padding: "10",
+    backgroundColor: "black",
+    color: "white",
+  },
+  logo: {
+    width: 250,
+    height: 66,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
 
-//   //
-//   section2: {
-//     display: "flex",
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     alignItems: "center",
-//     paddingHorizontal: 10,
-//     marginHorizontal: 10,
-//     marginTop: "-19px",
-//   },
-//   contentText: {
-//     fontSize: "12px",
-//   },
+  //
+  section2: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    marginHorizontal: 10,
+    marginBottom: 15,
+  },
+  contentText: {
+    fontSize: "12px",
+  },
+  doc_series_no: {
+    fontSize: "8px",
+    marginRight: "auto",
+    marginLeft: "auto",
+  },
+  contentText2: {
+    fontSize: "8px",
+  },
+  flexRowContent: {
+    display: "flex",
+    flexDirection: "row",
+  },
 
-//   contentText2: {
-//     fontSize: "8px",
-//   },
-//   flexRowContent: {
-//     display: "flex",
-//     flexDirection: "row",
-//   },
+  qrcode: {
+    width: 100,
+    height: 100,
+  },
 
-//   qrcode: {
-//     width: 100,
-//     height: 100,
-//   },
+  // Table
+  table: {
+    width: "94%",
+    border: "1px solid black",
+    position: "relative",
+    alignSelf: "center",
+  },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    textAlign: "center",
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  header: {
+    borderTop: "none",
+    fontSize: "12px",
+  },
+  body: {
+    fontSize: "8px",
+    borderTop: "1px solid black",
+    fontWeight: "light",
+    alignItems: "center",
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  // So Declarative and unDRY 👌
+  row1: {
+    width: "14.29%",
+    borderRight: "1px solid black",
+  },
+  row2: {
+    width: "14.29%",
+    borderRight: "1px solid black",
+  },
+  row3: {
+    width: "14.29%",
+    borderRight: "1px solid black",
+  },
+  row4: {
+    width: "14.29%",
+    borderRight: "1px solid black",
+  },
+  row5: {
+    width: "14.29%",
+    borderRight: "1px solid black",
+  },
+  row6: {
+    width: "14.29%",
+    borderRight: "1px solid black",
+  },
+  row7: {
+    width: "14.29%",
+  },
 
-//   // Table
-//   table: {
-//     width: "94%",
-//     border: "1px solid black",
-//     position: "relative",
-//     alignSelf: "center",
-//   },
-//   row: {
-//     display: "flex",
-//     flexDirection: "row",
-//     textAlign: "center",
-//     paddingTop: 8,
-//     paddingBottom: 8,
-//   },
-//   header: {
-//     borderTop: "none",
-//     fontSize: "12px",
-//   },
-//   body: {
-//     fontSize: "8px",
-//     borderTop: "1px solid black",
-//     fontWeight: "light",
-//     alignItems: "center",
-//   },
-//   bold: {
-//     fontWeight: "bold",
-//   },
-//   // So Declarative and unDRY 👌
-//   row1: {
-//     width: "20%",
-//     borderRight: "1px solid black",
-//   },
-//   row2: {
-//     width: "20%",
-//     borderRight: "1px solid black",
-//   },
-//   row3: {
-//     width: "20%",
-//     borderRight: "1px solid black",
-//   },
-//   row4: {
-//     width: "20%",
-//     borderRight: "1px solid black",
-//   },
-//   row5: {
-//     width: "20%",
-//   },
+  // Footer
+  footer: {
+    fontSize: 8,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
 
-//   // Footer
-//   footer: {
-//     fontSize: 8,
-//     paddingHorizontal: 20,
-//     marginHorizontal: 10,
-//     marginVertical: 15,
-//     display: "flex",
-//     flexDirection: "row",
-//     justifyContent: "flex-end",
-//   },
-
-//   textFooter: {
-//     textAlign: "right",
-//   },
-// });
+  textFooter: {
+    textAlign: "right",
+  },
+});
 
 // Create Document Component
 const ScRPdf = ({ code, item, close }) => {
-  //   console.log(item);
+  const {
+    created_at,
+    document_series_no,
+    assigned_to,
+    technician,
+    mfr_serial_no,
+    contact_number,
+    //
+    serial_no,
+    description,
+    item_no,
+    origin,
+    priority,
+    problem_type,
+    status,
+    remarks,
+    // subject,
+    // call_type,
+  } = item;
 
-  //   const {
-  // created_at,
-  // mr_no,
-  // approved_by,
-  // prepared_by,
-  // received_by,
-  // items,
-  // withdrawal_slip_no,
-  //   } = item;
-
-  //   const date = moment(created_at).format("ll");
+  const date = moment(created_at).format("ll");
 
   return (
     <div>
@@ -155,7 +176,7 @@ const ScRPdf = ({ code, item, close }) => {
       >
         Close
       </button>
-      {/* <PDFViewer style={styles.viewer}>
+      <PDFViewer style={styles.viewer}>
         <Document>
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />
@@ -163,61 +184,52 @@ const ScRPdf = ({ code, item, close }) => {
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText}>Withdrawal Slip No.</Text>
-                  <Text style={styles.contentText2}>Department</Text>
-                  <Text style={styles.contentText2}>MR No.</Text>
-                  <Text style={styles.contentText2}>Date</Text>
+                  <Text style={styles.contentText2}>MFR Serial No.</Text>
+                  <Text style={styles.contentText2}>Assigned To</Text>
+                  <Text style={styles.contentText2}>Contact Number</Text>
+                  <Text style={styles.contentText2}>Technician</Text>
+                  <Text style={styles.contentText2}>Date Created</Text>
                 </View>
                 <View>
-                  <Text style={styles.contentText}>{withdrawal_slip_no}</Text>
-                  <Text style={styles.contentText2}>{department}</Text>
-                  <Text style={styles.contentText2}>{mr_no}</Text>
+                  <Text style={styles.contentText2}>{mfr_serial_no}</Text>
+                  <Text style={styles.contentText2}>{assigned_to}</Text>
+                  <Text style={styles.contentText2}>{contact_number}</Text>
+                  <Text style={styles.contentText2}>{technician}</Text>
                   <Text style={styles.contentText2}>{date}</Text>
                 </View>
               </View>
               <View style={styles.qrcode}>
                 <Image src={code} />
+                <Text style={styles.doc_series_no}>{document_series_no}</Text>
               </View>
             </View>
 
             <View style={styles.table}>
               <View style={[styles.row, styles.bold, styles.header]}>
-                <Text style={styles.row1}>Item Code</Text>
-                <Text style={styles.row2}>Item Description</Text>
-                <Text style={styles.row3}>Qty</Text>
-                <Text style={styles.row4}>Oum</Text>
-                <Text style={styles.row5}>Reson</Text>
+                <Text style={styles.row1}>Serial No</Text>
+                <Text style={styles.row2}>Description</Text>
+                <Text style={styles.row2}>Item No.</Text>
+                <Text style={styles.row3}>Origin</Text>
+                <Text style={styles.row4}>Priority</Text>
+                <Text style={styles.row5}>Problem Type</Text>
+                <Text style={styles.row6}>Status</Text>
+                <Text style={styles.row7}>Remarks</Text>
               </View>
 
-              {items.map((item, index) => {
-                return (
-                  <View key={index} style={[styles.row, styles.body]}>
-                    <Text style={styles.row1}>{item.item_code}</Text>
-                    <Text style={styles.row2}>{item.item_description}</Text>
-                    <Text style={styles.row3}>{item.qty}</Text>
-                    <Text style={styles.row4}>{item.uom}</Text>
-                    <Text style={styles.row5}>{item.reason}</Text>
-                  </View>
-                );
-              })}
-            </View>
-
-            <View style={styles.footer}>
-              <View style={{ marginRight: 20 }}>
-                <Text>Prepared by</Text>
-                <Text>Aproved by</Text>
-                <Text>Recieved by</Text>
-              </View>
-
-              <View>
-                <Text>{prepared_by}</Text>
-                <Text>{approved_by}</Text>
-                <Text>{received_by}</Text>
+              <View style={[styles.row, styles.body]}>
+                <Text style={styles.row1}>{serial_no}</Text>
+                <Text style={styles.row2}>{description}</Text>
+                <Text style={styles.row2}>{item_no}</Text>
+                <Text style={styles.row3}>{origin}</Text>
+                <Text style={styles.row4}>{priority}</Text>
+                <Text style={styles.row5}>{problem_type}</Text>
+                <Text style={styles.row6}>{status}</Text>
+                <Text style={styles.row7}>{remarks}</Text>
               </View>
             </View>
           </Page>
         </Document>
-      </PDFViewer> */}
+      </PDFViewer>
     </div>
   );
 };

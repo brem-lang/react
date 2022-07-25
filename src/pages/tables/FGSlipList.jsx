@@ -105,7 +105,9 @@ function FGSlipList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <FgPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <FgPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

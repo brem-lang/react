@@ -105,7 +105,9 @@ function MISlipList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <MiPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <MiPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

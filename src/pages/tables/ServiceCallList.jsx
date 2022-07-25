@@ -106,7 +106,9 @@ function ServiceCallList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <ScRPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <ScRPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

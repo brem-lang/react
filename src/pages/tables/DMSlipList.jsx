@@ -107,7 +107,9 @@ function DMSlipList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <DmPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <DmPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

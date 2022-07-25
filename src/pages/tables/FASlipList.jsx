@@ -106,7 +106,9 @@ function FASlipList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <FaPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <FaPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

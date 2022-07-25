@@ -106,7 +106,9 @@ function MRSlipList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <MrPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <MrPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

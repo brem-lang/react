@@ -106,12 +106,9 @@ function MASlipList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <MaPdf
-          code={generatedQR}
-          type={"mi"}
-          item={item}
-          close={closePdfForm}
-        />
+        <section className="content">
+          <MaPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">
