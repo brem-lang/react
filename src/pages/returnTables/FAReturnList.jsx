@@ -105,7 +105,9 @@ function FAReturnList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <FaRPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <FaRPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

@@ -106,7 +106,9 @@ function DMReturnList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <DmRPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <DmRPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

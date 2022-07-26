@@ -176,7 +176,7 @@ const MiRPdf = ({ code, item, close }) => {
         Close
       </button>
       <PDFViewer style={styles.viewer}>
-        <Document>
+        <Document title={`Merchandise Return ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />
 
@@ -240,7 +240,7 @@ const MiRPdf = ({ code, item, close }) => {
             <View>
               <View style={styles.footer}>
                 <Text>Prepared by</Text>
-                <Text>Aproved by</Text>
+                <Text>Approved by</Text>
                 <Text>Recieved by</Text>
               </View>
 

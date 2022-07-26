@@ -106,7 +106,9 @@ function MROReturnList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <MroRPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <MroRPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

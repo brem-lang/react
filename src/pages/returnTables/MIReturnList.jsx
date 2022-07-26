@@ -106,7 +106,9 @@ function MIReturnList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <MiRPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <MiRPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

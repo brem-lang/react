@@ -106,7 +106,9 @@ function FGReturnList() {
       {isLoading === true ? (
         <Spinner />
       ) : isOpenPdf ? (
-        <FgRPdf code={generatedQR} item={item} close={closePdfForm} />
+        <section className="content">
+          <FgRPdf code={generatedQR} item={item} close={closePdfForm} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">

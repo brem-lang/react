@@ -176,7 +176,7 @@ const DmPdf = ({ code, item, close }) => {
       </button>
       <PDFViewer style={styles.viewer}>
         {/* Start of the document*/}
-        <Document>
+        <Document title={`Direct Material ${document_series_no}`}>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />
@@ -243,7 +243,7 @@ const DmPdf = ({ code, item, close }) => {
             <View>
               <View style={styles.footer}>
                 <Text>Prepared by</Text>
-                <Text>Aproved by</Text>
+                <Text>Approved by</Text>
                 <Text>Released by</Text>
               </View>
 

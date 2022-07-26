@@ -153,7 +153,6 @@ const MrPdf = ({ code, item, close }) => {
 
   const date = moment(created_at).format("ll");
 
-
   return (
     <div>
       <button
@@ -166,7 +165,7 @@ const MrPdf = ({ code, item, close }) => {
       </button>
       <PDFViewer style={styles.viewer}>
         {/* Start of the document*/}
-        <Document>
+        <Document title={`Memorandum ${document_series_no}`}>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />

@@ -174,9 +174,7 @@ const FgPdf = ({ code, item, close }) => {
         Close
       </button>
       <PDFViewer style={styles.viewer}>
-        {/* Start of the document*/}
-        <Document>
-          {/*render a single page*/}
+        <Document title={`Finished Goods ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />
 
@@ -240,7 +238,7 @@ const FgPdf = ({ code, item, close }) => {
             <View>
               <View style={styles.footer}>
                 <Text>Prepared by</Text>
-                <Text>Aproved by</Text>
+                <Text>Approved by</Text>
                 <Text>Released by</Text>
               </View>
 

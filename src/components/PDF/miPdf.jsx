@@ -247,7 +247,7 @@ const MiPdf = ({ code, item, close }) => {
             <View>
               <View style={styles.footer}>
                 <Text>Prepared by</Text>
-                <Text>Aproved by</Text>
+                <Text>Approved by</Text>
                 <Text>Released by</Text>
               </View>
 
