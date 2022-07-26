@@ -7,6 +7,7 @@ import FaPdf from "../../components/PDF/faPdf";
 import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
+import DataTable from "react-data-table-component";
 
 function FASlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -15,6 +16,8 @@ function FASlipList() {
   const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
   const { faList, setFaList, isFa, setIsFa } = useContext(SlipContext);
+  const [search, setSearch] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const itemArr = faList;
 
@@ -56,6 +59,7 @@ function FASlipList() {
       const res = await axios.get("/api/get/wsfa", config);
       setFaList(res.data.data);
       setIsFa(false);
+      setFilteredData(res.data.data)
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -66,6 +70,34 @@ function FASlipList() {
 
     setIsLoading(false);
   }, [auth, setFaList, isFa, setIsFa]);
+
+  const columns=[
+    {
+      name:"Document Series No",
+      selector: (row) => row.document_series_no
+    },
+    {
+      name:"Prepared by",
+      selector: (row) => row.prepared_by
+    },
+    {
+      name:"Approved by",
+      selector: (row) => row.approved_by
+    },
+    {
+      name:"Release by",
+      selector: (row) => row.released_by
+    },
+    {
+      name:"Action",
+      cell: (row) => <button
+      type="button"
+      className="btn btn-outline-warning"
+      onClick={(e) => handlePdf(e, row)}>
+      <i className="fas fa-file-pdf info"></i>
+    </button>
+    },
+  ]
 
   useEffect(() => {
     if (isFa === true) {
@@ -78,6 +110,14 @@ function FASlipList() {
       getSlipList();
     }
   }, [itemArr, getSlipList]);
+
+  useEffect(() => {
+    const result = itemArr.filter((data) => {
+      return data.document_series_no.match(search);
+      // return data.document_series_no.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredData(result)
+  }, [search])
 
   return (
     <div className="content-wrapper">
@@ -123,7 +163,24 @@ function FASlipList() {
                     </div>
                   </div>
                   <div className="card-body">
-                    <table
+                    <DataTable
+                      columns={columns} 
+                      data={filteredData}
+                      pagination
+                      fixedHeader
+                      selectableRowsHighlight
+                      highlightOnHover
+                      subHeader
+                      subHeaderComponent={
+                        <input type="text" 
+                        placeholder="Search" 
+                        className="w-25 form-control"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        />
+                      }
+                    />
+                    {/* <table
                       id="example1"
                       className="table table-bordered table-striped"
                     >
@@ -157,7 +214,7 @@ function FASlipList() {
                           );
                         })}
                       </tbody>
-                    </table>
+                    </table> */}
                   </div>
                 </div>
               </div>

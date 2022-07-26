@@ -7,6 +7,7 @@ import MrPdf from "../../components/PDF/mrPdf";
 import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
+import DataTable from "react-data-table-component";
 
 function MRSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -15,6 +16,8 @@ function MRSlipList() {
   const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
   const { mrList, setMrList, isMr, setIsMr } = useContext(SlipContext);
+  const [search, setSearch] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const itemArr = mrList;
 
@@ -56,6 +59,7 @@ function MRSlipList() {
       const res = await axios.get("/api/get/memorandum", config);
       setMrList(res.data.data);
       setIsMr(false);
+      setFilteredData(res.data.data)
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -66,6 +70,34 @@ function MRSlipList() {
 
     setIsLoading(false);
   }, [auth, setMrList, isMr, setIsMr]);
+
+  const columns=[
+    {
+      name:"Document Series No",
+      selector: (row) => row.document_series_no
+    },
+    {
+      name:"Name of Employee",
+      selector: (row) => row.name_of_employee
+    },
+    {
+      name:"Section",
+      selector: (row) => row.section
+    },
+    {
+      name:"Asset Code",
+      selector: (row) => row.asset_code
+    },
+    {
+      name:"Action",
+      cell: (row) => <button
+      type="button"
+      className="btn btn-outline-warning"
+      onClick={(e) => handlePdf(e, row)}>
+      <i className="fas fa-file-pdf info"></i>
+    </button>
+    },
+  ]
 
   useEffect(() => {
     if (isMr === true) {
@@ -78,6 +110,14 @@ function MRSlipList() {
       getSlipList();
     }
   }, [itemArr, getSlipList]);
+
+  useEffect(() => {
+    const result = itemArr.filter((data) => {
+      return data.document_series_no.match(search);
+      // return data.document_series_no.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredData(result)
+  }, [search])
 
   return (
     <div className="content-wrapper">
@@ -123,7 +163,24 @@ function MRSlipList() {
                     </div>
                   </div>
                   <div className="card-body">
-                    <table
+                    <DataTable
+                      columns={columns} 
+                      data={filteredData}
+                      pagination
+                      fixedHeader
+                      selectableRowsHighlight
+                      highlightOnHover
+                      subHeader
+                      subHeaderComponent={
+                        <input type="text" 
+                        placeholder="Search" 
+                        className="w-25 form-control"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        />
+                      }
+                    />
+                    {/* <table
                       id="example1"
                       className="table table-bordered table-striped"
                     >
@@ -157,7 +214,7 @@ function MRSlipList() {
                           );
                         })}
                       </tbody>
-                    </table>
+                    </table> */}
                   </div>
                 </div>
               </div>

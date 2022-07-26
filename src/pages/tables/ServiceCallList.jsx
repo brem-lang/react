@@ -7,6 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
 import ScRPdf from "../../components/PDF/scReturnPdf";
+import DataTable from "react-data-table-component";
 
 function ServiceCallList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -15,6 +16,8 @@ function ServiceCallList() {
   const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
   const { scList, setScList, isSc, setIsSc } = useContext(SlipContext);
+  const [search, setSearch] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const itemArr = scList;
 
@@ -56,6 +59,7 @@ function ServiceCallList() {
       const res = await axios.get("/api/get/servicecall", config);
       setScList(res.data.data);
       setIsSc(false);
+      setFilteredData(res.data.data)
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -66,6 +70,34 @@ function ServiceCallList() {
 
     setIsLoading(false);
   }, [auth, setScList, isSc, setIsSc]);
+
+  const columns=[
+    {
+      name:"Customer Name",
+      selector: (row) => row.document_series_no
+    },
+    {
+      name:"Contact Number",
+      selector: (row) => row.name_of_employee
+    },
+    {
+      name:"Serial Number",
+      selector: (row) => row.section
+    },
+    {
+      name:"Status",
+      selector: (row) => row.asset_code
+    },
+    {
+      name:"Action",
+      cell: (row) => <button
+      type="button"
+      className="btn btn-outline-warning"
+      onClick={(e) => handlePdf(e, row)}>
+      <i className="fas fa-file-pdf info"></i>
+    </button>
+    },
+  ]
 
   useEffect(() => {
     if (isSc === true) {
@@ -78,6 +110,14 @@ function ServiceCallList() {
       getSlipList();
     }
   }, [itemArr, getSlipList]);
+
+  useEffect(() => {
+    const result = itemArr.filter((data) => {
+      return data.document_series_no.match(search);
+      // return data.document_series_no.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredData(result)
+  }, [search])
 
   return (
     <div className="content-wrapper">
@@ -123,7 +163,24 @@ function ServiceCallList() {
                     </div>
                   </div>
                   <div className="card-body">
-                    <table
+                   <DataTable
+                      columns={columns} 
+                      data={filteredData}
+                      pagination
+                      fixedHeader
+                      selectableRowsHighlight
+                      highlightOnHover
+                      subHeader
+                      subHeaderComponent={
+                        <input type="text" 
+                        placeholder="Search" 
+                        className="w-25 form-control"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        />
+                      }
+                    />
+                    {/* <table
                       id="example1"
                       className="table table-bordered table-striped"
                     >
@@ -157,7 +214,7 @@ function ServiceCallList() {
                           );
                         })}
                       </tbody>
-                    </table>
+                    </table> */}
                   </div>
                 </div>
               </div>

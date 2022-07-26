@@ -7,6 +7,7 @@ import Spinner from "../../components/spinner/spinner.component";
 import { SlipContext } from "../../context/slip-provider";
 import useAuth from "../../hooks/useAuth";
 import DmRPdf from "../../components/PDF/dmReturnPdf";
+import DataTable from "react-data-table-component";
 
 function DMReturnList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -15,6 +16,8 @@ function DMReturnList() {
   const [isLoading, setIsLoading] = useState(false);
   const { auth } = useAuth();
   const { dmRList, setDmRList, isDmR, setIsDmR } = useContext(SlipContext);
+  const [search, setSearch] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const itemArr = dmRList;
 
@@ -56,6 +59,7 @@ function DMReturnList() {
       const res = await axios.get("/api/get/returnslip?form=dm", config);
       setDmRList(res.data);
       setIsDmR(false);
+      setFilteredData(res.data)
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -66,6 +70,34 @@ function DMReturnList() {
 
     setIsLoading(false);
   }, [auth, setDmRList, isDmR, setIsDmR]);
+
+  const columns=[
+    {
+      name:"Document Series No",
+      selector: (row) => row.document_series_no
+    },
+    {
+      name:"Department",
+      selector: (row) => row.department
+    },
+    {
+      name:"MR Number",
+      selector: (row) => row.mr_no
+    },
+    {
+      name:"Received by",
+      selector: (row) => row.received_by
+    },
+    {
+      name:"Action",
+      cell: (row) => <button
+      type="button"
+      className="btn btn-outline-warning"
+      onClick={(e) => handlePdf(e, row)}>
+      <i className="fas fa-file-pdf info"></i>
+    </button>
+    },
+  ]
 
   useEffect(() => {
     if (isDmR === true) {
@@ -78,6 +110,14 @@ function DMReturnList() {
       getSlipList();
     }
   }, [itemArr, getSlipList]);
+
+  useEffect(() => {
+    const result = itemArr.filter((data) => {
+      return data.document_series_no.match(search);
+      // return data.document_series_no.toLowerCase().match(search.toLowerCase());
+    });
+    setFilteredData(result)
+  }, [search])
 
   return (
     <div className="content-wrapper">
@@ -124,7 +164,24 @@ function DMReturnList() {
                     </div>
                   </div>
                   <div className="card-body">
-                    <table
+                    <DataTable
+                      columns={columns} 
+                      data={filteredData}
+                      pagination
+                      fixedHeader
+                      selectableRowsHighlight
+                      highlightOnHover
+                      subHeader
+                      subHeaderComponent={
+                        <input type="text" 
+                        placeholder="Search" 
+                        className="w-25 form-control"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        />
+                      }
+                    />
+                    {/* <table
                       id="example1"
                       className="table table-bordered table-striped"
                     >
@@ -158,7 +215,7 @@ function DMReturnList() {
                           );
                         })}
                       </tbody>
-                    </table>
+                    </table> */}
                   </div>
                 </div>
               </div>
