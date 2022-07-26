@@ -381,7 +381,6 @@ const AppMenu = () => {
                 to="/"
                 className={`nav-link
               ${location === "/mi-return-logs" && "active"}
-              ${location === "/servicecall-logs" && "active"}
               ${location === "/mro-return-logs" && "active"}
               ${location === "/dm-return-logs" && "active"}
               ${location === "/fg-return-logs" && "active"}

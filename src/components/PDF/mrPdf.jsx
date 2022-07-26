@@ -50,15 +50,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginHorizontal: 10,
     marginBottom: 15,
+    letterSpacing: 1,
   },
   contentText: {
-    fontSize: "8px",
-    marginRight: "auto",
-    marginLeft: "auto",
+    fontSize: "12px",
   },
 
   contentText2: {
-    fontSize: "8px",
+    fontSize: 10,
+    paddingTop: 5,
   },
   flexRowContent: {
     display: "flex",
@@ -153,6 +153,7 @@ const MrPdf = ({ code, item, close }) => {
 
   const date = moment(created_at).format("ll");
 
+
   return (
     <div>
       <button
@@ -170,44 +171,45 @@ const MrPdf = ({ code, item, close }) => {
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />
 
+            <View style={styles.section}>
+              <Text style={styles.title}>Memorandum</Text>
+            </View>
+
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText2}>Employee Name</Text>
+                  <Text style={styles.contentText2}>Date</Text>
+                  <Text style={styles.contentText2}>ID No.</Text>
+                  <Text style={styles.contentText2}>Name of Employee</Text>
                   <Text style={styles.contentText2}>Department</Text>
                   <Text style={styles.contentText2}>Section</Text>
-                  <Text style={styles.contentText2}>ID No.</Text>
-                  <Text style={styles.contentText2}>Date Created</Text>
                 </View>
                 <View>
+                  <Text style={styles.contentText2}>{date}</Text>
+                  <Text style={styles.contentText2}>{id_no}</Text>
                   <Text style={styles.contentText2}>{name_of_employee}</Text>
                   <Text style={styles.contentText2}>{department}</Text>
                   <Text style={styles.contentText2}>{section}</Text>
-                  <Text style={styles.contentText2}>{id_no}</Text>
-                  <Text style={styles.contentText2}>{date}</Text>
                 </View>
-              </View>
-              <View style={styles.qrcode}>
-                <Image src={code} />
-                <Text style={styles.contentText}>{document_series_no}</Text>
               </View>
             </View>
 
-            <View style={styles.table}>
-              <View style={[styles.row, styles.bold, styles.header]}>
-                <Text style={styles.row1}>Asset Code</Text>
-                <Text style={styles.row2}>Asset Description</Text>
-                <Text style={styles.row3}>Asset Serial No</Text>
-                <Text style={styles.row4}>Asset Type</Text>
-                <Text style={styles.row5}>Asset Value</Text>
-              </View>
-
-              <View style={[styles.row, styles.body]}>
-                <Text style={styles.row1}>{asset_code}</Text>
-                <Text style={styles.row2}>{asset_description}</Text>
-                <Text style={styles.row3}>{asset_serial_no}</Text>
-                <Text style={styles.row4}>{asset_type}</Text>
-                <Text style={styles.row5}>{asset_value}</Text>
+            <View style={styles.section2}>
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Asset Code</Text>
+                  <Text style={styles.contentText2}>Asset Type</Text>
+                  <Text style={styles.contentText2}>Asset Description</Text>
+                  <Text style={styles.contentText2}>Asset Serial No.</Text>
+                  <Text style={styles.contentText2}>Asset Value</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{asset_code}</Text>
+                  <Text style={styles.contentText2}>{asset_type}</Text>
+                  <Text style={styles.contentText2}>{asset_description}</Text>
+                  <Text style={styles.contentText2}>{asset_serial_no}</Text>
+                  <Text style={styles.contentText2}>{asset_value}</Text>
+                </View>
               </View>
             </View>
           </Page>

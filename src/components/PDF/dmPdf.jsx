@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
     paddingHorizontal: 20,
     marginHorizontal: 10,
-    marginVertical: 15,
+    marginVertical: 2,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",

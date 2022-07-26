@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
   // Table
   table: {
     width: "94%",
-    border: "1px solid black",
     position: "relative",
     alignSelf: "center",
+    marginBottom: 15,
   },
   row: {
     display: "flex",
@@ -135,14 +135,14 @@ const styles = StyleSheet.create({
     fontSize: 8,
     paddingHorizontal: 20,
     marginHorizontal: 10,
-    marginVertical: 15,
+    marginVertical: 2,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
   },
 
   textFooter: {
-    textAlign: "right",
+    textAlign: "center",
   },
 
   tableText: {
