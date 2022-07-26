@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
 import axios from "../../api/axios";
+import { ROLES } from "../../data/roles";
 
 import useAuth from "../../hooks/useAuth";
 
@@ -16,8 +14,8 @@ const LoginPage = () => {
   const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  // const location = useLocation();
+  // const from = location.state?.from?.pathname || "/";
 
   const [dataField, setDataField] = useState(initialVal);
 
@@ -36,26 +34,62 @@ const LoginPage = () => {
       formData.append("password", dataField.pwd);
 
       await axios.get("/sanctum/csrf-cookie").then(async () => {
-        // console.log(response);
-
         const res = await axios.post("/api/auth/login", formData);
+
+        const resRole = res.data.user.roles;
+        let userRoles = [];
+        resRole.map((item) => userRoles.push(item.id));
 
         setAuth({
           token: res.data.token,
           status: res.data.status,
           user: dataField.email,
+          roles: userRoles,
         });
 
         const localdata = {
           data: res.data,
           email: dataField.email,
+          roles: userRoles,
         };
 
         localStorage.setItem("user", JSON.stringify(localdata));
         localStorage.setItem("gft", JSON.stringify(true));
         setDataField(initialVal);
 
-        navigate(from, { replace: true });
+        userRoles.map((item) => {
+          switch (item) {
+            case ROLES.administrator:
+              return navigate("/", { replace: true });
+
+            case ROLES.mi_clerk:
+              return navigate("/mi-logs", { replace: true });
+
+            case ROLES.mro_clerk:
+              return navigate("/mro-logs", { replace: true });
+
+            case ROLES.dm_clerk:
+              return navigate("/dm-logs", { replace: true });
+
+            case ROLES.fg_clerk:
+              return navigate("/fg-logs", { replace: true });
+
+            case ROLES.fa_clerk:
+              return navigate("/fa-logs", { replace: true });
+
+            case ROLES.ma_clerk:
+              return navigate("/ma-logs", { replace: true });
+
+            case ROLES.mr_clerk:
+              return navigate("/mr-logs", { replace: true });
+
+            case ROLES.sc_clerk:
+              return navigate("/servicecall-logs", { replace: true });
+
+            default:
+              return navigate("/", { replace: true });
+          }
+        });
       });
     } catch (err) {
       console.log(err);

@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
 
 const styles = {
@@ -12,11 +13,14 @@ const styles = {
 const AppSetting = () => {
   const navigate = useNavigate();
   const logout = useLogout();
+  const { auth } = useAuth();
 
   const handleLogout = async () => {
     await logout();
     navigate("/login");
   };
+
+  const allowedRoles = [9];
 
   return (
     <aside className="control-sidebar control-sidebar-dark">
@@ -26,19 +30,23 @@ const AppSetting = () => {
             <h5>Settings</h5>
             <hr className="mb-2"></hr>
 
-            <div className="mb-4">
-              <h6>Users</h6>
-              <Link to="/users" style={{ paddingLeft: 15 }}>
-                Users List
-              </Link>
-            </div>
+            {auth?.roles?.find((role) => allowedRoles?.includes(role)) && (
+              <>
+                <div className="mb-4">
+                  <h6>Users</h6>
+                  <Link to="/users" style={{ paddingLeft: 15 }}>
+                    Users List
+                  </Link>
+                </div>
 
-            <div className="mb-4">
-              <h6>Activity Log</h6>
-              <Link to="/logs" style={{ paddingLeft: 15 }}>
-                Activity Logs List
-              </Link>
-            </div>
+                <div className="mb-4">
+                  <h6>Activity Log</h6>
+                  <Link to="/logs" style={{ paddingLeft: 15 }}>
+                    Activity Logs List
+                  </Link>
+                </div>
+              </>
+            )}
 
             <div className="mb-4" style={{ position: "absolute", bottom: 0 }}>
               <button

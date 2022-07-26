@@ -15,6 +15,7 @@ const useVerifyToken = () => {
           token: foundUser.data.token,
           status: foundUser.data.status,
           user: foundUser.email,
+          roles: foundUser.roles,
         };
       });
 
