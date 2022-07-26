@@ -84,7 +84,7 @@ function MAReturnList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">MA Return Slip Log</h1>
+              <h1 className="m-0">Minor Asset Item Return Slip List</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -92,7 +92,7 @@ function MAReturnList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">MA Return Slip Log</li>
+                <li className="breadcrumb-item active">Minor Asset Item Return Slip List</li>
               </ol>
             </div>
             {/* /.col */}
@@ -115,9 +115,6 @@ function MAReturnList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
-                    <h3 className="card-title">
-                      DataTable with default features
-                    </h3>
                     {/*  */}
                     <div className="card-tools">
                       <Link to="/ma-return" className="btn btn-success">

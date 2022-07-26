@@ -43,7 +43,7 @@ const MISlip = () => {
 
       if (res.data.success === true) {
         setIsMi(true);
-        Swal.fire("Slip Add", "MI slip add", "success").then(() =>
+        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
           navigate("/mi-logs")
         );
       }

@@ -40,7 +40,7 @@ function DMReturnSlip() {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsDmR(true);
-        Swal.fire("Slip Add", "DM Return slip add", "success").then(() =>
+        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
           navigate("/dm-return-logs")
         );
       }

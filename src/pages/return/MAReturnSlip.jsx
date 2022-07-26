@@ -40,7 +40,7 @@ function MAReturnSlip() {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsMaR(true);
-        Swal.fire("Slip Add", "MA Return slip add", "success").then(() =>
+        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
           navigate("/ma-return-logs")
         );
       }

@@ -40,7 +40,7 @@ const MISlip = () => {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsMroR(true);
-        Swal.fire("Slip Add", "MRO Return slip add", "success").then(() =>
+        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
           navigate("/mro-return-logs")
         );
       }

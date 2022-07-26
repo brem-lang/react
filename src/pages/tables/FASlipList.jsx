@@ -85,7 +85,7 @@ function FASlipList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">FA Slip Log</h1>
+              <h1 className="m-0">Fixed Asset Item Withdrawal Slip List</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -93,7 +93,7 @@ function FASlipList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">FA Slip Log</li>
+                <li className="breadcrumb-item active">Fixed Asset Withdrawal Item Slip List</li>
               </ol>
             </div>
             {/* /.col */}

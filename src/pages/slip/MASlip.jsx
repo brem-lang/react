@@ -43,7 +43,7 @@ const MASlip = () => {
 
       if (res.data.success === true) {
         setIsMa(true);
-        Swal.fire("Slip Add", "MA slip add", "success").then(() =>
+        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
           navigate("/ma-logs")
         );
       }

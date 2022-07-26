@@ -43,7 +43,7 @@ const FASlip = () => {
 
       if (res.data.success === true) {
         setIsFa(true);
-        Swal.fire("Slip Add", "FA slip add", "success").then(() =>
+        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
           navigate("/fa-logs")
         );
       }

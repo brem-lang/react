@@ -42,7 +42,7 @@ const FGSlip = () => {
 
       if (res.data.success === true) {
         setIsFg(true);
-        Swal.fire("Slip Add", "FG slip add", "success").then(() =>
+        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
           navigate("/fg-logs")
         );
       }

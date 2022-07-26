@@ -31,7 +31,7 @@ export default function ServiceCall() {
 
       if (res.data.success === true) {
         setIsSc(true);
-        Swal.fire("Slip Add", "Service Call slip add", "success").then(() =>
+        Swal.fire("Great", "Service Call successfully add", "success").then(() =>
           navigate("/servicecall-logs")
         );
       }

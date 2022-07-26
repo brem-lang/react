@@ -45,9 +45,6 @@ function ListUsers() {
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div className="card">
                 <div className="card-header">
-                  <h3 className="card-title">
-                    DataTable with default features
-                  </h3>
                   <div className="card-tools">
                     <button
                       onClick={showModal}

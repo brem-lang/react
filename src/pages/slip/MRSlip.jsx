@@ -31,7 +31,7 @@ const MRSlip = () => {
 
       if (res.data.success === true) {
         setIsMr(true);
-        Swal.fire("Slip Add", "MR slip add", "success").then(() =>
+        Swal.fire("Great!", "Memorandum successfully created.", "success").then(() =>
           navigate("/mr-logs")
         );
       }

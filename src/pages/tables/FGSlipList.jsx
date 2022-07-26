@@ -84,7 +84,7 @@ function FGSlipList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">FG Slip Log</h1>
+              <h1 className="m-0">Finished Goods Withdrawal Slip List</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -92,7 +92,7 @@ function FGSlipList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">FG Slip Log</li>
+                <li className="breadcrumb-item active">Finished Goods Withdrawal Slip List</li>
               </ol>
             </div>
             {/* /.col */}

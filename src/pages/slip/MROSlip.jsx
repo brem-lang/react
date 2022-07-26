@@ -42,7 +42,7 @@ const MROSlip = () => {
 
       if (res.data.success === true) {
         setIsMro(true);
-        Swal.fire("Slip Add", "MRO slip add", "success").then(() =>
+        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
           navigate("/mro-logs")
         );
       }

@@ -43,7 +43,7 @@ const DMSlip = () => {
 
       if (res.data.success === true) {
         setIsDm(true);
-        Swal.fire("Slip Add", "DM slip add", "success").then(() =>
+        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
           navigate("/dm-logs")
         );
       }

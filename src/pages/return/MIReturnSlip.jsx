@@ -40,7 +40,7 @@ const MISlip = () => {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsMiR(true);
-        Swal.fire("Slip Add", "MI Return slip add", "success").then(() =>
+        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
           navigate("/mi-return-logs")
         );
       }

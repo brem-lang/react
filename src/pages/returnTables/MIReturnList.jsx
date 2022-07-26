@@ -85,7 +85,7 @@ function MIReturnList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">MI Return Slip Log</h1>
+              <h1 className="m-0">Merchandise Return Slip List</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -93,7 +93,7 @@ function MIReturnList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">MI Return Slip Log</li>
+                <li className="breadcrumb-item active">Merchandise Return Slip List</li>
               </ol>
             </div>
             {/* /.col */}
@@ -116,9 +116,7 @@ function MIReturnList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
-                    <h3 className="card-title">
-                      DataTable with default features
-                    </h3>
+
                     {/*  */}
                     <div className="card-tools">
                       <Link to="/mi-return" className="btn btn-success">

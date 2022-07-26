@@ -85,7 +85,7 @@ function ServiceCallList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Service Call Log</h1>
+              <h1 className="m-0">Service Call List</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -93,7 +93,7 @@ function ServiceCallList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Service Call Log</li>
+                <li className="breadcrumb-item active">Service Call List</li>
               </ol>
             </div>
             {/* /.col */}

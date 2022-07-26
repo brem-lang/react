@@ -85,7 +85,7 @@ function MROSlipList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">MRO Slip Log</h1>
+              <h1 className="m-0">Maintence, Repairs, Operations Withdrawal Slip List</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -93,7 +93,7 @@ function MROSlipList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">MRO Slip Log</li>
+                <li className="breadcrumb-item active">Maintence, Repairs, Operations Withdrawal Slip List</li>
               </ol>
             </div>
             {/* /.col */}
