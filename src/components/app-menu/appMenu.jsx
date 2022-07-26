@@ -4,8 +4,8 @@ import Logo from "../../assets/images/gfi.jpg";
 
 const AppMenu = () => {
   const location = useLocation().pathname;
-
-  const user = JSON.parse(localStorage.getItem("user"));
+  const localUser = JSON.parse(localStorage.getItem("user"));
+  const user = localUser ? localUser.email : "Name";
 
   return (
     <aside className="main-sidebar sidebar-primary elevation-4">
@@ -25,7 +25,7 @@ const AppMenu = () => {
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="info">
             <Link to="/" className="d-block">
-              {user.email}
+              {user}
             </Link>
           </div>
         </div>
@@ -183,7 +183,9 @@ const AppMenu = () => {
                 ${location === "/fg-logs" && "active"}
                 ${location === "/fa-logs" && "active"}
                 ${location === "/ma-logs" && "active"}
-                ${location === "/mr-logs" && "active"}                             
+                ${
+                  location === "/mr-logs" && "active"
+                }                             
                 `}
               >
                 <i className="nav-icon fas fa-edit"></i>
@@ -389,7 +391,7 @@ const AppMenu = () => {
               >
                 <i className="nav-icon fas fa-table"></i>
                 <p>
-                  Return Slip 
+                  Return Slip
                   <i className="fas fa-angle-left right"></i>
                 </p>
               </Link>
@@ -473,7 +475,6 @@ const AppMenu = () => {
                 </li>
               </ul>
             </li>
-
           </ul>
         </nav>
       </div>

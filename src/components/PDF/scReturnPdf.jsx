@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
   title: {
     width: "100%",
     textAlign: "center",
-    letterSpacing: "10px",
-    padding: "10",
+    letterSpacing: 8,
+    padding: 8,
     backgroundColor: "black",
     color: "white",
   },
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginHorizontal: 10,
     marginBottom: 15,
+    letterSpacing: 1,
   },
   contentText: {
     fontSize: "12px",
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   contentText2: {
-    fontSize: "8px",
+    fontSize: 9,
+    paddingTop: 5,
   },
   flexRowContent: {
     display: "flex",
@@ -146,25 +148,26 @@ const styles = StyleSheet.create({
 const ScRPdf = ({ code, item, close }) => {
   const {
     created_at,
-    document_series_no,
-    assigned_to,
-    technician,
-    mfr_serial_no,
+    customer_name,
     contact_number,
-    //
-    serial_no,
-    description,
+    phone_no,
     item_no,
+    description,
+    mfr_serial_no,
+    serial_no,
+    id,
+    status,
+    subject,
     origin,
     priority,
-    problem_type,
-    status,
+    assigned_to,
+    technician,
     remarks,
-    // subject,
-    // call_type,
+    document_series_no,
   } = item;
 
-  const date = moment(created_at).format("ll");
+  const date = moment(created_at).format("l");
+  const time = moment(created_at).format("LT");
 
   return (
     <div>
@@ -177,54 +180,84 @@ const ScRPdf = ({ code, item, close }) => {
         Close
       </button>
       <PDFViewer style={styles.viewer}>
-        <Document>
+        <Document title={`Service Call ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />
+
+            <View style={styles.section}>
+              <Text style={styles.title}>Service Call</Text>
+            </View>
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText2}>MFR Serial No.</Text>
-                  <Text style={styles.contentText2}>Assigned To</Text>
-                  <Text style={styles.contentText2}>Contact Number</Text>
-                  <Text style={styles.contentText2}>Technician</Text>
-                  <Text style={styles.contentText2}>Date Created</Text>
+                  <Text style={styles.contentText2}>Customer Name</Text>
+                  <Text style={styles.contentText2}>Contact Person</Text>
+                  <Text style={styles.contentText2}>Phone No.</Text>
+                  <Text style={styles.contentText2}>Item No.</Text>
+                  <Text style={styles.contentText2}>Description</Text>
+                  <Text style={styles.contentText2}>Mfr Serial No.</Text>
+                  <Text style={styles.contentText2}>Serial No.</Text>
                 </View>
                 <View>
-                  <Text style={styles.contentText2}>{mfr_serial_no}</Text>
-                  <Text style={styles.contentText2}>{assigned_to}</Text>
+                  <Text style={styles.contentText2}>{customer_name}</Text>
                   <Text style={styles.contentText2}>{contact_number}</Text>
-                  <Text style={styles.contentText2}>{technician}</Text>
-                  <Text style={styles.contentText2}>{date}</Text>
+                  <Text style={styles.contentText2}>{phone_no}</Text>
+                  <Text style={styles.contentText2}>{item_no}</Text>
+                  <Text style={styles.contentText2}>{description}</Text>
+                  <Text style={styles.contentText2}>{mfr_serial_no}</Text>
+                  <Text style={styles.contentText2}>{serial_no}</Text>
                 </View>
               </View>
-              <View style={styles.qrcode}>
-                <Image src={code} />
-                <Text style={styles.doc_series_no}>{document_series_no}</Text>
+
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Call ID</Text>
+                  <Text style={styles.contentText2}>Created on</Text>
+                  <Text style={styles.contentText2}>Status</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{id}</Text>
+                  <Text style={styles.contentText2}>
+                    {date} {time}
+                  </Text>
+                  <Text style={styles.contentText2}>{status}</Text>
+                </View>
               </View>
             </View>
 
-            <View style={styles.table}>
-              <View style={[styles.row, styles.bold, styles.header]}>
-                <Text style={styles.row1}>Serial No</Text>
-                <Text style={styles.row2}>Description</Text>
-                <Text style={styles.row2}>Item No.</Text>
-                <Text style={styles.row3}>Origin</Text>
-                <Text style={styles.row4}>Priority</Text>
-                <Text style={styles.row5}>Problem Type</Text>
-                <Text style={styles.row6}>Status</Text>
-                <Text style={styles.row7}>Remarks</Text>
+            <View style={[styles.section2, { marginTop: 15 }]}>
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Subject</Text>
+                  <Text style={styles.contentText2}>Origin</Text>
+                  <Text style={styles.contentText2}>Priority</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{subject}</Text>
+                  <Text style={styles.contentText2}>{origin}</Text>
+                  <Text style={styles.contentText2}>{priority}</Text>
+                </View>
               </View>
 
-              <View style={[styles.row, styles.body]}>
-                <Text style={styles.row1}>{serial_no}</Text>
-                <Text style={styles.row2}>{description}</Text>
-                <Text style={styles.row2}>{item_no}</Text>
-                <Text style={styles.row3}>{origin}</Text>
-                <Text style={styles.row4}>{priority}</Text>
-                <Text style={styles.row5}>{problem_type}</Text>
-                <Text style={styles.row6}>{status}</Text>
-                <Text style={styles.row7}>{remarks}</Text>
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Assigned to</Text>
+                  <Text style={styles.contentText2}>Technician</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{assigned_to}</Text>
+                  <Text style={styles.contentText2}>{technician}</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={[styles.section2, { marginTop: 15 }]}>
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Remarks</Text>
+                  <Text style={styles.contentText2}>{remarks}</Text>
+                </View>
               </View>
             </View>
           </Page>

@@ -174,9 +174,9 @@ const MroPdf = ({ code, item, close }) => {
         Close
       </button>
       <PDFViewer style={styles.viewer}>
-        {/* Start of the document*/}
-        <Document>
-          {/*render a single page*/}
+        <Document
+          title={`Maintence, Repairs, Operations ${document_series_no}`}
+        >
           <Page size="A4" style={styles.page}>
             <Image style={styles.logo} src={Logo} />
 
