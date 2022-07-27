@@ -2,6 +2,7 @@
   "name": "react-gfi",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@craco/craco": "^6.4.5",
     "@david.kucsai/react-pdf-table": "^0.4.1",
