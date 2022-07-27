@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const ValidDocument = ({ data }) => {
   return (
     <section className="content">
@@ -21,16 +23,12 @@ const ValidDocument = ({ data }) => {
             <p>{data.document_series_no}</p>
           </div>
           <div className="form-group" style={{ display: "flex" }}>
-            <label style={{ marginRight: 12 }}>Customer Name:</label>
-            <p>{data.customer_name}</p>
+            <label style={{ marginRight: 12 }}>Date created:</label>
+            <p>{moment(data.created_at).format("ll")}</p>
           </div>
           <div className="form-group" style={{ display: "flex" }}>
             <label style={{ marginRight: 12 }}>Prepared by:</label>
             <p>{data.prepared_by}</p>
-          </div>
-          <div className="form-group" style={{ display: "flex" }}>
-            <label style={{ marginRight: 12 }}>Released by:</label>
-            <p>{data.released_by}</p>
           </div>
           <div className="form-group" style={{ display: "flex" }}>
             <label style={{ marginRight: 12 }}>Approved by:</label>

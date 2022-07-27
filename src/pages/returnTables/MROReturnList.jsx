@@ -59,7 +59,7 @@ function MROReturnList() {
       const res = await axios.get("/api/get/returnslip?form=mro", config);
       setMroRList(res.data);
       setIsMroR(false);
-      setFilteredData(res.data)
+      setFilteredData(res.data);
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -71,33 +71,36 @@ function MROReturnList() {
     setIsLoading(false);
   }, [auth, setMroRList, isMroR, setIsMroR]);
 
-  const columns=[
+  const columns = [
     {
-      name:"Document Series No",
-      selector: (row) => row.document_series_no
+      name: "Document Series No",
+      selector: (row) => row.document_series_no,
     },
     {
-      name:"Department",
-      selector: (row) => row.department
+      name: "Department",
+      selector: (row) => row.department,
     },
     {
-      name:"MR Number",
-      selector: (row) => row.mr_no
+      name: "MR Number",
+      selector: (row) => row.mr_no,
     },
     {
-      name:"Received by",
-      selector: (row) => row.received_by
+      name: "Received by",
+      selector: (row) => row.received_by,
     },
     {
-      name:"Action",
-      cell: (row) => <button
-      type="button"
-      className="btn btn-outline-warning"
-      onClick={(e) => handlePdf(e, row)}>
-      <i className="fas fa-file-pdf info"></i>
-    </button>
+      name: "Action",
+      cell: (row) => (
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={(e) => handlePdf(e, row)}
+        >
+          <i className="fas fa-file-pdf info"></i>
+        </button>
+      ),
     },
-  ]
+  ];
 
   useEffect(() => {
     if (isMroR === true) {
@@ -109,13 +112,14 @@ function MROReturnList() {
     if (itemArr.length === 0) {
       getSlipList();
     }
-  }, [itemArr, getSlipList]);  useEffect(() => {
+  }, [itemArr, getSlipList]);
+  useEffect(() => {
     const result = itemArr.filter((data) => {
       return data.document_series_no.match(search);
       // return data.document_series_no.toLowerCase().match(search.toLowerCase());
     });
-    setFilteredData(result)
-  }, [search])
+    setFilteredData(result);
+  }, [search, itemArr]);
 
   return (
     <div className="content-wrapper">
@@ -123,7 +127,9 @@ function MROReturnList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Maintence, Repairs, Operations Return Slip List</h1>
+              <h1 className="m-0">
+                Maintence, Repairs, Operations Return Slip List
+              </h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -131,7 +137,9 @@ function MROReturnList() {
                 <li className="breadcrumb-item">
                   <Link to="#">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Maintence, Repairs, Operations Return Slip List</li>
+                <li className="breadcrumb-item active">
+                  Maintence, Repairs, Operations Return Slip List
+                </li>
               </ol>
             </div>
             {/* /.col */}
@@ -154,7 +162,6 @@ function MROReturnList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
-
                     {/*  */}
                     <div className="card-tools">
                       <Link to="/mro-return" className="btn btn-success">
@@ -163,8 +170,8 @@ function MROReturnList() {
                     </div>
                   </div>
                   <div className="card-body">
-                   <DataTable
-                      columns={columns} 
+                    <DataTable
+                      columns={columns}
                       data={filteredData}
                       pagination
                       fixedHeader
@@ -172,11 +179,12 @@ function MROReturnList() {
                       highlightOnHover
                       subHeader
                       subHeaderComponent={
-                        <input type="text" 
-                        placeholder="Search" 
-                        className="w-25 form-control"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="w-25 form-control"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
                         />
                       }
                     />

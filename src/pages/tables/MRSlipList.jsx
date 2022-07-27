@@ -59,7 +59,7 @@ function MRSlipList() {
       const res = await axios.get("/api/get/memorandum", config);
       setMrList(res.data.data);
       setIsMr(false);
-      setFilteredData(res.data.data)
+      setFilteredData(res.data.data);
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -71,33 +71,36 @@ function MRSlipList() {
     setIsLoading(false);
   }, [auth, setMrList, isMr, setIsMr]);
 
-  const columns=[
+  const columns = [
     {
-      name:"Document Series No",
-      selector: (row) => row.document_series_no
+      name: "Document Series No",
+      selector: (row) => row.document_series_no,
     },
     {
-      name:"Name of Employee",
-      selector: (row) => row.name_of_employee
+      name: "Name of Employee",
+      selector: (row) => row.name_of_employee,
     },
     {
-      name:"Section",
-      selector: (row) => row.section
+      name: "Section",
+      selector: (row) => row.section,
     },
     {
-      name:"Asset Code",
-      selector: (row) => row.asset_code
+      name: "Asset Code",
+      selector: (row) => row.asset_code,
     },
     {
-      name:"Action",
-      cell: (row) => <button
-      type="button"
-      className="btn btn-outline-warning"
-      onClick={(e) => handlePdf(e, row)}>
-      <i className="fas fa-file-pdf info"></i>
-    </button>
+      name: "Action",
+      cell: (row) => (
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={(e) => handlePdf(e, row)}
+        >
+          <i className="fas fa-file-pdf info"></i>
+        </button>
+      ),
     },
-  ]
+  ];
 
   useEffect(() => {
     if (isMr === true) {
@@ -116,8 +119,8 @@ function MRSlipList() {
       return data.document_series_no.match(search);
       // return data.document_series_no.toLowerCase().match(search.toLowerCase());
     });
-    setFilteredData(result)
-  }, [search])
+    setFilteredData(result);
+  }, [search, itemArr]);
 
   return (
     <div className="content-wrapper">
@@ -164,7 +167,7 @@ function MRSlipList() {
                   </div>
                   <div className="card-body">
                     <DataTable
-                      columns={columns} 
+                      columns={columns}
                       data={filteredData}
                       pagination
                       fixedHeader
@@ -172,11 +175,12 @@ function MRSlipList() {
                       highlightOnHover
                       subHeader
                       subHeaderComponent={
-                        <input type="text" 
-                        placeholder="Search" 
-                        className="w-25 form-control"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="w-25 form-control"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
                         />
                       }
                     />

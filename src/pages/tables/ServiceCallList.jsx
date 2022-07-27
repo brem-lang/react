@@ -59,7 +59,7 @@ function ServiceCallList() {
       const res = await axios.get("/api/get/servicecall", config);
       setScList(res.data.data);
       setIsSc(false);
-      setFilteredData(res.data.data)
+      setFilteredData(res.data.data);
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -71,33 +71,36 @@ function ServiceCallList() {
     setIsLoading(false);
   }, [auth, setScList, isSc, setIsSc]);
 
-  const columns=[
+  const columns = [
     {
-      name:"Customer Name",
-      selector: (row) => row.document_series_no
+      name: "Customer Name",
+      selector: (row) => row.document_series_no,
     },
     {
-      name:"Contact Number",
-      selector: (row) => row.name_of_employee
+      name: "Contact Number",
+      selector: (row) => row.name_of_employee,
     },
     {
-      name:"Serial Number",
-      selector: (row) => row.section
+      name: "Serial Number",
+      selector: (row) => row.section,
     },
     {
-      name:"Status",
-      selector: (row) => row.asset_code
+      name: "Status",
+      selector: (row) => row.asset_code,
     },
     {
-      name:"Action",
-      cell: (row) => <button
-      type="button"
-      className="btn btn-outline-warning"
-      onClick={(e) => handlePdf(e, row)}>
-      <i className="fas fa-file-pdf info"></i>
-    </button>
+      name: "Action",
+      cell: (row) => (
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={(e) => handlePdf(e, row)}
+        >
+          <i className="fas fa-file-pdf info"></i>
+        </button>
+      ),
     },
-  ]
+  ];
 
   useEffect(() => {
     if (isSc === true) {
@@ -116,8 +119,8 @@ function ServiceCallList() {
       return data.document_series_no.match(search);
       // return data.document_series_no.toLowerCase().match(search.toLowerCase());
     });
-    setFilteredData(result)
-  }, [search])
+    setFilteredData(result);
+  }, [search, itemArr]);
 
   return (
     <div className="content-wrapper">
@@ -163,8 +166,8 @@ function ServiceCallList() {
                     </div>
                   </div>
                   <div className="card-body">
-                   <DataTable
-                      columns={columns} 
+                    <DataTable
+                      columns={columns}
                       data={filteredData}
                       pagination
                       fixedHeader
@@ -172,11 +175,12 @@ function ServiceCallList() {
                       highlightOnHover
                       subHeader
                       subHeaderComponent={
-                        <input type="text" 
-                        placeholder="Search" 
-                        className="w-25 form-control"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="w-25 form-control"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
                         />
                       }
                     />

@@ -59,7 +59,7 @@ function MASlipList() {
       const res = await axios.get("/api/get/wsma", config);
       setMaList(res.data.data);
       setIsMa(false);
-      setFilteredData(res.data.data)
+      setFilteredData(res.data.data);
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -71,33 +71,36 @@ function MASlipList() {
     setIsLoading(false);
   }, [auth, setMaList, isMa, setIsMa]);
 
-  const columns=[
+  const columns = [
     {
-      name:"Document Series No",
-      selector: (row) => row.document_series_no
+      name: "Document Series No",
+      selector: (row) => row.document_series_no,
     },
     {
-      name:"Prepared by",
-      selector: (row) => row.prepared_by
+      name: "Prepared by",
+      selector: (row) => row.prepared_by,
     },
     {
-      name:"Approved by",
-      selector: (row) => row.approved_by
+      name: "Approved by",
+      selector: (row) => row.approved_by,
     },
     {
-      name:"Release by",
-      selector: (row) => row.released_by
+      name: "Release by",
+      selector: (row) => row.released_by,
     },
     {
-      name:"Action",
-      cell: (row) => <button
-      type="button"
-      className="btn btn-outline-warning"
-      onClick={(e) => handlePdf(e, row)}>
-      <i className="fas fa-file-pdf info"></i>
-    </button>
+      name: "Action",
+      cell: (row) => (
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={(e) => handlePdf(e, row)}
+        >
+          <i className="fas fa-file-pdf info"></i>
+        </button>
+      ),
     },
-  ]
+  ];
 
   useEffect(() => {
     if (isMa === true) {
@@ -116,8 +119,8 @@ function MASlipList() {
       return data.document_series_no.match(search);
       // return data.document_series_no.toLowerCase().match(search.toLowerCase());
     });
-    setFilteredData(result)
-  }, [search])
+    setFilteredData(result);
+  }, [search, itemArr]);
 
   return (
     <div className="content-wrapper">
@@ -133,7 +136,9 @@ function MASlipList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Minor Asset Item Withdrawal Slip List</li>
+                <li className="breadcrumb-item active">
+                  Minor Asset Item Withdrawal Slip List
+                </li>
               </ol>
             </div>
             {/* /.col */}
@@ -163,8 +168,8 @@ function MASlipList() {
                     </div>
                   </div>
                   <div className="card-body">
-                   <DataTable
-                      columns={columns} 
+                    <DataTable
+                      columns={columns}
                       data={filteredData}
                       pagination
                       fixedHeader
@@ -172,11 +177,12 @@ function MASlipList() {
                       highlightOnHover
                       subHeader
                       subHeaderComponent={
-                        <input type="text" 
-                        placeholder="Search" 
-                        className="w-25 form-control"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="w-25 form-control"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
                         />
                       }
                     />

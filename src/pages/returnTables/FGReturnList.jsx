@@ -59,7 +59,7 @@ function FGReturnList() {
       const res = await axios.get("/api/get/returnslip?form=fg", config);
       setFgRList(res.data);
       setIsFgR(false);
-      setFilteredData(res.data)
+      setFilteredData(res.data);
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -71,33 +71,36 @@ function FGReturnList() {
     setIsLoading(false);
   }, [auth, setFgRList, isFgR, setIsFgR]);
 
-  const columns=[
+  const columns = [
     {
-      name:"Document Series No",
-      selector: (row) => row.document_series_no
+      name: "Document Series No",
+      selector: (row) => row.document_series_no,
     },
     {
-      name:"Department",
-      selector: (row) => row.department
+      name: "Department",
+      selector: (row) => row.department,
     },
     {
-      name:"MR Number",
-      selector: (row) => row.mr_no
+      name: "MR Number",
+      selector: (row) => row.mr_no,
     },
     {
-      name:"Received by",
-      selector: (row) => row.received_by
+      name: "Received by",
+      selector: (row) => row.received_by,
     },
     {
-      name:"Action",
-      cell: (row) => <button
-      type="button"
-      className="btn btn-outline-warning"
-      onClick={(e) => handlePdf(e, row)}>
-      <i className="fas fa-file-pdf info"></i>
-    </button>
+      name: "Action",
+      cell: (row) => (
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={(e) => handlePdf(e, row)}
+        >
+          <i className="fas fa-file-pdf info"></i>
+        </button>
+      ),
     },
-  ]
+  ];
 
   useEffect(() => {
     if (isFgR === true) {
@@ -116,8 +119,8 @@ function FGReturnList() {
       return data.document_series_no.match(search);
       // return data.document_series_no.toLowerCase().match(search.toLowerCase());
     });
-    setFilteredData(result)
-  }, [search])
+    setFilteredData(result);
+  }, [search, itemArr]);
 
   return (
     <div className="content-wrapper">
@@ -133,7 +136,9 @@ function FGReturnList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Finished Goods Return Slip List</li>
+                <li className="breadcrumb-item active">
+                  Finished Goods Return Slip List
+                </li>
               </ol>
             </div>
             {/* /.col */}
@@ -164,8 +169,8 @@ function FGReturnList() {
                     </div>
                   </div>
                   <div className="card-body">
-                   <DataTable
-                      columns={columns} 
+                    <DataTable
+                      columns={columns}
                       data={filteredData}
                       pagination
                       fixedHeader
@@ -173,11 +178,12 @@ function FGReturnList() {
                       highlightOnHover
                       subHeader
                       subHeaderComponent={
-                        <input type="text" 
-                        placeholder="Search" 
-                        className="w-25 form-control"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="w-25 form-control"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
                         />
                       }
                     />

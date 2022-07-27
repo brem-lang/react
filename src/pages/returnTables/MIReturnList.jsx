@@ -59,7 +59,7 @@ function MIReturnList() {
       const res = await axios.get("/api/get/returnslip?form=mi", config);
       setMiRList(res.data);
       setIsMiR(false);
-      setFilteredData(res.data)
+      setFilteredData(res.data);
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
@@ -71,33 +71,36 @@ function MIReturnList() {
     setIsLoading(false);
   }, [auth, setMiRList, isMiR, setIsMiR]);
 
-  const columns=[
+  const columns = [
     {
-      name:"Document Series No",
-      selector: (row) => row.document_series_no
+      name: "Document Series No",
+      selector: (row) => row.document_series_no,
     },
     {
-      name:"Department",
-      selector: (row) => row.department
+      name: "Department",
+      selector: (row) => row.department,
     },
     {
-      name:"MR Number",
-      selector: (row) => row.mr_no
+      name: "MR Number",
+      selector: (row) => row.mr_no,
     },
     {
-      name:"Received by",
-      selector: (row) => row.received_by
+      name: "Received by",
+      selector: (row) => row.received_by,
     },
     {
-      name:"Action",
-      cell: (row) => <button
-      type="button"
-      className="btn btn-outline-warning"
-      onClick={(e) => handlePdf(e, row)}>
-      <i className="fas fa-file-pdf info"></i>
-    </button>
+      name: "Action",
+      cell: (row) => (
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={(e) => handlePdf(e, row)}
+        >
+          <i className="fas fa-file-pdf info"></i>
+        </button>
+      ),
     },
-  ]
+  ];
 
   useEffect(() => {
     if (isMiR === true) {
@@ -116,8 +119,8 @@ function MIReturnList() {
       return data.document_series_no.match(search);
       // return data.document_series_no.toLowerCase().match(search.toLowerCase());
     });
-    setFilteredData(result)
-  }, [search])
+    setFilteredData(result);
+  }, [search, itemArr]);
 
   return (
     <div className="content-wrapper">
@@ -133,7 +136,9 @@ function MIReturnList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Merchandise Return Slip List</li>
+                <li className="breadcrumb-item active">
+                  Merchandise Return Slip List
+                </li>
               </ol>
             </div>
             {/* /.col */}
@@ -156,7 +161,6 @@ function MIReturnList() {
               <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="card">
                   <div className="card-header">
-
                     {/*  */}
                     <div className="card-tools">
                       <Link to="/mi-return" className="btn btn-success">
@@ -167,7 +171,7 @@ function MIReturnList() {
 
                   <div className="card-body">
                     <DataTable
-                      columns={columns} 
+                      columns={columns}
                       data={filteredData}
                       pagination
                       fixedHeader
@@ -175,11 +179,12 @@ function MIReturnList() {
                       highlightOnHover
                       subHeader
                       subHeaderComponent={
-                        <input type="text" 
-                        placeholder="Search" 
-                        className="w-25 form-control"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="w-25 form-control"
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
                         />
                       }
                     />
