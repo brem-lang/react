@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 function DMReturnSlip() {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsDmR } = useContext(SlipContext);
+  const { setIsDmR, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -40,8 +40,10 @@ function DMReturnSlip() {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsDmR(true);
-        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
-          navigate("/dm-return-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great", "Return slip successfully created.", "success").then(
+          () => navigate("/dm-return-logs")
         );
       }
     } catch (err) {

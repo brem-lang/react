@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const MRSlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsMr } = useContext(SlipContext);
+  const { setIsMr, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -31,8 +31,10 @@ const MRSlip = () => {
 
       if (res.data.success === true) {
         setIsMr(true);
-        Swal.fire("Great!", "Memorandum successfully created.", "success").then(() =>
-          navigate("/mr-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great!", "Memorandum successfully created.", "success").then(
+          () => navigate("/mr-logs")
         );
       }
     } catch (err) {

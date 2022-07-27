@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 export default function ServiceCall() {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsSc } = useContext(SlipContext);
+  const { setIsSc, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -31,8 +31,10 @@ export default function ServiceCall() {
 
       if (res.data.success === true) {
         setIsSc(true);
-        Swal.fire("Great", "Service Call successfully add", "success").then(() =>
-          navigate("/servicecall-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great", "Service Call successfully add", "success").then(
+          () => navigate("/servicecall-logs")
         );
       }
     } catch (err) {

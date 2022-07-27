@@ -14,8 +14,6 @@ const LoginPage = () => {
   const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
-  // const location = useLocation();
-  // const from = location.state?.from?.pathname || "/";
 
   const [dataField, setDataField] = useState(initialVal);
 

@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const FGSlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsFg } = useContext(SlipContext);
+  const { setIsFg, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -42,9 +42,13 @@ const FGSlip = () => {
 
       if (res.data.success === true) {
         setIsFg(true);
-        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
-          navigate("/fg-logs")
-        );
+        setIsSlipCount(true);
+
+        Swal.fire(
+          "Great!",
+          "Withdrawal slip successfully created.",
+          "success"
+        ).then(() => navigate("/fg-logs"));
       }
     } catch (err) {
       console.error(err);
@@ -66,7 +70,9 @@ const FGSlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Finished Goods Withdrawal Slip</li>
+                <li className="breadcrumb-item active">
+                  Finished Goods Withdrawal Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

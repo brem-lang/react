@@ -20,6 +20,46 @@ const AppMenu = () => {
   const allowedMr = [ROLES.administrator, ROLES.mr_clerk];
   const allowedSc = [ROLES.administrator, ROLES.sc_clerk];
 
+  const parentRoute = () => {
+    // let route;
+    const userRole = auth?.roles;
+    const miRole = auth?.roles?.find((role) => allowedMi?.includes(role));
+    const mroRole = auth?.roles?.find((role) => allowedMro?.includes(role));
+    const dmRole = auth?.roles?.find((role) => allowedDm?.includes(role));
+    const fgRole = auth?.roles?.find((role) => allowedFg?.includes(role));
+    const faRole = auth?.roles?.find((role) => allowedFa?.includes(role));
+    const maRole = auth?.roles?.find((role) => allowedMa?.includes(role));
+    const mrRole = auth?.roles?.find((role) => allowedMr?.includes(role));
+    const scRole = auth?.roles?.find((role) => allowedSc?.includes(role));
+    switch (userRole) {
+      case userRole === miRole:
+        return "/mi-logs";
+      case userRole === mroRole:
+        return "/mro-logs";
+
+      case userRole === dmRole:
+        return "/dm-logs";
+
+      case userRole === fgRole:
+        return "/fg-logs";
+
+      case userRole === faRole:
+        return "/fa-logs";
+
+      case userRole === maRole:
+        return "/ma-logs";
+
+      case userRole === mrRole:
+        return "/mr-logs";
+
+      case userRole === scRole:
+        return "/servicecall-logs";
+
+      default:
+        return "/mi-logs";
+    }
+  };
+
   return (
     <aside className="main-sidebar sidebar-primary elevation-4">
       <Link to="/" className="brand-link">
@@ -30,7 +70,7 @@ const AppMenu = () => {
           style={{ opacity: "0.8" }}
         />
         <span className="brand-text font-weight-light">
-          Gensan Feedmil, Inc.
+          Gensan Feedmill, Inc.
         </span>
       </Link>
 
@@ -77,7 +117,7 @@ const AppMenu = () => {
 
             <li className="nav-item menu-open">
               <Link
-                to="/mi-logs"
+                to={parentRoute}
                 className={`nav-link 
                 ${location === "/mi-logs" && "active"}
                 ${location === "/mro-logs" && "active"}

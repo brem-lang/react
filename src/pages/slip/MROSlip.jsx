@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const MROSlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsMro } = useContext(SlipContext);
+  const { setIsMro, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -42,9 +42,13 @@ const MROSlip = () => {
 
       if (res.data.success === true) {
         setIsMro(true);
-        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
-          navigate("/mro-logs")
-        );
+        setIsSlipCount(true);
+
+        Swal.fire(
+          "Great!",
+          "Withdrawal slip successfully created.",
+          "success"
+        ).then(() => navigate("/mro-logs"));
       }
     } catch (err) {
       console.error(err);
@@ -58,7 +62,9 @@ const MROSlip = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Maintence, Repairs, Operations Withdrawal Slip</h1>
+              <h1 className="m-0">
+                Maintence, Repairs, Operations Withdrawal Slip
+              </h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -66,7 +72,9 @@ const MROSlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Maintence, Repairs, Operations Withdrawal Slip</li>
+                <li className="breadcrumb-item active">
+                  Maintence, Repairs, Operations Withdrawal Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

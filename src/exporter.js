@@ -34,24 +34,24 @@ const FASlipReturn = React.lazy(() => import("./pages/return/FAReturnSlip"));
 const MASlipReturn = React.lazy(() => import("./pages/return/MAReturnSlip"));
 
 // slip tables
-// const MISlipList = React.lazy(() => import("./pages/tables/MISlipList"));
-// const MROSlipList = React.lazy(() => import("./pages/tables/MROSlipList"));
-// const DMSlipList = React.lazy(() => import("./pages/tables/DMSlipList"));
-// const FGSlipList = React.lazy(() => import("./pages/tables/FGSlipList"));
-// const FASlipList = React.lazy(() => import("./pages/tables/FASlipList"));
-// const MASlipList = React.lazy(() => import("./pages/tables/MASlipList"));
-// const MRSlipList = React.lazy(() => import("./pages/tables/MRSlipList"));
-// const ServiceCallList = React.lazy(() =>
-//   import("./pages/tables/ServiceCallList")
-// );
-export { default as MISlipList } from "./pages/tables/MISlipList";
-export { default as MROSlipList } from "./pages/tables/MROSlipList";
-export { default as DMSlipList } from "./pages/tables/DMSlipList";
-export { default as FGSlipList } from "./pages/tables/FGSlipList";
-export { default as FASlipList } from "./pages/tables/FASlipList";
-export { default as MASlipList } from "./pages/tables/MASlipList";
-export { default as MRSlipList } from "./pages/tables/MRSlipList";
-export { default as ServiceCallList } from "./pages/tables/ServiceCallList";
+const MISlipList = React.lazy(() => import("./pages/tables/MISlipList"));
+const MROSlipList = React.lazy(() => import("./pages/tables/MROSlipList"));
+const DMSlipList = React.lazy(() => import("./pages/tables/DMSlipList"));
+const FGSlipList = React.lazy(() => import("./pages/tables/FGSlipList"));
+const FASlipList = React.lazy(() => import("./pages/tables/FASlipList"));
+const MASlipList = React.lazy(() => import("./pages/tables/MASlipList"));
+const MRSlipList = React.lazy(() => import("./pages/tables/MRSlipList"));
+const ServiceCallList = React.lazy(() =>
+  import("./pages/tables/ServiceCallList")
+);
+// export { default as MISlipList } from "./pages/tables/MISlipList";
+// export { default as MROSlipList } from "./pages/tables/MROSlipList";
+// export { default as DMSlipList } from "./pages/tables/DMSlipList";
+// export { default as FGSlipList } from "./pages/tables/FGSlipList";
+// export { default as FASlipList } from "./pages/tables/FASlipList";
+// export { default as MASlipList } from "./pages/tables/MASlipList";
+// export { default as MRSlipList } from "./pages/tables/MRSlipList";
+// export { default as ServiceCallList } from "./pages/tables/ServiceCallList";
 
 // return slip logs
 const MISlipReturnLogs = React.lazy(() =>
@@ -90,13 +90,14 @@ export {
   MRSlip,
   UserList,
   ServiceCall,
-  // // MISlipList,
-  // MROSlipList,
-  // DMSlipList,
-  // FGSlipList,
-  // FASlipList,
-  // MASlipList,
-  // MRSlipList,
+  MISlipList,
+  MROSlipList,
+  DMSlipList,
+  FGSlipList,
+  FASlipList,
+  MASlipList,
+  MRSlipList,
+  ServiceCallList,
   Logs,
   MISlipReturn,
   MROSlipReturn,
@@ -110,5 +111,4 @@ export {
   FGSlipReturnLogs,
   FASlipReturnLogs,
   MASlipReturnLogs,
-  // ServiceCallList,
 };

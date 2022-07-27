@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const MISlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsMi } = useContext(SlipContext);
+  const { setIsMi, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -43,9 +43,13 @@ const MISlip = () => {
 
       if (res.data.success === true) {
         setIsMi(true);
-        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
-          navigate("/mi-logs")
-        );
+        setIsSlipCount(true);
+
+        Swal.fire(
+          "Great!",
+          "Withdrawal slip successfully created.",
+          "success"
+        ).then(() => navigate("/mi-logs"));
       }
     } catch (err) {
       console.error(err);
@@ -67,7 +71,9 @@ const MISlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Merchandise Withdrawal Slip</li>
+                <li className="breadcrumb-item active">
+                  Merchandise Withdrawal Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

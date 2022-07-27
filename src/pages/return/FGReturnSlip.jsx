@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 function FGReturnSlip() {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsFgR } = useContext(SlipContext);
+  const { setIsFgR, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -40,8 +40,10 @@ function FGReturnSlip() {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsFgR(true);
-        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
-          navigate("/fg-return-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great", "Return slip successfully created.", "success").then(
+          () => navigate("/fg-return-logs")
         );
       }
     } catch (err) {
@@ -63,7 +65,9 @@ function FGReturnSlip() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Finished Goods Return Slip</li>
+                <li className="breadcrumb-item active">
+                  Finished Goods Return Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

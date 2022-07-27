@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const MISlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsMiR } = useContext(SlipContext);
+  const { setIsMiR, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -40,8 +40,10 @@ const MISlip = () => {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsMiR(true);
-        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
-          navigate("/mi-return-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great", "Return slip successfully created.", "success").then(
+          () => navigate("/mi-return-logs")
         );
       }
     } catch (err) {
@@ -63,7 +65,9 @@ const MISlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Merchandise Return Slip</li>
+                <li className="breadcrumb-item active">
+                  Merchandise Return Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

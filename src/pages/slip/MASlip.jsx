@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const MASlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsMa } = useContext(SlipContext);
+  const { setIsMa, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -43,9 +43,13 @@ const MASlip = () => {
 
       if (res.data.success === true) {
         setIsMa(true);
-        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
-          navigate("/ma-logs")
-        );
+        setIsSlipCount(true);
+
+        Swal.fire(
+          "Great!",
+          "Withdrawal slip successfully created.",
+          "success"
+        ).then(() => navigate("/ma-logs"));
       }
     } catch (err) {
       console.error(err);
@@ -67,7 +71,9 @@ const MASlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Minor Asset Item Withdrawal Slip</li>
+                <li className="breadcrumb-item active">
+                  Minor Asset Item Withdrawal Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

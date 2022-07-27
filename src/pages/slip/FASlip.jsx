@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const FASlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsFa } = useContext(SlipContext);
+  const { setIsFa, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -31,7 +31,6 @@ const FASlip = () => {
 
   // Submit using axios
   const onSubmit = async (data) => {
-    // console.log(JSON.stringify(data))
     let config = {
       headers: {
         Authorization: `Bearer ${auth.token}`,
@@ -43,9 +42,13 @@ const FASlip = () => {
 
       if (res.data.success === true) {
         setIsFa(true);
-        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
-          navigate("/fa-logs")
-        );
+        setIsSlipCount(true);
+
+        Swal.fire(
+          "Great!",
+          "Withdrawal slip successfully created.",
+          "success"
+        ).then(() => navigate("/fa-logs"));
       }
     } catch (err) {
       console.error(err);
@@ -67,7 +70,9 @@ const FASlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Fixed Asset Item Withdrawal Slip</li>
+                <li className="breadcrumb-item active">
+                  Fixed Asset Item Withdrawal Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

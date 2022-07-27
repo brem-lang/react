@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 function FAReturnSlip() {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsFaR } = useContext(SlipContext);
+  const { setIsFaR, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -40,8 +40,10 @@ function FAReturnSlip() {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsFaR(true);
-        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
-          navigate("/fa-return-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great", "Return slip successfully created.", "success").then(
+          () => navigate("/fa-return-logs")
         );
       }
     } catch (err) {
@@ -63,7 +65,9 @@ function FAReturnSlip() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Fixed Asset Item Return Slip</li>
+                <li className="breadcrumb-item active">
+                  Fixed Asset Item Return Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

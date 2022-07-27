@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 function MAReturnSlip() {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsMaR } = useContext(SlipContext);
+  const { setIsMaR, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -40,8 +40,10 @@ function MAReturnSlip() {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsMaR(true);
-        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
-          navigate("/ma-return-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great", "Return slip successfully created.", "success").then(
+          () => navigate("/ma-return-logs")
         );
       }
     } catch (err) {
@@ -63,7 +65,9 @@ function MAReturnSlip() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Minor Asset Item Return Slip</li>
+                <li className="breadcrumb-item active">
+                  Minor Asset Item Return Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}

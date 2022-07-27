@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const DMSlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsDm } = useContext(SlipContext);
+  const { setIsDm, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -43,9 +43,13 @@ const DMSlip = () => {
 
       if (res.data.success === true) {
         setIsDm(true);
-        Swal.fire("Great!", "Withdrawal slip successfully created.", "success").then(() =>
-          navigate("/dm-logs")
-        );
+        setIsSlipCount(true);
+
+        Swal.fire(
+          "Great!",
+          "Withdrawal slip successfully created.",
+          "success"
+        ).then(() => navigate("/dm-logs"));
       }
     } catch (err) {
       console.error(err);
@@ -66,7 +70,9 @@ const DMSlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Direct Material Withdrawal Slip</li>
+                <li className="breadcrumb-item active">
+                  Direct Material Withdrawal Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}
@@ -146,29 +152,28 @@ const DMSlip = () => {
                             </div>
                           </div>
                           <div className="col-6">
-                          <div className="form-floating mb-3">
-                            <input
-                              {...register("product_name", {
-                                required: "Product Name is required",
-                              })}
-                              type="text"
-                              className="form-control"
-                              placeholder="Product Name"
-                              autoComplete="off"
-                              style={{
-                                border: errors.product_name
-                                  ? "1px solid red"
-                                  : "",
-                              }}
-                            />
-                            <p>{errors.product_name?.message}</p>
+                            <div className="form-floating mb-3">
+                              <input
+                                {...register("product_name", {
+                                  required: "Product Name is required",
+                                })}
+                                type="text"
+                                className="form-control"
+                                placeholder="Product Name"
+                                autoComplete="off"
+                                style={{
+                                  border: errors.product_name
+                                    ? "1px solid red"
+                                    : "",
+                                }}
+                              />
+                              <p>{errors.product_name?.message}</p>
+                            </div>
                           </div>
                         </div>
-                        </div>
 
                         {/*  */}
                         {/*  */}
-
 
                         {/*  */}
                         {/*Dynamic Fields Begin*/}

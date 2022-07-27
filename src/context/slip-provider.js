@@ -6,6 +6,9 @@ export const SlipContext = createContext({
 });
 
 export const SlipProvider = ({ children }) => {
+  const [slipCount, setSlipCount] = useState([]);
+  const [isSlipCount, setIsSlipCount] = useState(true);
+
   const [miList, setMiList] = useState([]);
   const [isMi, setIsMi] = useState(true);
 
@@ -50,6 +53,10 @@ export const SlipProvider = ({ children }) => {
   const [isMaR, setIsMaR] = useState(true);
 
   const value = {
+    slipCount,
+    setSlipCount,
+    isSlipCount,
+    setIsSlipCount,
     miList,
     setMiList,
     isMi,

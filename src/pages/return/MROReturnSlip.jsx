@@ -10,7 +10,7 @@ import { SlipContext } from "../../context/slip-provider";
 const MISlip = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-  const { setIsMroR } = useContext(SlipContext);
+  const { setIsMroR, setIsSlipCount } = useContext(SlipContext);
 
   const {
     register,
@@ -40,8 +40,10 @@ const MISlip = () => {
       const res = await axios.post("/api/create/returnslip", data, config);
       if (res.data.success === true) {
         setIsMroR(true);
-        Swal.fire("Great", "Return slip successfully created.", "success").then(() =>
-          navigate("/mro-return-logs")
+        setIsSlipCount(true);
+
+        Swal.fire("Great", "Return slip successfully created.", "success").then(
+          () => navigate("/mro-return-logs")
         );
       }
     } catch (err) {
@@ -55,7 +57,9 @@ const MISlip = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Maintence, Repairs, Operations Return Slip</h1>
+              <h1 className="m-0">
+                Maintence, Repairs, Operations Return Slip
+              </h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -63,7 +67,9 @@ const MISlip = () => {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Maintence, Repairs, Operations Return Slip</li>
+                <li className="breadcrumb-item active">
+                  Maintence, Repairs, Operations Return Slip
+                </li>
               </ol>
             </div>
             {/* /.col */}
