@@ -15,7 +15,7 @@ const useLogout = () => {
     try {
       await axios.post("/api/auth/logout", config);
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
 
     setAuth({});
