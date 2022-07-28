@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "qrcode";
 
 import axios, { APP_URL } from "../../api/axios";
@@ -14,11 +14,11 @@ function FAReturnList() {
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const { faRList, setFaRList, isFaR, setIsFaR } = useContext(SlipContext);
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
+  const navigate = useNavigate();
   const itemArr = faRList;
 
   const handlePdf = (e, item) => {
@@ -47,6 +47,13 @@ function FAReturnList() {
     setGeneratedQR("");
   };
 
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
+
   const getSlipList = useCallback(async () => {
     if (isFaR === false) return;
 
@@ -60,15 +67,17 @@ function FAReturnList() {
       setIsFaR(false);
       setFilteredData(res.data);
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        alert("Error getting data, Unauthorized user!");
-      }
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return ResetUser();
 
-      console.log(err);
+        default:
+          return console.log(err, "default");
+      }
     }
 
     setIsLoading(false);
-  }, [auth, setFaRList, isFaR, setIsFaR]);
+  }, [auth, setFaRList, isFaR, setIsFaR, ResetUser]);
 
   const columns = [
     {

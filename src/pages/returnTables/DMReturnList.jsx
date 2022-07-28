@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "qrcode";
 
 import axios, { APP_URL } from "../../api/axios";
@@ -14,11 +14,11 @@ function DMReturnList() {
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const { dmRList, setDmRList, isDmR, setIsDmR } = useContext(SlipContext);
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
+  const navigate = useNavigate();
   const itemArr = dmRList;
 
   const handlePdf = (e, item) => {
@@ -47,6 +47,13 @@ function DMReturnList() {
     setGeneratedQR("");
   };
 
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
+
   const getSlipList = useCallback(async () => {
     if (isDmR === false) return;
 
@@ -61,15 +68,17 @@ function DMReturnList() {
       setIsDmR(false);
       setFilteredData(res.data);
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        alert("Error getting data, Unauthorized user!");
-      }
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return ResetUser();
 
-      console.log(err);
+        default:
+          return console.log(err, "default");
+      }
     }
 
     setIsLoading(false);
-  }, [auth, setDmRList, isDmR, setIsDmR]);
+  }, [auth, setDmRList, isDmR, setIsDmR, ResetUser]);
 
   const columns = [
     {

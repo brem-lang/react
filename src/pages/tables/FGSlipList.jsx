@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "qrcode";
 
 import axios, { APP_URL } from "../../api/axios";
@@ -14,10 +14,12 @@ function FGSlipList() {
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const { fgList, setFgList, isFg, setIsFg } = useContext(SlipContext);
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+
+  const navigate = useNavigate();
 
   const itemArr = fgList;
 
@@ -47,6 +49,13 @@ function FGSlipList() {
     setGeneratedQR("");
   };
 
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
+
   const getSlipList = useCallback(async () => {
     if (isFg === false) return;
 
@@ -60,15 +69,17 @@ function FGSlipList() {
       setIsFg(false);
       setFilteredData(res.data.data);
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        alert("Error getting data, Unauthorized user!");
-      }
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return ResetUser;
 
-      console.log(err);
+        default:
+          return console.log(err, "default");
+      }
     }
 
     setIsLoading(false);
-  }, [auth, setFgList, isFg, setIsFg]);
+  }, [auth, setFgList, isFg, setIsFg, ResetUser]);
 
   const columns = [
     {

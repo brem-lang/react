@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "qrcode";
 
 import axios, { APP_URL } from "../../api/axios";
@@ -14,10 +14,10 @@ function MROSlipList() {
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
+  const navigate = useNavigate();
   const { mroList, setMROList, isMro, setIsMro } = useContext(SlipContext);
 
   const itemArr = mroList;
@@ -48,6 +48,13 @@ function MROSlipList() {
     setGeneratedQR("");
   };
 
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
+
   const getSlipList = useCallback(async () => {
     if (isMro === false) return;
 
@@ -62,14 +69,16 @@ function MROSlipList() {
       setIsMro(false);
       setFilteredData(res.data.data);
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        alert("Error getting data, Unauthorized user!");
-      }
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return ResetUser();
 
-      console.log(err);
+        default:
+          return console.log(err, "default");
+      }
     }
     setIsLoading(false);
-  }, [auth, setMROList, isMro, setIsMro]);
+  }, [auth, setMROList, isMro, setIsMro, ResetUser]);
 
   const columns = [
     {

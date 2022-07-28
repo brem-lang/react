@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "qrcode";
 import useAuth from "../../hooks/useAuth";
 import MiPdf from "../../components/PDF/miPdf";
@@ -14,11 +14,12 @@ function MISlipList() {
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
   const { miList, setMiList, isMi, setIsMi } = useContext(SlipContext);
+
+  const navigate = useNavigate();
 
   const itemArr = miList;
 
@@ -48,6 +49,13 @@ function MISlipList() {
     setGeneratedQR("");
   };
 
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
+
   const getSlipList = useCallback(async () => {
     if (isMi === false) return;
     const config = {
@@ -61,14 +69,16 @@ function MISlipList() {
       setIsMi(false);
       setFilteredData(res.data.data);
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        alert("Error getting data, Unauthorized user!");
-      }
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return ResetUser();
 
-      console.log(err);
+        default:
+          return console.log(err, "default");
+      }
     }
     setIsLoading(false);
-  }, [auth, setMiList, isMi, setIsMi]);
+  }, [auth, setMiList, isMi, setIsMi, ResetUser]);
 
   const columns = [
     {

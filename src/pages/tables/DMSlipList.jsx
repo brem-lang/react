@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DmPdf from "../../components/PDF/dmPdf";
 import QRCode from "qrcode";
 
@@ -14,11 +14,12 @@ function DMSlipList() {
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
   const { dmList, setDmList, isDm, setIsDm } = useContext(SlipContext);
+
+  const navigate = useNavigate();
 
   const itemArr = dmList;
 
@@ -50,6 +51,13 @@ function DMSlipList() {
     setItem([]);
   };
 
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
+
   const getSlipList = useCallback(async () => {
     if (isDm === false) return;
 
@@ -64,13 +72,16 @@ function DMSlipList() {
       setIsDm(false);
       setFilteredData(res.data.data);
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        alert("Error getting data, Unauthorized user!");
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return ResetUser();
+
+        default:
+          return console.log(err, "default");
       }
-      console.log(err);
     }
     setIsLoading(false);
-  }, [auth, setDmList, isDm, setIsDm]);
+  }, [auth, setDmList, isDm, setIsDm, ResetUser]);
 
   const columns = [
     {

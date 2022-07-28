@@ -6,11 +6,18 @@ import useAuth from "../../hooks/useAuth";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const { slipCount, setSlipCount, isSlipCount, setIsSlipCount } =
     useContext(SlipContext);
 
   const count = slipCount;
+
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
 
   const getdataCount = useCallback(async () => {
     if (isSlipCount === false) return;
@@ -32,13 +39,16 @@ const Dashboard = () => {
       // setmroCount(res.data.data.mroCount);
       // setservicecallCount(res.data.data.servicecallCount);
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        // console.log("ERR_BAD_REQUEST");
-        navigate("/login", { replace: true });
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          // return console.log(err.code, "ERR_BAD_REQUEST");
+          return ResetUser();
+
+        default:
+          return console.log(err, "ERROR");
       }
-      console.log(err);
     }
-  }, [auth, setSlipCount, isSlipCount, setIsSlipCount, navigate]);
+  }, [auth, setSlipCount, isSlipCount, setIsSlipCount, ResetUser]);
 
   useEffect(() => {
     if (isSlipCount === true) {

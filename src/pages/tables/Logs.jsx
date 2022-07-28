@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import moment from "moment";
 
@@ -10,8 +10,15 @@ import axios from "../../api/axios";
 function Logs() {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const navigate = useNavigate();
+  const { auth, setAuth } = useAuth();
 
-  const { auth } = useAuth();
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
 
   const getData = useCallback(async () => {
     const config = {
@@ -23,11 +30,17 @@ function Logs() {
       const res = await axios("api/get/log", config);
       setFilteredData(res.data.data);
     } catch (err) {
-      console.log(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return ResetUser();
+
+        default:
+          return console.log(err, "default");
+      }
     }
 
     setIsLoading(false);
-  }, [auth, setIsLoading]);
+  }, [auth, setIsLoading, ResetUser]);
 
   useEffect(() => {
     getData();
