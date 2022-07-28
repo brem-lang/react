@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
@@ -6,10 +6,12 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
+import RedirectError from "../../routes/RedirectError";
 
 const FGSlip = () => {
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const navigate = useNavigate();
+  const redirectError = RedirectError();
   const { setIsFg, setIsSlipCount } = useContext(SlipContext);
 
   const {
@@ -28,13 +30,6 @@ const FGSlip = () => {
     control,
     name: "items",
   });
-
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
 
   // Submit using axios
   const onSubmit = async (data) => {
@@ -61,7 +56,7 @@ const FGSlip = () => {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
           // return console.log(err.code, "ERR_BAD_REQUEST");
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "ERROR");

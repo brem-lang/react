@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import QRCode from "qrcode";
 
 import axios, { APP_URL } from "../../api/axios";
@@ -8,19 +8,19 @@ import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
 import DataTable from "react-data-table-component";
+import RedirectError from "../../routes/RedirectError";
 
 function FASlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const { faList, setFaList, isFa, setIsFa } = useContext(SlipContext);
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
-  const navigate = useNavigate();
-
+  const redirectError = RedirectError();
   const itemArr = faList;
 
   const handlePdf = (e, item) => {
@@ -49,13 +49,6 @@ function FASlipList() {
     setGeneratedQR("");
   };
 
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
-
   const getSlipList = useCallback(async () => {
     if (isFa === false) return;
 
@@ -72,7 +65,7 @@ function FASlipList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "default");
@@ -80,7 +73,7 @@ function FASlipList() {
     }
 
     setIsLoading(false);
-  }, [auth, setFaList, isFa, setIsFa, ResetUser]);
+  }, [auth, setFaList, isFa, setIsFa, redirectError]);
 
   const columns = [
     {

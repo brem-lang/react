@@ -10,6 +10,7 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 
 import "./assets/css/index.css";
+import { ErrorProvider } from "./context/ErrorProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,11 +18,13 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <AuthProvider>
-          <SlipProvider>
-            <Routes>
-              <Route path="/*" element={<App />} />
-            </Routes>
-          </SlipProvider>
+          <ErrorProvider>
+            <SlipProvider>
+              <Routes>
+                <Route path="/*" element={<App />} />
+              </Routes>
+            </SlipProvider>
+          </ErrorProvider>
         </AuthProvider>
       </BrowserRouter>
     </Provider>

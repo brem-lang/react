@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
+import RedirectError from "../../routes/RedirectError";
 const initialValue = {
   name: "",
   email: "",
@@ -12,6 +13,7 @@ const initialValue = {
 const CreateUser = () => {
   const [dataField, setDataField] = useState(initialValue);
   const navigate = useNavigate();
+  const redirectError = RedirectError();
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
 
@@ -31,9 +33,8 @@ const CreateUser = () => {
       return alert("Password do not match");
 
     try {
-        const res = await axios.post("/api/auth/register", formData);
+      const res = await axios.post("/api/auth/register", formData);
       if (res.data.success === true) {
-
         Swal.fire(
           "Great!",
           "Withdrawal slip successfully created.",
@@ -41,12 +42,17 @@ const CreateUser = () => {
         ).then(() => navigate("/users"));
       }
     } catch (err) {
-      console.log(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return redirectError();
+
+        default:
+          return console.log(err, "default");
+      }
     }
   };
 
   return (
-    
     <body className="hold-transition register-page">
       <div className="register-box">
         <div className="card">

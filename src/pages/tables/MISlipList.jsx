@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import QRCode from "qrcode";
 import useAuth from "../../hooks/useAuth";
 import MiPdf from "../../components/PDF/miPdf";
@@ -8,18 +8,19 @@ import Spinner from "../../components/spinner/spinner.component";
 import DataTable from "react-data-table-component";
 
 import { SlipContext } from "../../context/slip-provider";
+import RedirectError from "../../routes/RedirectError";
 
 function MISlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const { miList, setMiList, isMi, setIsMi } = useContext(SlipContext);
 
-  const navigate = useNavigate();
+  const redirectError = RedirectError();
 
   const itemArr = miList;
 
@@ -49,13 +50,6 @@ function MISlipList() {
     setGeneratedQR("");
   };
 
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
-
   const getSlipList = useCallback(async () => {
     if (isMi === false) return;
     const config = {
@@ -71,14 +65,14 @@ function MISlipList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "default");
       }
     }
     setIsLoading(false);
-  }, [auth, setMiList, isMi, setIsMi, ResetUser]);
+  }, [auth, setMiList, isMi, setIsMi, redirectError]);
 
   const columns = [
     {

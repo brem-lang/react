@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
@@ -6,10 +6,12 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
+import RedirectError from "../../routes/RedirectError";
 
 export default function ServiceCall() {
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const navigate = useNavigate();
+  const redirectError = RedirectError();
   const { setIsSc, setIsSlipCount } = useContext(SlipContext);
 
   const {
@@ -17,13 +19,6 @@ export default function ServiceCall() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
 
   // Submit using axios
   const onSubmit = async (data) => {
@@ -49,7 +44,7 @@ export default function ServiceCall() {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
           // return console.log(err.code, "ERR_BAD_REQUEST");
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "ERROR");

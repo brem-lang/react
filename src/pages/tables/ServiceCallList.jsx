@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import QRCode from "qrcode";
 
 import axios, { APP_URL } from "../../api/axios";
@@ -8,17 +8,18 @@ import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
 import ScRPdf from "../../components/PDF/scReturnPdf";
 import DataTable from "react-data-table-component";
+import RedirectError from "../../routes/RedirectError";
 
 function ServiceCallList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const { scList, setScList, isSc, setIsSc } = useContext(SlipContext);
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const navigate = useNavigate();
+  const redirectError = RedirectError();
   const itemArr = scList;
 
   const handlePdf = (e, item) => {
@@ -47,13 +48,6 @@ function ServiceCallList() {
     setGeneratedQR("");
   };
 
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
-
   const getSlipList = useCallback(async () => {
     if (isSc === false) return;
 
@@ -70,7 +64,7 @@ function ServiceCallList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "default");
@@ -78,7 +72,7 @@ function ServiceCallList() {
     }
 
     setIsLoading(false);
-  }, [auth, setScList, isSc, setIsSc, ResetUser]);
+  }, [auth, setScList, isSc, setIsSc, redirectError]);
 
   const columns = [
     {

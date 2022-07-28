@@ -8,6 +8,7 @@ import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
+import RedirectError from "../../routes/RedirectError";
 
 function ListUsers() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +17,7 @@ function ListUsers() {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [item, setItem] = useState([]);
   const { edit, setEdit, isEdit, setIsEdit } = useContext(SlipContext);
+  const redirectError = RedirectError();
 
   const itemArr = edit;
 
@@ -32,11 +34,17 @@ function ListUsers() {
       setEdit(res.data.data);
       setIsEdit(false);
     } catch (err) {
-      console.log(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return redirectError();
+
+        default:
+          return console.log(err, "default");
+      }
     }
 
     setIsLoading(false);
-  }, [auth, setIsLoading, isEdit, setIsEdit, setEdit]);
+  }, [auth, setIsLoading, isEdit, setIsEdit, setEdit, redirectError]);
 
   useEffect(() => {
     getData();
@@ -57,7 +65,7 @@ function ListUsers() {
     // },
     {
       name: "Roles",
-      selector: (row) => row.roles.map((role) => role.name ),
+      selector: (row) => row.roles.map((role) => role.name),
     },
     {
       name: "Action",

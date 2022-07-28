@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -6,10 +6,12 @@ import Swal from "sweetalert2";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
+import RedirectError from "../../routes/RedirectError";
 
 const MROSlip = () => {
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const navigate = useNavigate();
+  const redirectError = RedirectError();
   const { setIsMro, setIsSlipCount } = useContext(SlipContext);
 
   const {
@@ -28,13 +30,6 @@ const MROSlip = () => {
     control,
     name: "items",
   });
-
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
 
   //
   const onSubmit = async (data) => {
@@ -61,7 +56,7 @@ const MROSlip = () => {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
           // return console.log(err.code, "ERR_BAD_REQUEST");
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "ERROR");

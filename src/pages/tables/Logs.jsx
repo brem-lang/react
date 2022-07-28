@@ -1,24 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import moment from "moment";
 
 import Spinner from "../../components/spinner/spinner.component";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
+import RedirectError from "../../routes/RedirectError";
 
 function Logs() {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
-  const navigate = useNavigate();
-  const { auth, setAuth } = useAuth();
-
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
+  const redirectError = RedirectError();
+  const { auth } = useAuth();
 
   const getData = useCallback(async () => {
     const config = {
@@ -32,7 +26,7 @@ function Logs() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "default");
@@ -40,7 +34,7 @@ function Logs() {
     }
 
     setIsLoading(false);
-  }, [auth, setIsLoading, ResetUser]);
+  }, [auth, setIsLoading, redirectError]);
 
   useEffect(() => {
     getData();

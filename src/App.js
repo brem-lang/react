@@ -39,7 +39,7 @@ import {
   MASlipReturnLogs,
   ServiceCallList,
   AddUser,
-  UpdateUser
+  UpdateUser,
 } from "./exporter";
 import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
@@ -50,13 +50,13 @@ import PersistLogin from "./routes/PersistLogin";
 import "./assets/css/app.css";
 import RequireRole from "./routes/RequireRoles";
 import { ROLES } from "./data/roles";
+import Testfile from "./pages/testfile";
 
 function App() {
   return (
     <Suspense fallback={<Spinner />}>
       <Routes>
         {/* Public Routes */}
-
         <Route path="/verify/*" element={<Document />} />
         <Route path="/login" element={<LoginPage />} />
 
@@ -73,7 +73,7 @@ function App() {
                 <Route path="/user/create" element={<CreateUser />} />
                 <Route path="/users" element={<UserList />} />
                 <Route path="/logs" element={<Logs />} />
-                <Route path="/add-user" element={<AddUser />} />              
+                <Route path="/add-user" element={<AddUser />} />
               </Route>
 
               {/* MI clerk access */}
@@ -198,6 +198,8 @@ function App() {
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Route>
         </Route>
+
+        <Route path="/3testCenter-not-allowed" element={<Testfile />} />
       </Routes>
     </Suspense>
   );

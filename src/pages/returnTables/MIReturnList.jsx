@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import QRCode from "qrcode";
 
 import axios, { APP_URL } from "../../api/axios";
@@ -8,17 +8,18 @@ import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
 import DataTable from "react-data-table-component";
+import RedirectError from "../../routes/RedirectError";
 
 function MIReturnList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
   const [item, setItem] = useState([]);
   const [generatedQR, setGeneratedQR] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const { miRList, setMiRList, isMiR, setIsMiR } = useContext(SlipContext);
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const navigate = useNavigate();
+  const redirectError = RedirectError();
   const itemArr = miRList;
 
   const handlePdf = (e, item) => {
@@ -47,13 +48,6 @@ function MIReturnList() {
     setGeneratedQR("");
   };
 
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
-
   const getSlipList = useCallback(async () => {
     if (isMiR === false) return;
 
@@ -70,7 +64,7 @@ function MIReturnList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "default");
@@ -78,7 +72,7 @@ function MIReturnList() {
     }
 
     setIsLoading(false);
-  }, [auth, setMiRList, isMiR, setIsMiR, ResetUser]);
+  }, [auth, setMiRList, isMiR, setIsMiR, redirectError]);
 
   const columns = [
     {

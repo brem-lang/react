@@ -1,23 +1,16 @@
 import React, { useCallback, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { SlipContext } from "../../context/slip-provider";
 import useAuth from "../../hooks/useAuth";
+import RedirectError from "../../routes/RedirectError";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const { auth, setAuth } = useAuth();
+  const { auth } = useAuth();
   const { slipCount, setSlipCount, isSlipCount, setIsSlipCount } =
     useContext(SlipContext);
 
   const count = slipCount;
-
-  const ResetUser = useCallback(() => {
-    setAuth({});
-    localStorage.removeItem("user");
-
-    return navigate("/login", { replace: true });
-  }, [setAuth, navigate]);
+  const redirectError = RedirectError();
 
   const getdataCount = useCallback(async () => {
     if (isSlipCount === false) return;
@@ -30,25 +23,16 @@ const Dashboard = () => {
       const res = await axios.get("/api/get/formcount", config);
       setSlipCount(res.data.data);
       setIsSlipCount(false);
-      // setdmCount(res.data.data.dmCount);
-      // setfaCount(res.data.data.faCount);
-      // setfgCount(res.data.data.fgCount);
-      // setmaCount(res.data.data.maCount);
-      // setmemorandumCount(res.data.data.memorandumCount);
-      // setmiCount(res.data.data.miCount);
-      // setmroCount(res.data.data.mroCount);
-      // setservicecallCount(res.data.data.servicecallCount);
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          // return console.log(err.code, "ERR_BAD_REQUEST");
-          return ResetUser();
+          return redirectError();
 
         default:
           return console.log(err, "ERROR");
       }
     }
-  }, [auth, setSlipCount, isSlipCount, setIsSlipCount, ResetUser]);
+  }, [auth, setSlipCount, isSlipCount, setIsSlipCount, redirectError]);
 
   useEffect(() => {
     if (isSlipCount === true) {
