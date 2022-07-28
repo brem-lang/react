@@ -252,9 +252,10 @@ const AppMenu = () => {
               </ul>
             </li>
 
+
             <li className="nav-item menu-open">
               <Link
-                to="/mi-return-logs"
+                to={parentRoute}
                 className={`nav-link
               ${location === "/mi-return-logs" && "active"}
               ${location === "/mro-return-logs" && "active"}
@@ -271,6 +272,7 @@ const AppMenu = () => {
                 </p>
               </Link>
               <ul className="nav nav-treeview">
+                
                 {auth?.roles?.find((role) => allowedMi?.includes(role)) && (
                   <li className="nav-item">
                     <Link

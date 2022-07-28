@@ -54,6 +54,7 @@ const AppSetting = () => {
                 Update Profile
               </Link>
           </div>
+          
             <div className="mb-4" style={{ position: "absolute", bottom: 0 }}>
               <button
                 className="btn btn-secondary"

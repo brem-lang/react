@@ -106,6 +106,7 @@ const LoginPage = () => {
     localStorage.setItem("persist", persist);
   }, [persist]);
 
+
   const toastId = React.useRef(null);
   const customId = "custom-id-yes";
 
