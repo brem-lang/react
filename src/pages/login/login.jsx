@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "../../api/axios";
 import { ROLES } from "../../data/roles";
+import { ToastContainer, toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
 
@@ -104,6 +105,17 @@ const LoginPage = () => {
     localStorage.setItem("persist", persist);
   }, [persist]);
 
+  const notify = () =>
+    toast.warn("🦄 Wow so easy!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   return (
     <div
       className="hold-transition login-page"
@@ -114,6 +126,20 @@ const LoginPage = () => {
           <Link to="/">
             <b>Gensan Feedmil, Inc.</b>
           </Link>
+        </div>
+        <div className="card">
+          <div>
+            <button onClick={notify}>Notify !</button>
+            <ToastContainer
+              position="top-right"
+              hideProgressBar={false}
+              autoClose={false}
+              newestOnTop={true}
+              closeOnClick={false}
+              draggable={false}
+              rtl={false}
+            />
+          </div>
         </div>
         <div className="card">
           <div className="card-body login-card-body">

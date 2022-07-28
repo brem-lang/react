@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
 import DataTable from "react-data-table-component";
-import moment from "moment";
-import Edit from "../../components/EditForm/Edit"
+// import moment from "moment";
+import Edit from "../../components/EditForm/Edit";
 import { SlipContext } from "../../context/slip-provider";
 
 import Spinner from "../../components/spinner/spinner.component";
@@ -10,13 +10,12 @@ import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 
 function ListUsers() {
-  
   const [isLoading, setIsLoading] = useState(false);
   // const [filteredData, setFilteredData] = useState([]);
   const { auth } = useAuth();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [item, setItem] = useState([]);
-  const { edit, setEdit,isEdit, setIsEdit } = useContext(SlipContext);
+  const { edit, setEdit, isEdit, setIsEdit } = useContext(SlipContext);
 
   const itemArr = edit;
 
@@ -30,20 +29,18 @@ function ListUsers() {
     try {
       const res = await axios("api/manage/users", config);
       // setFilteredData(res.data.data);
-      setEdit(res.data.data)
-      setIsEdit(false)
+      setEdit(res.data.data);
+      setIsEdit(false);
     } catch (err) {
       console.log(err);
     }
 
     setIsLoading(false);
-  }, [auth, setIsLoading]);
-
+  }, [auth, setIsLoading, isEdit, setIsEdit, setEdit]);
 
   useEffect(() => {
     getData();
   }, [getData]);
-
 
   const columns = [
     {
@@ -68,20 +65,19 @@ function ListUsers() {
     },
   ];
 
-  const handleEdit= (e, item) => {
+  const handleEdit = (e, item) => {
     e.preventDefault();
-    setItem(item)
-    setIsOpenEdit(true)
+    setItem(item);
+    setIsOpenEdit(true);
     // console.log(item)
-  }
+  };
 
   const closeEditForm = (e) => {
     setIsOpenEdit(false);
     setItem([]);
   };
 
-  console.log(itemArr)
-
+  console.log(itemArr);
 
   return (
     <div className="content-wrapper">
@@ -113,37 +109,37 @@ function ListUsers() {
           <Edit item={item} close={closeEditForm} />
         </section>
       ) : (
-      <section className="content">
-        <div className="container-fluid">
-          <div className="py-12">
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-              <div className="card">
-                <div className="card-header">
-                <div className="card-tools">
+        <section className="content">
+          <div className="container-fluid">
+            <div className="py-12">
+              <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="card">
+                  <div className="card-header">
+                    <div className="card-tools">
                       <Link to="/add-user" className="btn btn-success">
                         Add User
                       </Link>
                     </div>
-                </div>
-                <div className="card-body">
-                {isLoading ? (
-                    <Spinner />
-                  ) : (
-                    <DataTable
-                      columns={columns}
-                      data={itemArr}
-                      pagination
-                      selectableRowsHighlight
-                      highlightOnHover
-                    />
-                  )}
+                  </div>
+                  <div className="card-body">
+                    {isLoading ? (
+                      <Spinner />
+                    ) : (
+                      <DataTable
+                        columns={columns}
+                        data={itemArr}
+                        pagination
+                        selectableRowsHighlight
+                        highlightOnHover
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-         )}
+        </section>
+      )}
     </div>
   );
 }
