@@ -52,6 +52,14 @@ export const SlipProvider = ({ children }) => {
   const [maRList, setMaRList] = useState([]);
   const [isMaR, setIsMaR] = useState(true);
 
+  //edit
+  const [edit, setEdit] = useState([]);
+  const [isEdit, setIsEdit] = useState(true);
+
+  // const [dmList, setDmList] = useState([]);
+  // const [isDm, setIsDm] = useState(true);
+
+  
   const value = {
     slipCount,
     setSlipCount,
@@ -113,6 +121,10 @@ export const SlipProvider = ({ children }) => {
     setMaRList,
     isMaR,
     setIsMaR,
+    edit, 
+    setEdit,
+    isEdit, 
+    setIsEdit
   };
 
   return <SlipContext.Provider value={value}>{children}</SlipContext.Provider>;

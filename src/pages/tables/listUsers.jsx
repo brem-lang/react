@@ -1,19 +1,87 @@
-import React from "react";
-import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
+import DataTable from "react-data-table-component";
+import moment from "moment";
+import Edit from "../../components/EditForm/Edit"
+import { SlipContext } from "../../context/slip-provider";
+
+import Spinner from "../../components/spinner/spinner.component";
+import useAuth from "../../hooks/useAuth";
+import axios from "../../api/axios";
 
 function ListUsers() {
-  const [isOpen, setIsOpen] = useState(false);
+  
+  const [isLoading, setIsLoading] = useState(false);
+  // const [filteredData, setFilteredData] = useState([]);
+  const { auth } = useAuth();
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [item, setItem] = useState([]);
+  const { edit, setEdit,isEdit, setIsEdit } = useContext(SlipContext);
 
-  const showModal = () => {
-    setIsOpen(true);
+  const itemArr = edit;
+
+  const getData = useCallback(async () => {
+    if (isEdit === false) return;
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    };
+
+    setIsLoading(true);
+    try {
+      const res = await axios("api/manage/users", config);
+      // setFilteredData(res.data.data);
+      setEdit(res.data.data)
+      setIsEdit(false)
+    } catch (err) {
+      console.log(err);
+    }
+
+    setIsLoading(false);
+  }, [auth, setIsLoading]);
+
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+
+  const columns = [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+    },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+    },
+    {
+      name: "Action",
+      cell: (row) => (
+        <button
+          type="button"
+          className="btn btn-outline-warning"
+          onClick={(e) => handleEdit(e, row)}
+        >
+          <i className="fas fa-pen info"></i>
+        </button>
+      ),
+    },
+  ];
+
+  const handleEdit= (e, item) => {
+    e.preventDefault();
+    setItem(item)
+    setIsOpenEdit(true)
+    // console.log(item)
+  }
+
+  const closeEditForm = (e) => {
+    setIsOpenEdit(false);
+    setItem([]);
   };
 
-  const hideModal = () => {
-    setIsOpen(false);
-  };
+  console.log(itemArr)
+
 
   return (
     <div className="content-wrapper">
@@ -38,102 +106,44 @@ function ListUsers() {
         </div>
         {/* /.container-fluid */}
       </div>
-
+      {isLoading === true ? (
+        <Spinner />
+      ) : isOpenEdit ? (
+        <section className="content">
+          <Edit item={item} close={closeEditForm} />
+        </section>
+      ) : (
       <section className="content">
         <div className="container-fluid">
           <div className="py-12">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div className="card">
                 <div className="card-header">
-                  <div className="card-tools">
-                    <button
-                      onClick={showModal}
-                      type="submit"
-                      className="btn btn-success"
-                    >
-                      Add User
-                    </button>
-                  </div>
+                <div className="card-tools">
+                      <Link to="/add-user" className="btn btn-success">
+                        Add User
+                      </Link>
+                    </div>
                 </div>
                 <div className="card-body">
-                  <table
-                    id="example1"
-                    className="table table-bordered table-striped"
-                  >
-                    <thead>
-                      <tr>
-                        <th>User Name</th>
-                        <th>Role</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Trident</td>
-                        <td>Internet Explorer 4.0</td>
-                        <td>
-                          <i className="fas fa-pen"></i>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Trident</td>
-                        <td>Internet Explorer 4.0</td>
-                        <td>
-                          <i className="fas fa-pen"></i>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                {isLoading ? (
+                    <Spinner />
+                  ) : (
+                    <DataTable
+                      columns={columns}
+                      data={itemArr}
+                      pagination
+                      selectableRowsHighlight
+                      highlightOnHover
+                    />
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <Modal show={isOpen} onHide={hideModal}>
-        <Modal.Header>
-          <Modal.Title>Hi</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="Enter Name"
-                />
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="Enter email"
-                />
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="Enter password"
-                />
-              </div>
-            </div>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <button className="btn btn-success">Save</button>
-          <button onClick={hideModal} className="btn btn-danger">
-            Cancel
-          </button>
-        </Modal.Footer>
-      </Modal>
+         )}
     </div>
   );
 }

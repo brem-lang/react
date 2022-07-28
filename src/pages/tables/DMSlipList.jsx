@@ -42,6 +42,8 @@ function DMSlipList() {
     );
   };
 
+
+
   const closePdfForm = (e) => {
     setIsOpenPdf(false);
     setGeneratedQR("");
@@ -65,10 +67,8 @@ function DMSlipList() {
       if (err.code === "ERR_BAD_REQUEST") {
         alert("Error getting data, Unauthorized user!");
       }
-
       console.log(err);
     }
-
     setIsLoading(false);
   }, [auth, setDmList, isDm, setIsDm]);
 

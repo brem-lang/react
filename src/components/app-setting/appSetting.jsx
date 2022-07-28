@@ -45,9 +45,21 @@ const AppSetting = () => {
                     Activity Logs List
                   </Link>
                 </div>
+                <div className="mb-4">
+                  <h6>Profile Settings</h6>
+                  <Link to="/" style={{ paddingLeft: 15 }}>
+                    Update Profile
+                  </Link>
+                </div>
               </>
             )}
 
+          <div className="mb-4">
+            <h6>Profile Settings</h6>
+              <Link to="/update-user" style={{ paddingLeft: 15 }}>
+                Update Profile
+              </Link>
+          </div>
             <div className="mb-4" style={{ position: "absolute", bottom: 0 }}>
               <button
                 className="btn btn-secondary"

@@ -38,6 +38,8 @@ import {
   FASlipReturnLogs,
   MASlipReturnLogs,
   ServiceCallList,
+  AddUser,
+  UpdateUser
 } from "./exporter";
 import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
@@ -71,6 +73,7 @@ function App() {
                 <Route path="/user/create" element={<CreateUser />} />
                 <Route path="/users" element={<UserList />} />
                 <Route path="/logs" element={<Logs />} />
+                <Route path="/add-user" element={<AddUser />} />              
               </Route>
 
               {/* MI clerk access */}
@@ -85,6 +88,7 @@ function App() {
                 <Route path="/mi-logs" element={<MISlipList />} />
                 <Route path="/mi-return" element={<MISlipReturn />} />
                 <Route path="/mi-return-logs" element={<MISlipReturnLogs />} />
+                <Route path="/update-user" element={<UpdateUser />} />
               </Route>
 
               {/* MRO clerk access */}
@@ -102,6 +106,7 @@ function App() {
                   path="/mro-return-logs"
                   element={<MROSlipReturnLogs />}
                 />
+                <Route path="/update-user" element={<UpdateUser />} />
               </Route>
 
               {/* DM clerk access */}
@@ -112,6 +117,7 @@ function App() {
                   />
                 }
               >
+                <Route path="/update-user" element={<UpdateUser />} />
                 <Route path="/dm-slip" element={<DMSlip />} />
                 <Route path="/dm-logs" element={<DMSlipList />} />
                 <Route path="/dm-return" element={<DMSlipReturn />} />
@@ -126,6 +132,7 @@ function App() {
                   />
                 }
               >
+                <Route path="/update-user" element={<UpdateUser />} />
                 <Route path="/fg-slip" element={<FGSlip />} />
                 <Route path="/fg-logs" element={<FGSlipList />} />
                 <Route path="/fg-return" element={<FGSlipReturn />} />
@@ -140,6 +147,7 @@ function App() {
                   />
                 }
               >
+                <Route path="/update-user" element={<UpdateUser />} />
                 <Route path="/fa-slip" element={<FASlip />} />
                 <Route path="/fa-logs" element={<FASlipList />} />
                 <Route path="/fa-return" element={<FASlipReturn />} />
@@ -154,6 +162,7 @@ function App() {
                   />
                 }
               >
+                <Route path="/update-user" element={<UpdateUser />} />
                 <Route path="/ma-slip" element={<MASlip />} />
                 <Route path="/ma-logs" element={<MASlipList />} />
                 <Route path="/ma-return" element={<MASlipReturn />} />
@@ -168,6 +177,7 @@ function App() {
                   />
                 }
               >
+                <Route path="/update-user" element={<UpdateUser />} />
                 <Route path="/mr-slip" element={<MRSlip />} />
                 <Route path="/mr-logs" element={<MRSlipList />} />
               </Route>
@@ -180,6 +190,7 @@ function App() {
                   />
                 }
               >
+                <Route path="/update-user" element={<UpdateUser />} />
                 <Route path="/service-call" element={<ServiceCall />} />
                 <Route path="/servicecall-logs" element={<ServiceCallList />} />
               </Route>

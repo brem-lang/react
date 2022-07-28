@@ -41,9 +41,7 @@ const FGSlipList = React.lazy(() => import("./pages/tables/FGSlipList"));
 const FASlipList = React.lazy(() => import("./pages/tables/FASlipList"));
 const MASlipList = React.lazy(() => import("./pages/tables/MASlipList"));
 const MRSlipList = React.lazy(() => import("./pages/tables/MRSlipList"));
-const ServiceCallList = React.lazy(() =>
-  import("./pages/tables/ServiceCallList")
-);
+const ServiceCallList = React.lazy(() =>import("./pages/tables/ServiceCallList"));
 // export { default as MISlipList } from "./pages/tables/MISlipList";
 // export { default as MROSlipList } from "./pages/tables/MROSlipList";
 // export { default as DMSlipList } from "./pages/tables/DMSlipList";
@@ -52,6 +50,11 @@ const ServiceCallList = React.lazy(() =>
 // export { default as MASlipList } from "./pages/tables/MASlipList";
 // export { default as MRSlipList } from "./pages/tables/MRSlipList";
 // export { default as ServiceCallList } from "./pages/tables/ServiceCallList";
+
+// add user
+const AddUser = React.lazy(() =>import("./pages/users/AddUser"));
+//update use
+const UpdateUser = React.lazy(() =>import("./components/EditForm/UpdateUser"));
 
 // return slip logs
 const MISlipReturnLogs = React.lazy(() =>
@@ -111,4 +114,6 @@ export {
   FGSlipReturnLogs,
   FASlipReturnLogs,
   MASlipReturnLogs,
+  AddUser,
+  UpdateUser
 };
