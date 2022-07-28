@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { SlipContext } from "../../context/slip-provider";
 
 const MROSlip = () => {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
   const { setIsMro, setIsSlipCount } = useContext(SlipContext);
 
@@ -28,6 +28,13 @@ const MROSlip = () => {
     control,
     name: "items",
   });
+
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
 
   //
   const onSubmit = async (data) => {
@@ -51,7 +58,14 @@ const MROSlip = () => {
         ).then(() => navigate("/mro-logs"));
       }
     } catch (err) {
-      console.error(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          // return console.log(err.code, "ERR_BAD_REQUEST");
+          return ResetUser();
+
+        default:
+          return console.log(err, "ERROR");
+      }
     }
   };
 

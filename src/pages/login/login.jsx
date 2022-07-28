@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "../../api/axios";
 import { ROLES } from "../../data/roles";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
+
 
 import useAuth from "../../hooks/useAuth";
 
@@ -129,7 +130,8 @@ const LoginPage = () => {
         </div>
         <div className="card">
           <div>
-            <button onClick={notify}>Notify !</button>
+            {/* <button onClick={notify}>Notify !</button>
+
             <ToastContainer
               position="top-right"
               hideProgressBar={false}
@@ -138,7 +140,7 @@ const LoginPage = () => {
               closeOnClick={false}
               draggable={false}
               rtl={false}
-            />
+            /> */}
           </div>
         </div>
         <div className="card">

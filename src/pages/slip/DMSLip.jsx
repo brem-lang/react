@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import axios from "../../api/axios";
 import { SlipContext } from "../../context/slip-provider";
 
 const DMSlip = () => {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
   const { setIsDm, setIsSlipCount } = useContext(SlipContext);
 
@@ -28,6 +28,13 @@ const DMSlip = () => {
     control,
     name: "items",
   });
+
+  const ResetUser = useCallback(() => {
+    setAuth({});
+    localStorage.removeItem("user");
+
+    return navigate("/login", { replace: true });
+  }, [setAuth, navigate]);
 
   // Submit using axios
   const onSubmit = async (data) => {
@@ -52,7 +59,14 @@ const DMSlip = () => {
         ).then(() => navigate("/dm-logs"));
       }
     } catch (err) {
-      console.error(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          // return console.log(err.code, "ERR_BAD_REQUEST");
+          return ResetUser();
+
+        default:
+          return console.log(err, "ERROR");
+      }
     }
   };
 
