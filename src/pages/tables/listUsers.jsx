@@ -56,6 +56,10 @@ function ListUsers() {
     //   selector: (row) => row.roles,
     // },
     {
+      name: "Roles",
+      selector: (row) => row.roles.map((role) => role.name ),
+    },
+    {
       name: "Action",
       cell: (row) => (
         <button
