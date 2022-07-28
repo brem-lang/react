@@ -51,6 +51,10 @@ function ListUsers() {
       name: "Email",
       selector: (row) => row.email,
     },
+    // {
+    //   name: "Roles",
+    //   selector: (row) => row.roles,
+    // },
     {
       name: "Action",
       cell: (row) => (

@@ -45,12 +45,6 @@ const AppSetting = () => {
                     Activity Logs List
                   </Link>
                 </div>
-                <div className="mb-4">
-                  <h6>Profile Settings</h6>
-                  <Link to="/" style={{ paddingLeft: 15 }}>
-                    Update Profile
-                  </Link>
-                </div>
               </>
             )}
 
