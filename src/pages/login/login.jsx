@@ -106,7 +106,6 @@ const LoginPage = () => {
     localStorage.setItem("persist", persist);
   }, [persist]);
 
-
   const toastId = React.useRef(null);
   const customId = "custom-id-yes";
 
@@ -139,7 +138,7 @@ const LoginPage = () => {
       >
         <div className="login-box">
           <div className="login-logo">
-            <Link to="/">
+            <Link to="/login">
               <b>Gensan Feedmil, Inc.</b>
             </Link>
           </div>

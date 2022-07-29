@@ -92,14 +92,14 @@ const AppMenu = () => {
           >
             {auth?.roles?.find((role) => allowedDashboard?.includes(role)) && (
               <li className="nav-item menu-open">
-                <Link
-                  to="/"
+                <a
+                  href="#"
                   className={`nav-link ${location === "/" && "active"}`}
                 >
                   <i className="nav-icon fas fa-tachometer-alt"></i>
                   <p>Dashboard</p>
                   <i class="right fas fa-angle-left"></i>
-                </Link>
+                </a>
 
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
@@ -116,8 +116,8 @@ const AppMenu = () => {
             )}
 
             <li className="nav-item menu-open">
-              <Link
-                to={parentRoute}
+              <a
+                href="#"
                 className={`nav-link 
                 ${location === "/mi-logs" && "active"}
                 ${location === "/mro-logs" && "active"}
@@ -135,7 +135,7 @@ const AppMenu = () => {
                   Withdrawal Slip
                   <i className="fas fa-angle-left right"></i>
                 </p>
-              </Link>
+              </a>
 
               <ul className="nav nav-treeview">
                 {auth?.roles?.find((role) => allowedMi?.includes(role)) && (
@@ -252,10 +252,9 @@ const AppMenu = () => {
               </ul>
             </li>
 
-
             <li className="nav-item menu-open">
-              <Link
-                to={parentRoute}
+              <a
+                href="#"
                 className={`nav-link
               ${location === "/mi-return-logs" && "active"}
               ${location === "/mro-return-logs" && "active"}
@@ -270,9 +269,8 @@ const AppMenu = () => {
                   Return Slip
                   <i className="fas fa-angle-left right"></i>
                 </p>
-              </Link>
+              </a>
               <ul className="nav nav-treeview">
-                
                 {auth?.roles?.find((role) => allowedMi?.includes(role)) && (
                   <li className="nav-item">
                     <Link

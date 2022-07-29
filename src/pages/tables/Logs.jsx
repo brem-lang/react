@@ -11,6 +11,7 @@ import RedirectError from "../../routes/RedirectError";
 function Logs() {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const [isSync, setIsSync] = useState(true);
   const redirectError = RedirectError();
   const { auth } = useAuth();
 
@@ -34,11 +35,14 @@ function Logs() {
     }
 
     setIsLoading(false);
+    setIsSync(false);
   }, [auth, setIsLoading, redirectError]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    if (isSync === true) {
+      getData();
+    }
+  }, [isSync, getData]);
 
   const columns = [
     {
@@ -58,6 +62,10 @@ function Logs() {
       selector: (row) => row.properties["Document Series Number"],
     },
   ];
+
+  const syncData = () => {
+    setIsSync(true);
+  };
 
   return (
     <div className="content-wrapper">
@@ -88,6 +96,18 @@ function Logs() {
           <div className="py-12">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div className="card">
+                <div className="card-header">
+                  <h3 className="card-title">Activity Logs</h3>
+                  <div className="card-tools">
+                    <button
+                      className="btn btn-block btn-outline-info"
+                      onClick={() => syncData()}
+                    >
+                      <i class="fas fa-sync"></i>
+                    </button>
+                  </div>
+                </div>
+
                 <div className="card-body">
                   {isLoading ? (
                     <Spinner />
