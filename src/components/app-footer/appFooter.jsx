@@ -12,11 +12,16 @@ const AppFooter = () => {
   return (
     <footer className="main-footer" style={customStyles.mainFooter}>
       <strong>
-        Copyright &copy; 2022
-        <a href="https://www.gensanfeedmill.com/">Gensan Feedmil, Inc.</a>.
+        &copy;{" "}
+        <a href="https://www.gensanfeedmill.com/">Gensan Feedmil, Inc.</a> All
+        rights reserved.
       </strong>
-      All rights reserved.
-      <div className="float-right d-none d-sm-inline-block"></div>
+      <div className="float-right d-none d-sm-inline-block">
+        <strong>
+          DocuGen is proudly designed, built and continually enhanced by
+          Classify Inc.
+        </strong>
+      </div>
     </footer>
   );
 };
