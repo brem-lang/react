@@ -51,6 +51,7 @@ import "./assets/css/app.css";
 import RequireRole from "./routes/RequireRoles";
 import { ROLES } from "./data/roles";
 import Testfile from "./pages/testfile";
+import Maintenance from "./pages/maintenance/Maintenance";
 
 function App() {
   return (
@@ -59,15 +60,14 @@ function App() {
         {/* Public Routes */}
         <Route path="/verify/*" element={<Document />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/maintenance" element={<Maintenance />} />
 
         {/* Protected Routes */}
         <Route element={<PersistLogin />}>
           <Route path="/" element={<Layout />}>
             <Route element={<RequireAuth />}>
-
-            {/* all user can access this */}
-            <Route path="/update-user" element={<UpdateUser />} />
-
+              {/* all user can access this */}
+              <Route path="/update-user" element={<UpdateUser />} />
 
               {/* Only Admin Access */}
               <Route
@@ -106,7 +106,10 @@ function App() {
                 <Route path="/mro-slip" element={<MROSlip />} />
                 <Route path="/mro-return" element={<MROSlipReturn />} />
                 <Route path="/mro-logs" element={<MROSlipList />} />
-                <Route path="/mro-return-logs" element={<MROSlipReturnLogs />}/>
+                <Route
+                  path="/mro-return-logs"
+                  element={<MROSlipReturnLogs />}
+                />
               </Route>
 
               {/* DM clerk access */}
