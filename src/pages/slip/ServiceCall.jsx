@@ -87,6 +87,7 @@ export default function ServiceCall() {
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div className="card">
                 <form onSubmit={handleSubmit(onSubmit)}>
+
                   <div className="card-body">
                     <div className="row">
                       <div className="col">
@@ -127,7 +128,10 @@ export default function ServiceCall() {
                           <p>{errors.contact_number?.message}</p>
                         </div>
                       </div>
-                      <div className="col">
+                    </div>
+
+                    <div className="row">
+                    <div className="col">
                         <div className="form-floating mb-3">
                           <input
                             type="number"
@@ -160,8 +164,10 @@ export default function ServiceCall() {
                           />
                           <p>{errors.status?.message}</p>
                         </div>
-                      </div>
+                      </div>        
                     </div>
+
+
                     {/*  */}
                     <div className="row">
                       <div className="col">
@@ -185,20 +191,23 @@ export default function ServiceCall() {
                         <div className="form-floating mb-3">
                           <input
                             type="text"
-                            {...register("description", {
-                              required: "Description is required",
+                            {...register("origin", {
+                              required: "Origin is required",
                             })}
                             className="form-control"
-                            placeholder="Description"
+                            placeholder="Origin"
                             autoComplete="off"
                             style={{
-                              border: errors.description ? "1px solid red" : "",
+                              border: errors.origin ? "1px solid red" : "",
                             }}
                           />
-                          <p>{errors.description?.message}</p>
+                          <p>{errors.origin?.message}</p>
                         </div>
                       </div>
-                      <div className="col">
+                    </div>
+
+                    <div className="row">
+                    <div className="col">
                         <div className="form-floating mb-3">
                           <input
                             type="text"
@@ -235,42 +244,10 @@ export default function ServiceCall() {
                         </div>
                       </div>
                     </div>
+
+
                     {/*  */}
                     <div className="row">
-                      <div className="col">
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            {...register("subject", {
-                              required: "Subject is required",
-                            })}
-                            className="form-control"
-                            placeholder="Subject"
-                            autoComplete="off"
-                            style={{
-                              border: errors.subject ? "1px solid red" : "",
-                            }}
-                          />
-                          <p>{errors.subject?.message}</p>
-                        </div>
-                      </div>
-                      <div className="col">
-                        <div className="form-floating mb-3">
-                          <input
-                            type="text"
-                            {...register("origin", {
-                              required: "Origin is required",
-                            })}
-                            className="form-control"
-                            placeholder="Origin"
-                            autoComplete="off"
-                            style={{
-                              border: errors.origin ? "1px solid red" : "",
-                            }}
-                          />
-                          <p>{errors.origin?.message}</p>
-                        </div>
-                      </div>
                       <div className="col">
                         <div className="form-floating mb-3">
                           <input
@@ -309,6 +286,46 @@ export default function ServiceCall() {
                       </div>
                     </div>
                     {/*  */}
+
+                    <div className="row">
+                    <div className="col">
+                        <div className="form-floating mb-3">
+                          <textarea
+                            type="text"
+                            {...register("subject", {
+                              required: "Subject is required",
+                            })}
+                            className="form-control"
+                            placeholder="Subject"
+                            autoComplete="off"
+                            style={{
+                              border: errors.subject ? "1px solid red" : "",
+                            }}
+                          />
+                          <p>{errors.subject?.message}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                    <div className="col">
+                        <div className="form-floating mb-3">
+                          <textarea
+                            type="text"
+                            {...register("description", {
+                              required: "Description is required",
+                            })}
+                            className="form-control"
+                            placeholder="Description"
+                            autoComplete="off"
+                            style={{
+                              border: errors.description ? "1px solid red" : "",
+                            }}
+                          />
+                          <p>{errors.description?.message}</p>
+                        </div>
+                      </div>
+                    </div>
 
                     <div className="row">
                       <div className="col">
@@ -380,6 +397,9 @@ export default function ServiceCall() {
                         </div>
                       </div>
                     </div>
+
+
+
                     {/*  */}
                     <button type="submit" className="btn btn-primary">
                       Save

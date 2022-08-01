@@ -164,6 +164,8 @@ const ScRPdf = ({ code, item, close }) => {
     technician,
     remarks,
     document_series_no,
+    problem_type,
+    call_type
   } = item;
 
   const date = moment(created_at).format("l");
@@ -191,13 +193,13 @@ const ScRPdf = ({ code, item, close }) => {
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText2}>Customer Name</Text>
-                  <Text style={styles.contentText2}>Contact Person</Text>
-                  <Text style={styles.contentText2}>Phone No.</Text>
-                  <Text style={styles.contentText2}>Item No.</Text>
-                  <Text style={styles.contentText2}>Description</Text>
-                  <Text style={styles.contentText2}>Mfr Serial No.</Text>
-                  <Text style={styles.contentText2}>Serial No.</Text>
+                  <Text style={styles.contentText2}>Customer Name :</Text>
+                  <Text style={styles.contentText2}>Contact Person :</Text>
+                  <Text style={styles.contentText2}>Phone No. :</Text>
+                  <Text style={styles.contentText2}>Item No. :</Text>
+                  <Text style={styles.contentText2}>Description :</Text>
+                  <Text style={styles.contentText2}>Mfr Serial No. :</Text>
+                  <Text style={styles.contentText2}>Serial No. :</Text>
                 </View>
                 <View>
                   <Text style={styles.contentText2}>{customer_name}</Text>
@@ -212,9 +214,9 @@ const ScRPdf = ({ code, item, close }) => {
 
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText2}>Call ID</Text>
-                  <Text style={styles.contentText2}>Created on</Text>
-                  <Text style={styles.contentText2}>Status</Text>
+                  <Text style={styles.contentText2}>Call ID :</Text>
+                  <Text style={styles.contentText2}>Created on :</Text>
+                  <Text style={styles.contentText2}>Status :</Text>
                 </View>
                 <View>
                   <Text style={styles.contentText2}>{id}</Text>
@@ -226,15 +228,26 @@ const ScRPdf = ({ code, item, close }) => {
               </View>
             </View>
 
-            <View style={[styles.section2, { marginTop: 15 }]}>
+            <View style={[styles.section2, { marginBottom: -15}]}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText2}>Subject</Text>
-                  <Text style={styles.contentText2}>Origin</Text>
-                  <Text style={styles.contentText2}>Priority</Text>
+                  <Text style={styles.contentText2}>Subject :</Text>
                 </View>
                 <View>
                   <Text style={styles.contentText2}>{subject}</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={[styles.section2, { marginTop: 15 }]}>
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  {/* <Text style={styles.contentText2}>Subject :</Text> */}
+                  <Text style={styles.contentText2}>Origin :</Text>
+                  <Text style={styles.contentText2}>Priority :</Text>
+                </View>
+                <View>
+                  {/* <Text style={styles.contentText2}>{subject}</Text> */}
                   <Text style={styles.contentText2}>{origin}</Text>
                   <Text style={styles.contentText2}>{priority}</Text>
                 </View>
@@ -242,8 +255,19 @@ const ScRPdf = ({ code, item, close }) => {
 
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText2}>Assigned to</Text>
-                  <Text style={styles.contentText2}>Technician</Text>
+                  <Text style={styles.contentText2}>Problem Type :</Text>
+                  <Text style={styles.contentText2}>Call Type :</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{problem_type}</Text>
+                  <Text style={styles.contentText2}>{call_type}</Text>
+                </View>
+              </View>
+
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Assigned to :</Text>
+                  <Text style={styles.contentText2}>Technician :</Text>
                 </View>
                 <View>
                   <Text style={styles.contentText2}>{assigned_to}</Text>
@@ -255,7 +279,7 @@ const ScRPdf = ({ code, item, close }) => {
             <View style={[styles.section2, { marginTop: 15 }]}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
-                  <Text style={styles.contentText2}>Remarks</Text>
+                  <Text style={styles.contentText2}>Remarks :</Text>
                   <Text style={styles.contentText2}>{remarks}</Text>
                 </View>
               </View>

@@ -61,6 +61,7 @@ function ServiceCallList() {
       setScList(res.data.data);
       setIsSc(false);
       setFilteredData(res.data.data);
+      console.log(res.data.data)
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
@@ -77,19 +78,15 @@ function ServiceCallList() {
   const columns = [
     {
       name: "Customer Name",
-      selector: (row) => row.document_series_no,
+      selector: (row) => row.customer_name,
     },
     {
-      name: "Contact Number",
-      selector: (row) => row.name_of_employee,
+      name: "Priority",
+      selector: (row) => row.priority,
     },
     {
-      name: "Serial Number",
-      selector: (row) => row.section,
-    },
-    {
-      name: "Status",
-      selector: (row) => row.asset_code,
+      name: "Assigned To",
+      selector: (row) => row.assigned_to,
     },
     {
       name: "Action",
