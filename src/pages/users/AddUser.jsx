@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
 import RedirectError from "../../routes/RedirectError";
+import useAuth from "../../hooks/useAuth";
 const initialValue = {
   name: "",
   email: "",
   pwd: "",
   confirmPwd: "",
+  role:""
 };
 
 const CreateUser = () => {
+  const {setRefresh } = useAuth();
   const [dataField, setDataField] = useState(initialValue);
   const navigate = useNavigate();
   const redirectError = RedirectError();
@@ -28,10 +31,13 @@ const CreateUser = () => {
     formData.append("name", dataField.name);
     formData.append("email", dataField.email);
     formData.append("password", dataField.pwd);
+    formData.append("role", dataField.role);
 
     if (dataField.pwd !== dataField.confirmPwd)
       return alert("Password do not match");
 
+
+      // console.log(dataField)
     try {
       const res = await axios.post("/api/auth/register", formData);
       if (res.data.success === true) {
@@ -39,7 +45,10 @@ const CreateUser = () => {
           "Great!",
           "The user was successfully created.",
           "success"
-        ).then(() => navigate("/users"));
+        ).then(() => {
+          setRefresh(true);
+          navigate("/users")
+        });
       }
     } catch (err) {
       switch (err.code) {
@@ -95,7 +104,6 @@ const CreateUser = () => {
                   </div>
                 </div>
               </div>
-
               <div className="input-group mb-3">
                 <input
                   type="password"
@@ -132,6 +140,32 @@ const CreateUser = () => {
                   </div>
                 </div>
               </div>
+
+              <p>Roles</p>
+              <div className="input-group mb-3">
+                <select 
+                name="role"
+                value={dataField.role}
+                onChange={(e) => onChangeHandler(e)}
+                className="form-control">
+                    <option value="">None</option>
+                    <option value="mi_clerk">MI Clerk</option>
+                    <option value="mro_clerk">MRO Clerk</option>
+                    <option value="dm_clerk">DM Clerk</option>
+                    <option value="fg_clerk">FG Clerk</option>
+                    <option value="fa_clerk">FA Clerk</option>
+                    <option value="ma_clerk">MA Clerk</option>
+                    <option value="mr_clerk">MR Clerk</option>
+                    <option value="sc_clerk">SC Clerk</option>
+                  </select>
+
+                <div className="input-group-append">
+                  <div className="input-group-text">
+                    {/* <span className="fas fa-lock"></span> */}
+                  </div>
+                </div>
+              </div>
+
               <div className="row">
                 <div className="col-8"></div>
                 <div className="col-4">

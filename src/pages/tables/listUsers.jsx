@@ -13,7 +13,7 @@ import RedirectError from "../../routes/RedirectError";
 function ListUsers() {
   const [isLoading, setIsLoading] = useState(false);
   // const [filteredData, setFilteredData] = useState([]);
-  const { auth } = useAuth();
+  const { auth,refresh,setRefresh } = useAuth();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [item, setItem] = useState([]);
   const { edit, setEdit, isEdit, setIsEdit } = useContext(SlipContext);
@@ -33,6 +33,7 @@ function ListUsers() {
       // setFilteredData(res.data.data);
       setEdit(res.data.data);
       setIsEdit(false);
+      setRefresh(false);
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
@@ -44,11 +45,17 @@ function ListUsers() {
     }
 
     setIsLoading(false);
-  }, [auth, setIsLoading, isEdit, setIsEdit, setEdit, redirectError]);
+  }, [auth, setIsLoading, isEdit, setIsEdit, setEdit, redirectError,setRefresh]);
 
   useEffect(() => {
     getData();
   }, [getData]);
+
+  useEffect(() => {
+    if (refresh === true) {
+      getData();
+    }
+  }, [getData,refresh]);
 
   const columns = [
     {
@@ -92,8 +99,6 @@ function ListUsers() {
     setIsOpenEdit(false);
     setItem([]);
   };
-
-  console.log(itemArr);
 
   return (
     <div className="content-wrapper">

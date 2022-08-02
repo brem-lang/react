@@ -6,18 +6,17 @@ import axios from "../../api/axios";
 import Swal from "sweetalert2";
 
 const Edit = ({ item, close }) => {
-  //dynamic data from table
-  const {
-    // email,
-    // name,
-    roles,
-  } = item;
+ let roles = [];
+ item.roles.length !== 0 && roles.push(item.roles[0]?.name)
+//  roles.push(item.roles.length !== 0 ? item.roles[0]?.name : "" )
+ console.log(roles)
   //save initial value
   const initialValue = {
     email: item.email,
     name: item.name,
     pwd: "",
     confirmPwd: "",
+    role:""
   };
   const { auth } = useAuth();
   const [dataField, setDataField] = useState(initialValue);
@@ -27,7 +26,8 @@ const Edit = ({ item, close }) => {
     const { name, value } = e.target;
     setDataField({ ...dataField, [name]: value });
   };
-
+ console.log(item)
+//  console.log(item.roles[0].name)
   const handleSubmit = async (e) => {
     e.preventDefault();
     let config = {
@@ -39,12 +39,15 @@ const Edit = ({ item, close }) => {
     const formData = new FormData();
     formData.append("email", dataField.email);
     formData.append("password", dataField.pwd);
+    formData.append("role", dataField.role);
 
     if (dataField.pwd !== dataField.confirmPwd)
       return alert("Password do not match");
 
+      console.log(dataField)
+      console.log(dataField.role)
     try {
-      const res = await axios.post("/api/manage/user/update", formData, config);
+      const res = await axios.post("/api/user/update", formData, config);
       if (res.data.success === true) {
         Swal.fire("Great!", "Password successfully updated.", "success").then(
           () => navigate(-1)
@@ -143,9 +146,33 @@ const Edit = ({ item, close }) => {
                   </div>
                 </div>
               </div>
-              <p>Roles</p>
 
-              {roles.map((data) => (
+              <p>Roles</p>
+              {/* {roles.map((data,index) => ( */}
+              <div className="input-group mb-3">
+                <select 
+                name="role"
+                value={dataField.role}
+                onChange={(e) => onChangeHandler(e)}
+                className="form-control">
+                    <option value={roles.length !== 0 ? roles : "" }>{roles.length !== 0 ? roles : "None"  }</option>
+                    <option value="mi_clerk">MI Clerk</option>
+                    <option value="mro_clerk">MRO Clerk</option>
+                    <option value="dm_clerk">DM Clerk</option>
+                    <option value="fg_clerk">FG Clerk</option>
+                    <option value="fa_clerk">FA Clerk</option>
+                    <option value="ma_clerk">MA Clerk</option>
+                    <option value="mr_clerk">MR Clerk</option>
+                    <option value="sc_clerk">SC Clerk</option>
+                  </select>
+                <div className="input-group-append">
+                  <div className="input-group-text">
+                    {/* <span className="fas fa-lock"></span> */}
+                  </div>
+                </div>
+              </div>
+              {/* ))} */}
+              {/* {roles.map((data) => (
                 <div className="input-group mb-3" key={data.id}>
                   <input
                     type="Name"
@@ -153,7 +180,6 @@ const Edit = ({ item, close }) => {
                     placeholder="Email"
                     name="name"
                     value={data.name}
-                    // onChange={(e) => onChangeHandler(e)}
                     autoComplete="off"
                     readOnly
                   />
@@ -163,7 +189,7 @@ const Edit = ({ item, close }) => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
 
               <div className="row">
                 <div className="col-8"></div>
