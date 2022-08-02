@@ -179,6 +179,10 @@ const DmRPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Direct Material Return ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
+
+            <View style={styles.section}>
+              <Text style={styles.title}>Direct Material Return Slip</Text>
+            </View>
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>

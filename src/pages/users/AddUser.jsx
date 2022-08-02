@@ -37,7 +37,7 @@ const CreateUser = () => {
       if (res.data.success === true) {
         Swal.fire(
           "Great!",
-          "Withdrawal slip successfully created.",
+          "The user was successfully created.",
           "success"
         ).then(() => navigate("/users"));
       }

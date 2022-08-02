@@ -145,6 +145,14 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
+  title: {
+    width: "100%",
+    textAlign: "center",
+    letterSpacing: 8,
+    padding: 8,
+    backgroundColor: "black",
+    color: "white",
+  },
 });
 
 // Create Document Component
@@ -179,6 +187,11 @@ const MiPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Merchandise ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
+
+            <View style={styles.section}>
+              <Text style={styles.title}>Merchandise Withdrawal Slip</Text>
+            </View>
+
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>

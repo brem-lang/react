@@ -33,7 +33,7 @@ const MISlip = () => {
 
   // Submit using axios
   const onSubmit = async (data) => {
-    // console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data))
     let config = {
       headers: {
         Authorization: `Bearer ${auth.token}`,
@@ -208,6 +208,27 @@ const MISlip = () => {
                             })}
                             className="form-control"
                             placeholder="Sub-Profit Center"
+                            autoComplete="off"
+                            style={{
+                              border: errors.sub_profit_center
+                                ? "1px solid red"
+                                : "",
+                            }}
+                          />
+                          <p>{errors.sub_profit_center?.message}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                    <div className="col-6">
+                        <div className="form-floating mb-3">
+                          <input
+                            type="text"
+                            {...register("sales_order_number", {
+                              required: "Sales Order Number is required",
+                            })}
+                            className="form-control"
+                            placeholder="Sales Order Number"
                             autoComplete="off"
                             style={{
                               border: errors.sub_profit_center

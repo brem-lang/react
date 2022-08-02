@@ -168,11 +168,12 @@ const MrPdf = ({ code, item, close }) => {
         <Document title={`Memorandum ${document_series_no}`}>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
-            <Image style={styles.logo} src={Logo} />
 
-            <View style={styles.section}>
+          <View style={styles.section}>
               <Text style={styles.title}>Memorandum</Text>
             </View>
+            <Image style={styles.logo} src={Logo} />
+
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>

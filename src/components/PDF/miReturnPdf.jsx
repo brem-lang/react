@@ -178,6 +178,10 @@ const MiRPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Merchandise Return ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
+
+            <View style={styles.section}>
+              <Text style={styles.title}>Merchandise Return Slip</Text>
+            </View>
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>

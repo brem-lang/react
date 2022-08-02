@@ -180,6 +180,10 @@ const MroRPdf = ({ code, item, close }) => {
           title={`Maintence, Repairs, Operations Return ${document_series_no}`}
         >
           <Page size="A4" style={styles.page}>
+
+            <View style={styles.section}>
+              <Text style={styles.title}>Maintence, Repairs, Operations Return Slip</Text>
+            </View>
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>

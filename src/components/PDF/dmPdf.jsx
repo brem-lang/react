@@ -179,6 +179,9 @@ const DmPdf = ({ code, item, close }) => {
         <Document title={`Direct Material ${document_series_no}`}>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
+            <View style={styles.section}>
+              <Text style={styles.title}>Direct Material Withdrawal Slip</Text>
+            </View>
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>

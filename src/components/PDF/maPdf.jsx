@@ -175,6 +175,9 @@ const MaPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Minor Asset ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
+            <View style={styles.section}>
+              <Text style={styles.title}>Minor Asset Item Withdrawal Slip</Text>
+            </View>
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>

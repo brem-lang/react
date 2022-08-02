@@ -38,7 +38,6 @@ const FGSlip = () => {
         Authorization: `Bearer ${auth.token}`,
       },
     };
-
     try {
       const res = await axios.post("/api/create/wsfg", data, config);
 
@@ -107,7 +106,25 @@ const FGSlip = () => {
                         <div className="col">
                           <div className="form-floating mb-3">
                             <input
-                              type="number"
+                              type="text"
+                              {...register("customer_name", {
+                                required: "Customer Name is required",
+                              })}
+                              className="form-control"
+                              placeholder="Customer Name"
+                              autoComplete="off"
+                              style={{
+                                border: errors.batch_no ? "1px solid red" : "",
+                              }}
+                            />
+                            <p>{errors.batch_no?.message}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="col">
+                          <div className="form-floating mb-3">
+                            <input
+                              type="name"
                               {...register("batch_no", {
                                 required: "Batch Number is required",
                               })}
@@ -121,8 +138,10 @@ const FGSlip = () => {
                             <p>{errors.batch_no?.message}</p>
                           </div>
                         </div>
+                      </div>
 
-                        <div className="col">
+                      <div className="row">
+                      <div className="col">
                           <div className="form-floating mb-3">
                             <input
                               type="number"
@@ -139,10 +158,7 @@ const FGSlip = () => {
                             <p>{errors.pallet_no?.message}</p>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="row">
-                        <div className="col-6">
+                        <div className="col">
                           <div className="form-floating mb-3">
                             <input
                               type="text"
@@ -151,6 +167,26 @@ const FGSlip = () => {
                               })}
                               className="form-control"
                               placeholder="Location"
+                              autoComplete="off"
+                              style={{
+                                border: errors.location ? "1px solid red" : "",
+                              }}
+                            />
+                            <p>{errors.location?.message}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="row">
+                      <div className="col-6">
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
+                              {...register("sales_order_number", {
+                                required: "Sales Order Number is required",
+                              })}
+                              className="form-control"
+                              placeholder="Sales Order Number"
                               autoComplete="off"
                               style={{
                                 border: errors.location ? "1px solid red" : "",

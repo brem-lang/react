@@ -180,6 +180,10 @@ const MaRPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Minor Asset Return ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
+
+            <View style={styles.section}>
+              <Text style={styles.title}>Minor Asset Item Return Slip</Text>
+            </View>
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>

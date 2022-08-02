@@ -25,6 +25,7 @@ function Logs() {
       const res = await axios("api/get/log", config);
       setFilteredData(res.data.data);
     } catch (err) {
+      console.log(err)
       switch (err.code) {
         case "ERR_BAD_REQUEST":
           return redirectError();

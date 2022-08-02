@@ -184,11 +184,12 @@ const ScRPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Service Call ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
-            <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section}>
               <Text style={styles.title}>Service Call</Text>
             </View>
+            <Image style={styles.logo} src={Logo} />
+
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>

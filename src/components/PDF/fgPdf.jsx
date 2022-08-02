@@ -159,6 +159,8 @@ const FgPdf = ({ code, item, close }) => {
     released_by,
     items,
     created_at,
+    customer_name,
+    sales_order_number
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -176,17 +178,24 @@ const FgPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Finished Goods ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
+            <View style={styles.section}>
+              <Text style={styles.title}>Finished Goods Withdrawal Slip</Text>
+            </View>
             <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Customer Name</Text>
+                  <Text style={styles.contentText2}>Sales Order Number</Text>
                   <Text style={styles.contentText2}>Batch No</Text>
                   <Text style={styles.contentText2}>Pallet No</Text>
                   <Text style={styles.contentText2}>Location</Text>
                   <Text style={styles.contentText2}>Date Created</Text>
                 </View>
                 <View>
+                  <Text style={styles.contentText2}>{customer_name}</Text>
+                  <Text style={styles.contentText2}>{sales_order_number}</Text>
                   <Text style={styles.contentText2}>{batch_no}</Text>
                   <Text style={styles.contentText2}>{pallet_no}</Text>
                   <Text style={styles.contentText2}>{location}</Text>
