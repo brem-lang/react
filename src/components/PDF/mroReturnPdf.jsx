@@ -34,19 +34,19 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    width: "100%",
+    marginLeft:"138",
+    marginTop:"-50",
     textAlign: "center",
-    letterSpacing: "10px",
-    padding: "10",
-    backgroundColor: "black",
-    color: "white",
+    color: "black",
+    width: "50%",
   },
+
   logo: {
-    width: 250,
-    height: 66,
-    marginLeft: "auto",
+    width: 135,
+    height: 40,
     marginRight: "auto",
     marginBottom: 15,
+    marginTop:"-15"
   },
 
   //
@@ -181,10 +181,10 @@ const MroRPdf = ({ code, item, close }) => {
         >
           <Page size="A4" style={styles.page}>
 
-            <View style={styles.section}>
-              <Text style={styles.title}>Maintence, Repairs, Operations Return Slip</Text>
-            </View>
-            <Image style={styles.logo} src={Logo} />
+          <View style={styles.section}>
+          <Image style={styles.logo} src={Logo} />
+            <Text style={styles.title}>Maintence, Repairs, Operations Return Slip</Text>
+          </View>
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>

@@ -25,18 +25,17 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    width: "100%",
+    marginTop:"-50",
     textAlign: "center",
-    letterSpacing: 8,
-    padding: 8,
-    backgroundColor: "black",
-    color: "white",
+    color: "black",
   },
+
   logo: {
-    width: 250,
-    height: 66,
-    marginLeft: "auto",
+    width: 135,
+    height: 40,
     marginRight: "auto",
+    marginBottom: 15,
+    marginTop:"-15"
   },
 
   //
@@ -186,9 +185,9 @@ const ScRPdf = ({ code, item, close }) => {
           <Page size="A4" style={styles.page}>
 
             <View style={styles.section}>
+            <Image style={styles.logo} src={Logo} />
               <Text style={styles.title}>Service Call</Text>
             </View>
-            <Image style={styles.logo} src={Logo} />
 
 
             <View style={styles.section2}>

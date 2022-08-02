@@ -33,20 +33,21 @@ const styles = StyleSheet.create({
     width: "100%", //the pdf viewer will take up all of the width and height
     height: "80vh",
   },
-  title: {
-    width: "100%",
+
+title: {
+    marginLeft:"138",
+    marginTop:"-50",
     textAlign: "center",
-    letterSpacing: "10px",
-    padding: "10",
-    backgroundColor: "black",
-    color: "white",
+    color: "black",
+    width: "50%",
   },
+
   logo: {
-    width: 250,
-    height: 66,
-    marginLeft: "auto",
+    width: 135,
+    height: 40,
     marginRight: "auto",
     marginBottom: 15,
+    marginTop:"-15"
   },
 
   //
@@ -145,14 +146,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  title: {
-    width: "100%",
-    textAlign: "center",
-    letterSpacing: 8,
-    padding: 8,
-    backgroundColor: "black",
-    color: "white",
-  },
 });
 
 // Create Document Component
@@ -186,10 +179,10 @@ const MroPdf = ({ code, item, close }) => {
           title={`Maintence, Repairs, Operations ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
 
-            <View style={styles.section}>
-              <Text style={styles.title}>Maintence, Repairs, Operations Withdrawal Slip</Text>
-            </View>
+          <View style={styles.section}>
             <Image style={styles.logo} src={Logo} />
+            <Text style={styles.title}>Maintence, Repairs, Operations Withdrawal Slip</Text>
+          </View>
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>

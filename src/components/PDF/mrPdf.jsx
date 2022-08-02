@@ -26,19 +26,17 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    width: "100%",
+    marginTop:"-50",
     textAlign: "center",
-    letterSpacing: "10px",
-    padding: "10",
-    backgroundColor: "black",
-    color: "white",
+    color: "black",
   },
+
   logo: {
-    width: 250,
-    height: 66,
-    marginLeft: "auto",
+    width: 135,
+    height: 40,
     marginRight: "auto",
     marginBottom: 15,
+    marginTop:"-15"
   },
 
   //
@@ -170,9 +168,9 @@ const MrPdf = ({ code, item, close }) => {
           <Page size="A4" style={styles.page}>
 
           <View style={styles.section}>
-              <Text style={styles.title}>Memorandum</Text>
-            </View>
-            <Image style={styles.logo} src={Logo} />
+          <Image style={styles.logo} src={Logo} />
+            <Text style={styles.title}>Memorandum</Text>
+          </View>
 
 
             <View style={styles.section2}>

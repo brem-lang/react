@@ -33,20 +33,19 @@ const styles = StyleSheet.create({
     width: "100%", //the pdf viewer will take up all of the width and height
     height: "80vh",
   },
+
   title: {
-    width: "100%",
+    marginTop:"-50",
     textAlign: "center",
-    letterSpacing: "10px",
-    padding: "10",
-    backgroundColor: "black",
-    color: "white",
+    color: "black",
   },
+
   logo: {
-    width: 250,
-    height: 66,
-    marginLeft: "auto",
+    width: 135,
+    height: 40,
     marginRight: "auto",
     marginBottom: 15,
+    marginTop:"-15"
   },
 
   //
@@ -145,14 +144,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
-  title: {
-    width: "100%",
-    textAlign: "center",
-    letterSpacing: 8,
-    padding: 8,
-    backgroundColor: "black",
-    color: "white",
-  },
 });
 
 // Create Document Component
@@ -189,10 +180,9 @@ const MiPdf = ({ code, item, close }) => {
           <Page size="A4" style={styles.page}>
 
             <View style={styles.section}>
+            <Image style={styles.logo} src={Logo} />
               <Text style={styles.title}>Merchandise Withdrawal Slip</Text>
             </View>
-
-            <Image style={styles.logo} src={Logo} />
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
