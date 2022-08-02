@@ -59,6 +59,11 @@ function DMReturnSlip() {
       }
     }
   };
+
+  const handleCancel = () => {
+    navigate("/dm-return-logs");
+  };
+
   return (
     <div className="content-wrapper">
       {/* Content Header (Page header) */}
@@ -355,7 +360,15 @@ function DMReturnSlip() {
                         </div>
                       </div>
                     </div>
-                    <button type="submit" className="btn btn-primary">
+                    <button
+                      type="button"
+                      className="btn bg-gradient-warning"
+                      style={{ marginRight: 10 }}
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn bg-gradient-success">
                       Save
                     </button>
                   </div>

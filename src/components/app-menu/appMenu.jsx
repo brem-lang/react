@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import Logo from "../../assets/images/gfi.jpg";
@@ -60,6 +61,11 @@ const AppMenu = () => {
   //   }
   // };
 
+  useEffect(() => {
+    const trees = window.$('[data-widget="treeview"]');
+    trees.Treeview("init");
+  }, []);
+
   return (
     <aside className="main-sidebar sidebar-primary elevation-4">
       <Link to="/" className="brand-link">
@@ -85,39 +91,27 @@ const AppMenu = () => {
 
         <nav className="mt-2">
           <ul
-            className="nav nav-pills nav-sidebar flex-column"
+            className="nav nav-pills nav-sidebar flex-column nav-link"
             data-widget="treeview"
             role="menu"
             data-accordion="false"
           >
             {auth?.roles?.find((role) => allowedDashboard?.includes(role)) && (
-              <li className="nav-item menu-open">
-                <a
-                  href="#"
+              <li className="nav-item">
+                <Link
+                  to="/"
                   className={`nav-link ${location === "/" && "active"}`}
                 >
                   <i className="nav-icon fas fa-tachometer-alt"></i>
                   <p>Dashboard</p>
-                  <i class="right fas fa-angle-left"></i>
-                </a>
-
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <Link
-                      to="/"
-                      className={`nav-link ${location === "/" && "active"}`}
-                    >
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Dashboard</p>
-                    </Link>
-                  </li>
-                </ul>
+                </Link>
               </li>
             )}
 
-            <li className="nav-item menu-open">
+            <li className="nav-item">
               <a
                 href="#"
+                data-toggle="collapse"
                 className={`nav-link 
                 ${location === "/mi-logs" && "active"}
                 ${location === "/mro-logs" && "active"}
@@ -137,7 +131,7 @@ const AppMenu = () => {
                 </p>
               </a>
 
-              <ul className="nav nav-treeview">
+              <ul className="nav-treeview">
                 {auth?.roles?.find((role) => allowedMi?.includes(role)) && (
                   <li className="nav-item">
                     <Link
@@ -252,7 +246,7 @@ const AppMenu = () => {
               </ul>
             </li>
 
-            <li className="nav-item menu-open">
+            <li className="nav-item">
               <a
                 href="#"
                 className={`nav-link
@@ -270,7 +264,7 @@ const AppMenu = () => {
                   <i className="fas fa-angle-left right"></i>
                 </p>
               </a>
-              <ul className="nav nav-treeview">
+              <ul className="nav-treeview">
                 {auth?.roles?.find((role) => allowedMi?.includes(role)) && (
                   <li className="nav-item">
                     <Link

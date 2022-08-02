@@ -52,6 +52,10 @@ export default function ServiceCall() {
     }
   };
 
+  const handleCancel = () => {
+    navigate("/servicecall-logs");
+  };
+
   return (
     <div className="content-wrapper">
       {/* Content Header (Page header) */}
@@ -87,7 +91,6 @@ export default function ServiceCall() {
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div className="card">
                 <form onSubmit={handleSubmit(onSubmit)}>
-
                   <div className="card-body">
                     <div className="row">
                       <div className="col">
@@ -131,7 +134,7 @@ export default function ServiceCall() {
                     </div>
 
                     <div className="row">
-                    <div className="col">
+                      <div className="col">
                         <div className="form-floating mb-3">
                           <input
                             type="number"
@@ -164,9 +167,8 @@ export default function ServiceCall() {
                           />
                           <p>{errors.status?.message}</p>
                         </div>
-                      </div>        
+                      </div>
                     </div>
-
 
                     {/*  */}
                     <div className="row">
@@ -207,7 +209,7 @@ export default function ServiceCall() {
                     </div>
 
                     <div className="row">
-                    <div className="col">
+                      <div className="col">
                         <div className="form-floating mb-3">
                           <input
                             type="text"
@@ -244,7 +246,6 @@ export default function ServiceCall() {
                         </div>
                       </div>
                     </div>
-
 
                     {/*  */}
                     <div className="row">
@@ -288,7 +289,7 @@ export default function ServiceCall() {
                     {/*  */}
 
                     <div className="row">
-                    <div className="col">
+                      <div className="col">
                         <div className="form-floating mb-3">
                           <textarea
                             type="text"
@@ -308,7 +309,7 @@ export default function ServiceCall() {
                     </div>
 
                     <div className="row">
-                    <div className="col">
+                      <div className="col">
                         <div className="form-floating mb-3">
                           <textarea
                             type="text"
@@ -398,10 +399,16 @@ export default function ServiceCall() {
                       </div>
                     </div>
 
-
-
                     {/*  */}
-                    <button type="submit" className="btn btn-primary">
+                    <button
+                      type="button"
+                      className="btn bg-gradient-warning"
+                      style={{ marginRight: 10 }}
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn bg-gradient-success">
                       Save
                     </button>
                   </div>
