@@ -34,7 +34,11 @@ const CreateUser = () => {
     formData.append("role", dataField.role);
 
     if (dataField.pwd !== dataField.confirmPwd)
-      return alert("Password do not match");
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Password do not match!',
+      })
 
 
       // console.log(dataField)
@@ -61,11 +65,23 @@ const CreateUser = () => {
     }
   };
 
+  const close = (e) => {
+    navigate("/")
+  }
+
   return (
     <body className="hold-transition register-page">
       <div className="register-box">
         <div className="card">
           <div className="card-body register-card-body">
+          <button
+              onClick={() => close()}
+              style={{ float: "right", border: "none", fontSize: 15 }}
+              type="button"
+              className="btn btn-outline-info"
+            >
+              Close
+            </button>
             <p className="login-box-msg">Add User</p>
 
             <form onSubmit={(e) => handleSubmit(e)}>

@@ -8,8 +8,7 @@ import Swal from "sweetalert2";
 const Edit = ({ item, close }) => {
  let roles = [];
  item.roles.length !== 0 && roles.push(item.roles[0]?.name)
-//  roles.push(item.roles.length !== 0 ? item.roles[0]?.name : "" )
- console.log(roles)
+
   //save initial value
   const initialValue = {
     email: item.email,
@@ -26,7 +25,6 @@ const Edit = ({ item, close }) => {
     const { name, value } = e.target;
     setDataField({ ...dataField, [name]: value });
   };
- console.log(item)
 //  console.log(item.roles[0].name)
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,15 +40,17 @@ const Edit = ({ item, close }) => {
     formData.append("role", dataField.role);
 
     if (dataField.pwd !== dataField.confirmPwd)
-      return alert("Password do not match");
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Password do not match!',
+      })
 
-      console.log(dataField)
-      console.log(dataField.role)
     try {
       const res = await axios.post("/api/user/update", formData, config);
       if (res.data.success === true) {
-        Swal.fire("Great!", "Password successfully updated.", "success").then(
-          () => navigate(-1)
+        Swal.fire("Great!", "Profile Successfully updated.", "success").then(
+          () => navigate("/")
         );
       }
     } catch (err) {
@@ -83,29 +83,11 @@ const Edit = ({ item, close }) => {
                   value={dataField.email}
                   onChange={(e) => onChangeHandler(e)}
                   autoComplete="off"
-                  required
+                  readOnly
                 />
                 <div className="input-group-append">
                   <div className="input-group-text">
                     <span className="fas fa-at"></span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="input-group mb-3">
-                <input
-                  type="Name"
-                  className="form-control"
-                  placeholder="Email"
-                  name="name"
-                  value={dataField.name}
-                  onChange={(e) => onChangeHandler(e)}
-                  autoComplete="off"
-                  required
-                />
-                <div className="input-group-append">
-                  <div className="input-group-text">
-                    <span className="fas fa-user"></span>
                   </div>
                 </div>
               </div>
@@ -119,7 +101,6 @@ const Edit = ({ item, close }) => {
                   value={dataField.pwd}
                   onChange={(e) => onChangeHandler(e)}
                   autoComplete="off"
-                  required
                 />
                 <div className="input-group-append">
                   <div className="input-group-text">
@@ -137,7 +118,6 @@ const Edit = ({ item, close }) => {
                   value={dataField.confirmPwd}
                   onChange={(e) => onChangeHandler(e)}
                   autoComplete="off"
-                  required
                 />
 
                 <div className="input-group-append">
@@ -155,7 +135,7 @@ const Edit = ({ item, close }) => {
                 value={dataField.role}
                 onChange={(e) => onChangeHandler(e)}
                 className="form-control">
-                    <option value={roles.length !== 0 ? roles : "" }>{roles.length !== 0 ? roles : "None"  }</option>
+                    <option value={roles.length !== 0 ? roles : ""  }>{roles.length !== 0 ? roles : "None"  }</option>
                     <option value="mi_clerk">MI Clerk</option>
                     <option value="mro_clerk">MRO Clerk</option>
                     <option value="dm_clerk">DM Clerk</option>
