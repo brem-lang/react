@@ -61,7 +61,7 @@ function ServiceCallList() {
       setScList(res.data.data);
       setIsSc(false);
       setFilteredData(res.data.data);
-      console.log(res.data.data)
+      console.log(res.data.data);
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
@@ -128,7 +128,7 @@ function ServiceCallList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Service Call List</h1>
+              <h1 className="m-0">Service Call</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -136,7 +136,7 @@ function ServiceCallList() {
                 <li className="breadcrumb-item">
                   <Link to="/">Home</Link>
                 </li>
-                <li className="breadcrumb-item active">Service Call List</li>
+                <li className="breadcrumb-item active">Service Call</li>
               </ol>
             </div>
             {/* /.col */}

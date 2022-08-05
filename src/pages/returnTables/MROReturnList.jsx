@@ -131,7 +131,7 @@ function MROReturnList() {
           <div className="row mb-2">
             <div className="col-sm-6">
               <h1 className="m-0">
-                Maintence, Repairs, Operations Return Slip List
+                Maintence, Repairs, Operations Return Slip
               </h1>
             </div>
             {/* /.col */}
@@ -141,7 +141,7 @@ function MROReturnList() {
                   <Link to="#">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">
-                  Maintence, Repairs, Operations Return Slip List
+                  Maintence, Repairs, Operations Return Slip
                 </li>
               </ol>
             </div>

@@ -131,7 +131,7 @@ function FGReturnList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Finished Goods Return Slip List</h1>
+              <h1 className="m-0">Finished Goods Return Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
@@ -140,7 +140,7 @@ function FGReturnList() {
                   <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">
-                  Finished Goods Return Slip List
+                  Finished Goods Return Slip
                 </li>
               </ol>
             </div>

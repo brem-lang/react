@@ -132,7 +132,7 @@ function MROSlipList() {
           <div className="row mb-2">
             <div className="col-sm-6">
               <h1 className="m-0">
-                Maintence, Repairs, Operations Withdrawal Slip List
+                Maintence, Repairs, Operations Withdrawal Slip
               </h1>
             </div>
             {/* /.col */}
@@ -142,7 +142,7 @@ function MROSlipList() {
                   <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item active">
-                  Maintence, Repairs, Operations Withdrawal Slip List
+                  Maintence, Repairs, Operations Withdrawal Slip
                 </li>
               </ol>
             </div>

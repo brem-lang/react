@@ -131,7 +131,7 @@ function DMReturnList() {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1 className="m-0">Direct Material Return Slip List</h1>
+              <h1 className="m-0">Direct Material Return Slip</h1>
             </div>
             {/* /.col */}
             <div className="col-sm-6">
