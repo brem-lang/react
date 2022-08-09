@@ -72,18 +72,13 @@ const AppMenu = () => {
         <img
           src={Logo}
           alt="AdminLTE Logo"
-          // className="brand-image"
           width="230" 
           height="70"
-          // style={{ opacity: "0.8" }}
         />
-        {/* <span className="brand-text font-weight">
-          Gensan Feedmill, Inc.
-        </span> */}
       </Link>
       <br></br>
       <div className="sidebar">
-        <div className="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div className="user-panel mt-1 ml-4  pb-3 mb-3 d-flex">
           <div className="info">
             <Link to="/" className="d-block">
               {user}
