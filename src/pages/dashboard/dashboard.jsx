@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import axios from "../../api/axios";
 import { SlipContext } from "../../context/slip-provider";
@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   const count = slipCount;
   const redirectError = RedirectError();
-
+  const [data, setData] = useState([]);
   const getdataCount = useCallback(async () => {
     if (isSlipCount === false) return;
 
@@ -25,6 +25,8 @@ const Dashboard = () => {
       const forms = await axios.get("/api/document/list", config);
       setSlipCount(res.data.data);
       setIsSlipCount(false);
+      setData(forms.data.data);
+
       console.log(forms.data.data);
     } catch (err) {
       switch (err.code) {
@@ -43,6 +45,20 @@ const Dashboard = () => {
     }
   }, [isSlipCount, getdataCount]);
 
+  const columns = [
+    {
+      name: "Document Seris No.",
+      selector: (row) => row.document_series_no,
+    },
+    {
+      name: "Prepared by",
+      selector: (row) => row.prepared_by,
+    },
+    {
+      name: "Status",
+      selector: (row) => row.status,
+    },
+  ];
   return (
     <div className="content-wrapper">
       <div className="content-header">
@@ -179,28 +195,17 @@ const Dashboard = () => {
             <div className="card">
               <div className="card-header">
                 <h3 className="card-title">FORMS</h3>
-                <div className="card-tools">
-                  <button
-                    className="btn btn-block btn-outline-info"
-                    // onClick={() => syncData()}
-                  >
-                    <i class="fas fa-sync"></i>
-                  </button>
-                </div>
+                <div className="card-tools"></div>
               </div>
 
               <div className="card-body">
-                {/* {isLoading ? (
-                  <Spinner />
-                ) : ( */}
                 <DataTable
-                  // columns={columns}
-                  // data={filteredData}
+                  columns={columns}
+                  data={data}
                   pagination
                   selectableRowsHighlight
                   highlightOnHover
                 />
-                {/* )} */}
               </div>
             </div>
           </div>
