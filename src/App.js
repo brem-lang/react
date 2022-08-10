@@ -40,6 +40,10 @@ import {
   ServiceCallList,
   AddUser,
   UpdateUser,
+  Department,
+  AddDepartment,
+  MIView,
+  AddApproval,
 } from "./exporter";
 import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
@@ -79,6 +83,10 @@ function App() {
                 <Route path="/users" element={<UserList />} />
                 <Route path="/logs" element={<Logs />} />
                 <Route path="/add-user" element={<AddUser />} />
+                <Route path="/department" element={<Department />} />
+                <Route path="/add-department" element={<AddDepartment />} />
+                <Route path="/mi-view" element={<MIView />} />
+                <Route path="/add-approval" element={<AddApproval />} />
               </Route>
 
               {/* MI clerk access */}

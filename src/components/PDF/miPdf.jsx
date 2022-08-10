@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    marginTop:"-50",
+    marginTop: "-50",
     textAlign: "center",
     color: "black",
   },
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: "auto",
     marginBottom: 15,
-    marginTop:"-15"
+    marginTop: "-15",
   },
 
   //
@@ -178,9 +178,8 @@ const MiPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Merchandise ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
-
             <View style={styles.section}>
-            <Image style={styles.logo} src={Logo} />
+              <Image style={styles.logo} src={Logo} />
               <Text style={styles.title}>Merchandise Withdrawal Slip</Text>
             </View>
 

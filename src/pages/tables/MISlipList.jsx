@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import QRCode from "qrcode";
 import useAuth from "../../hooks/useAuth";
 import MiPdf from "../../components/PDF/miPdf";
+import MIView from "../view/MIView";
 import axios, { APP_URL } from "../../api/axios";
 import Spinner from "../../components/spinner/spinner.component";
 import DataTable from "react-data-table-component";
@@ -19,7 +20,7 @@ function MISlipList() {
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const { miList, setMiList, isMi, setIsMi } = useContext(SlipContext);
-
+  const [isView, setIsView] = useState(false);
   const redirectError = RedirectError();
 
   const itemArr = miList;
@@ -44,10 +45,21 @@ function MISlipList() {
     );
   };
 
+  const handleView = (e, item) => {
+    e.preventDefault();
+    setItem(item);
+    setIsView(true);
+  };
+
   const closePdfForm = (e) => {
     setIsOpenPdf(false);
     setItem([]);
     setGeneratedQR("");
+  };
+
+  const closeView = (e) => {
+    setIsView(false);
+    setItem([]);
   };
 
   const getSlipList = useCallback(async () => {
@@ -94,13 +106,24 @@ function MISlipList() {
     {
       name: "Action",
       cell: (row) => (
-        <button
-          type="button"
-          className="btn btn-outline-warning"
-          onClick={(e) => handlePdf(e, row)}
-        >
-          <i className="fas fa-file-pdf info"></i>
-        </button>
+        <>
+          <button
+            type="button"
+            className="btn btn-outline-warning"
+            onClick={(e) => handlePdf(e, row)}
+            style={{ marginRight: 10 }}
+          >
+            <i className="fas fa-file-pdf info"></i>
+          </button>
+
+          <button
+            type="button"
+            className="btn btn-outline-warning"
+            onClick={(e) => handleView(e, row)}
+          >
+            <i className="fas fa-folder info"></i>
+          </button>
+        </>
       ),
     },
   ];
@@ -157,6 +180,10 @@ function MISlipList() {
         <section className="content">
           <MiPdf code={generatedQR} item={item} close={closePdfForm} />
         </section>
+      ) : isView ? (
+        <section className="content">
+          <MIView item={item} close={closeView} />
+        </section>
       ) : (
         <section className="content">
           <div className="container-fluid">
@@ -190,41 +217,6 @@ function MISlipList() {
                         />
                       }
                     />
-                    {/* <table
-                      id="example1"
-                      className="table table-bordered table-striped"
-                    >
-                      <thead>
-                        <tr>
-                          <th>Document Series No</th>
-                          <th>Prepared by</th>
-                          <th>Approved by</th>
-                          <th>Release by</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {itemArr.map((item) => {
-                          return (
-                            <tr key={item.id}>
-                              <td>{item.document_series_no}</td>
-                              <td>{item.prepared_by}</td>
-                              <td>{item.approved_by}</td>
-                              <td>{item.released_by}</td>
-                              <td>
-                                <button
-                                  type="button"
-                                  className="btn btn-outline-warning"
-                                  onClick={(e) => handlePdf(e, item)}
-                                >
-                                  <i className="fas fa-file-pdf info"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table> */}
                   </div>
                 </div>
               </div>

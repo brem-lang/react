@@ -13,7 +13,7 @@ import RedirectError from "../../routes/RedirectError";
 function ListUsers() {
   const [isLoading, setIsLoading] = useState(false);
   // const [filteredData, setFilteredData] = useState([]);
-  const { auth,refresh,setRefresh } = useAuth();
+  const { auth } = useAuth();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [item, setItem] = useState([]);
   const { edit, setEdit, isEdit, setIsEdit } = useContext(SlipContext);
@@ -33,11 +33,10 @@ function ListUsers() {
       // setFilteredData(res.data.data);
       setEdit(res.data.data);
       setIsEdit(false);
-      setRefresh(false);
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return redirectError();
+        // return redirectError();
 
         default:
           return console.log(err, "default");
@@ -45,17 +44,15 @@ function ListUsers() {
     }
 
     setIsLoading(false);
-  }, [auth, setIsLoading, isEdit, setIsEdit, setEdit, redirectError,setRefresh]);
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
-
-  useEffect(() => {
-    if (refresh === true) {
-      getData();
-    }
-  }, [getData,refresh]);
+  }, [
+    auth,
+    setIsLoading,
+    isEdit,
+    setIsEdit,
+    setEdit,
+    redirectError,
+    // setRefresh,
+  ]);
 
   const columns = [
     {
@@ -66,10 +63,6 @@ function ListUsers() {
       name: "Email",
       selector: (row) => row.email,
     },
-    // {
-    //   name: "Roles",
-    //   selector: (row) => row.roles,
-    // },
     {
       name: "Roles",
       selector: (row) => row.roles.map((role) => role.name),
@@ -99,6 +92,16 @@ function ListUsers() {
     setIsOpenEdit(false);
     setItem([]);
   };
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  useEffect(() => {
+    if (edit) {
+      getData();
+    }
+  }, [edit, getData]);
 
   return (
     <div className="content-wrapper">

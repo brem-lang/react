@@ -33,7 +33,7 @@ const MISlip = () => {
 
   // Submit using axios
   const onSubmit = async (data) => {
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
     let config = {
       headers: {
         Authorization: `Bearer ${auth.token}`,
@@ -220,7 +220,7 @@ const MISlip = () => {
                       </div>
                     </div>
                     <div className="row">
-                    <div className="col-6">
+                      <div className="col-6">
                         <div className="form-floating mb-3">
                           <input
                             type="text"

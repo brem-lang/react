@@ -1,27 +1,27 @@
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
 import RedirectError from "../../routes/RedirectError";
-import useAuth from "../../hooks/useAuth";
+import { SlipContext } from "../../context/slip-provider";
 const initialValue = {
   name: "",
   email: "",
   pwd: "",
   confirmPwd: "",
-  role:""
+  role: "",
 };
 
 const CreateUser = () => {
-  const {setRefresh } = useAuth();
   const [dataField, setDataField] = useState(initialValue);
   const navigate = useNavigate();
   const redirectError = RedirectError();
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-
     setDataField({ ...dataField, [name]: value });
   };
+  const { setIsEdit } = useContext(SlipContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,23 +35,23 @@ const CreateUser = () => {
 
     if (dataField.pwd !== dataField.confirmPwd)
       return Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Password do not match!',
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "Password do not match!",
+      });
 
-
-      // console.log(dataField)
+    // console.log(dataField)
     try {
       const res = await axios.post("/api/auth/register", formData);
       if (res.data.success === true) {
+        setIsEdit(true);
         Swal.fire(
           "Great!",
           "The user was successfully created.",
           "success"
         ).then(() => {
-          setRefresh(true);
-          navigate("/users")
+          // setRefresh(true);
+          navigate("/users");
         });
       }
     } catch (err) {
@@ -66,15 +66,15 @@ const CreateUser = () => {
   };
 
   const close = (e) => {
-    navigate("/")
-  }
+    navigate("/users");
+  };
 
   return (
     <body className="hold-transition register-page">
       <div className="register-box">
         <div className="card">
           <div className="card-body register-card-body">
-          <button
+            <button
               onClick={() => close()}
               style={{ float: "right", border: "none", fontSize: 15 }}
               type="button"
@@ -159,21 +159,22 @@ const CreateUser = () => {
 
               <p>Roles</p>
               <div className="input-group mb-3">
-                <select 
-                name="role"
-                value={dataField.role}
-                onChange={(e) => onChangeHandler(e)}
-                className="form-control">
-                    <option value="">None</option>
-                    <option value="mi_clerk">MI Clerk</option>
-                    <option value="mro_clerk">MRO Clerk</option>
-                    <option value="dm_clerk">DM Clerk</option>
-                    <option value="fg_clerk">FG Clerk</option>
-                    <option value="fa_clerk">FA Clerk</option>
-                    <option value="ma_clerk">MA Clerk</option>
-                    <option value="mr_clerk">MR Clerk</option>
-                    <option value="sc_clerk">SC Clerk</option>
-                  </select>
+                <select
+                  name="role"
+                  value={dataField.role}
+                  onChange={(e) => onChangeHandler(e)}
+                  className="form-control"
+                >
+                  <option value="">None</option>
+                  <option value="mi_clerk">MI Clerk</option>
+                  <option value="mro_clerk">MRO Clerk</option>
+                  <option value="dm_clerk">DM Clerk</option>
+                  <option value="fg_clerk">FG Clerk</option>
+                  <option value="fa_clerk">FA Clerk</option>
+                  <option value="ma_clerk">MA Clerk</option>
+                  <option value="mr_clerk">MR Clerk</option>
+                  <option value="sc_clerk">SC Clerk</option>
+                </select>
 
                 <div className="input-group-append">
                   <div className="input-group-text">

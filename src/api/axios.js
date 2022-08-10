@@ -8,7 +8,7 @@ export const APP_URL =
     : "https://api.gensanfeedmill.com";
 
 export default axios.create({
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json"},
   baseURL: BASE_URL,
 });
 

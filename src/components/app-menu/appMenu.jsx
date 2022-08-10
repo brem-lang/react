@@ -94,6 +94,7 @@ const AppMenu = () => {
             data-accordion="false"
           >
             {auth?.roles?.find((role) => allowedDashboard?.includes(role)) && (
+              <>
               <li className="nav-item">
                 <Link
                   to="/"
@@ -103,6 +104,16 @@ const AppMenu = () => {
                   <p>Dashboard</p>
                 </Link>
               </li>
+              <li className="nav-item">
+              <Link
+                to="/department"
+                className={`nav-link ${location === "/department" && "active"}`}
+              >
+                <i className="nav-icon fas fa-building"></i>
+                <p>Department</p>
+              </Link>
+            </li>    
+            </>          
             )}
 
             <li className="nav-item">

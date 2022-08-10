@@ -41,7 +41,9 @@ const FGSlipList = React.lazy(() => import("./pages/tables/FGSlipList"));
 const FASlipList = React.lazy(() => import("./pages/tables/FASlipList"));
 const MASlipList = React.lazy(() => import("./pages/tables/MASlipList"));
 const MRSlipList = React.lazy(() => import("./pages/tables/MRSlipList"));
-const ServiceCallList = React.lazy(() =>import("./pages/tables/ServiceCallList"));
+const ServiceCallList = React.lazy(() =>
+  import("./pages/tables/ServiceCallList")
+);
 // export { default as MISlipList } from "./pages/tables/MISlipList";
 // export { default as MROSlipList } from "./pages/tables/MROSlipList";
 // export { default as DMSlipList } from "./pages/tables/DMSlipList";
@@ -52,9 +54,9 @@ const ServiceCallList = React.lazy(() =>import("./pages/tables/ServiceCallList")
 // export { default as ServiceCallList } from "./pages/tables/ServiceCallList";
 
 // add user
-const AddUser = React.lazy(() =>import("./pages/users/AddUser"));
+const AddUser = React.lazy(() => import("./pages/users/AddUser"));
 //update use
-const UpdateUser = React.lazy(() =>import("./components/EditForm/UpdateUser"));
+const UpdateUser = React.lazy(() => import("./components/EditForm/UpdateUser"));
 
 // return slip logs
 const MISlipReturnLogs = React.lazy(() =>
@@ -76,6 +78,14 @@ const MASlipReturnLogs = React.lazy(() =>
   import("./pages/returnTables/MAReturnList")
 );
 
+// department
+const Department = React.lazy(() => import("./pages/department/Department"));
+const AddDepartment = React.lazy(() =>
+  import("./pages/department/AddDepartment")
+);
+const AddApproval = React.lazy(() => import("./pages/department/AddApproval"));
+//view
+const MIView = React.lazy(() => import("./pages/view/MIView"));
 export {
   Dashboard,
   Dashboardv2,
@@ -115,5 +125,9 @@ export {
   FASlipReturnLogs,
   MASlipReturnLogs,
   AddUser,
-  UpdateUser
+  UpdateUser,
+  Department,
+  AddDepartment,
+  MIView,
+  AddApproval,
 };
