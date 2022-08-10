@@ -26,6 +26,7 @@ const MISlip = () => {
       ],
     },
   });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",

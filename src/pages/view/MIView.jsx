@@ -1,10 +1,11 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, createSearchParams } from "react-router-dom";
 const MIView = ({ item, close }) => {
   const navigate = useNavigate();
   const {
+    id,
     approved_by,
     customer_name,
     user_name,
@@ -17,6 +18,7 @@ const MIView = ({ item, close }) => {
     warehouse,
     wh_location,
     created_at,
+    document_series_no,
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -51,7 +53,12 @@ const MIView = ({ item, close }) => {
   ];
 
   const addDept = () => {
-    navigate("/");
+    navigate("/add-approval", {
+      state: {
+        id: id,
+        document_series_no: document_series_no,
+      },
+    });
   };
   return (
     <>

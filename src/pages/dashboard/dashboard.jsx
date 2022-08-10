@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect } from "react";
+import DataTable from "react-data-table-component";
 import axios from "../../api/axios";
 import { SlipContext } from "../../context/slip-provider";
 import useAuth from "../../hooks/useAuth";
@@ -21,8 +22,10 @@ const Dashboard = () => {
 
     try {
       const res = await axios.get("/api/get/formcount", config);
+      const forms = await axios.get("/api/document/list", config);
       setSlipCount(res.data.data);
       setIsSlipCount(false);
+      console.log(forms.data.data);
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
@@ -170,6 +173,39 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
+      <div className="container-fluid">
+        <div className="py-12">
+          <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div className="card">
+              <div className="card-header">
+                <h3 className="card-title">FORMS</h3>
+                <div className="card-tools">
+                  <button
+                    className="btn btn-block btn-outline-info"
+                    // onClick={() => syncData()}
+                  >
+                    <i class="fas fa-sync"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div className="card-body">
+                {/* {isLoading ? (
+                  <Spinner />
+                ) : ( */}
+                <DataTable
+                  // columns={columns}
+                  // data={filteredData}
+                  pagination
+                  selectableRowsHighlight
+                  highlightOnHover
+                />
+                {/* )} */}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
