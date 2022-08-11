@@ -134,46 +134,16 @@ const MIView = ({ item, close }) => {
                   <h3 className="card-title">APPROVAL DEPARTMENT</h3>
                 </div>
                 <div className="card-body" style={mystyle}>
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
-                  Scrollbar Test!
-                  <br />
+                  <ul>
+                    <li>
+                      <dt>Kristine received form from Production Department</dt>
+                      <p style={{ fontSize: 10 }}>Aug 05, 2022 - 03:00 PM</p>
+                    </li>
+                    <li>
+                      <dt>Kristine received form from Production Department</dt>
+                      <p style={{ fontSize: 10 }}>Aug 05, 2022 - 03:00 PM</p>
+                    </li>
+                  </ul>
                 </div>
                 {/* /.card-body */}
               </div>
