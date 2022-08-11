@@ -4,11 +4,17 @@ import axios from "../../api/axios";
 import { SlipContext } from "../../context/slip-provider";
 import useAuth from "../../hooks/useAuth";
 import RedirectError from "../../routes/RedirectError";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { auth } = useAuth();
   const { slipCount, setSlipCount, isSlipCount, setIsSlipCount } =
     useContext(SlipContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // console.log(location);
+  console.log(navigate);
 
   const count = slipCount;
   const redirectError = RedirectError();
@@ -26,8 +32,6 @@ const Dashboard = () => {
       setSlipCount(res.data.data);
       setIsSlipCount(false);
       setData(forms.data.data);
-
-      console.log(forms.data.data);
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
@@ -211,7 +215,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>  
+    </div>
   );
 };
 

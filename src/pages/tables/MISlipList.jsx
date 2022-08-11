@@ -24,7 +24,6 @@ function MISlipList() {
   const redirectError = RedirectError();
 
   const itemArr = miList;
-  console.log(itemArr);
   const handlePdf = (e, item) => {
     e.preventDefault();
 

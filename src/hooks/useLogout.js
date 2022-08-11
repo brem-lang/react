@@ -6,20 +6,24 @@ const useLogout = () => {
   const { auth, setAuth } = useAuth();
 
   const logout = async () => {
-    let config = {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
+    const options = {
+      method: "POST",
+      url: "https://api.gensanfeedmill.com/api/auth/logout",
+      headers: { Authorization: `Bearer ${auth.token}` },
     };
 
     try {
-      await axios.post("/api/auth/logout", config);
+      await axios.request(options).then(function () {
+        // console.log(response.data);
+        // navigate("/login");
+        setAuth({});
+        localStorage.removeItem("user");
+      });
     } catch (err) {
       console.log(err);
+      setAuth({});
+      localStorage.removeItem("user");
     }
-
-    setAuth({});
-    localStorage.removeItem("user");
   };
 
   return logout;
