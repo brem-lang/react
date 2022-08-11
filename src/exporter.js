@@ -86,7 +86,11 @@ const AddDepartment = React.lazy(() =>
 const AddApproval = React.lazy(() => import("./pages/department/AddApproval"));
 //view
 const MIView = React.lazy(() => import("./pages/view/MIView"));
+
+//handover
+const Handover = React.lazy(() => import("./pages/handover/Handover"));
 export {
+  Handover,
   Dashboard,
   Dashboardv2,
   Dashboardv3,

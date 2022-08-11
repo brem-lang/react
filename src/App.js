@@ -44,6 +44,7 @@ import {
   AddDepartment,
   MIView,
   AddApproval,
+  Handover,
 } from "./exporter";
 import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
@@ -65,14 +66,14 @@ function App() {
         <Route path="/verify/*" element={<Document />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/maintenance" element={<Maintenance />} />
-
+        <Route path="/handover" element={<Handover />} />
         {/* Protected Routes */}
         <Route element={<PersistLogin />}>
           <Route path="/" element={<Layout />}>
             <Route element={<RequireAuth />}>
               {/* all user can access this */}
               <Route path="/update-user" element={<UpdateUser />} />
-
+              <Route path="/add-approval" element={<AddApproval />} />
               {/* Only Admin Access */}
               <Route
                 element={<RequireRole allowedRoles={[ROLES.administrator]} />}
@@ -86,7 +87,6 @@ function App() {
                 <Route path="/department" element={<Department />} />
                 <Route path="/add-department" element={<AddDepartment />} />
                 <Route path="/mi-view" element={<MIView />} />
-                <Route path="/add-approval" element={<AddApproval />} />
               </Route>
 
               {/* MI clerk access */}

@@ -69,12 +69,7 @@ const AppMenu = () => {
   return (
     <aside className="main-sidebar sidebar-primary elevation-4">
       <Link to="/" className="brand-link">
-        <img
-          src={Logo}
-          alt="AdminLTE Logo"
-          width="230" 
-          height="70"
-        />
+        <img src={Logo} alt="AdminLTE Logo" width="230" height="70" />
       </Link>
       <br></br>
       <div className="sidebar">
@@ -95,25 +90,27 @@ const AppMenu = () => {
           >
             {auth?.roles?.find((role) => allowedDashboard?.includes(role)) && (
               <>
-              <li className="nav-item">
-                <Link
-                  to="/"
-                  className={`nav-link ${location === "/" && "active"}`}
-                >
-                  <i className="nav-icon fas fa-tachometer-alt"></i>
-                  <p>Dashboard</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-              <Link
-                to="/department"
-                className={`nav-link ${location === "/department" && "active"}`}
-              >
-                <i className="nav-icon fas fa-building"></i>
-                <p>Department</p>
-              </Link>
-            </li>    
-            </>          
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    className={`nav-link ${location === "/" && "active"}`}
+                  >
+                    <i className="nav-icon fas fa-tachometer-alt"></i>
+                    <p>Dashboard</p>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/department"
+                    className={`nav-link ${
+                      location === "/department" && "active"
+                    }`}
+                  >
+                    <i className="nav-icon fas fa-building"></i>
+                    <p>Department</p>
+                  </Link>
+                </li>
+              </>
             )}
 
             <li className="nav-item">
