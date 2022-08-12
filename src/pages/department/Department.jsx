@@ -11,10 +11,8 @@ function Department() {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [isSync, setIsSync] = useState(true);
-  const [search, setSearch] = useState([]);
   const redirectError = RedirectError();
   const { auth, refresh, setRefresh } = useAuth();
-  const navigate = useNavigate();
 
   const getData = useCallback(async () => {
     const config = {
@@ -136,7 +134,6 @@ function Department() {
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div className="card">
                 <div className="card-header">
-                  <h3 className="card-title">Activity Logs</h3>
                   <div className="card-tools">
                     <Link to="/add-department" className="btn btn-success">
                       Add Department

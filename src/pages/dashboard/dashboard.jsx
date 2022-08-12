@@ -5,33 +5,28 @@ import { SlipContext } from "../../context/slip-provider";
 import useAuth from "../../hooks/useAuth";
 import RedirectError from "../../routes/RedirectError";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import Spinner from "../../components/spinner/spinner.component";
 const Dashboard = () => {
-  const { auth } = useAuth();
+  const { auth, refresh, setRefresh } = useAuth();
   const { slipCount, setSlipCount, isSlipCount, setIsSlipCount } =
     useContext(SlipContext);
   const location = useLocation();
   const navigate = useNavigate();
-
-  // console.log(location);
-  console.log(navigate);
-
+  const [isLoading, setIsLoading] = useState(false);
   const count = slipCount;
   const redirectError = RedirectError();
   const [data, setData] = useState([]);
+  const [isSync, setIsSync] = useState(true);
   const getdataCount = useCallback(async () => {
     if (isSlipCount === false) return;
-
     const config = {
       headers: { Authorization: `Bearer ${auth.token}` },
     };
 
     try {
       const res = await axios.get("/api/get/formcount", config);
-      const forms = await axios.get("/api/document/list", config);
       setSlipCount(res.data.data);
       setIsSlipCount(false);
-      setData(forms.data.data);
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
@@ -43,11 +38,41 @@ const Dashboard = () => {
     }
   }, [auth, setSlipCount, isSlipCount, setIsSlipCount, redirectError]);
 
+  const getData = useCallback(async () => {
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    };
+
+    // setIsLoading(true);
+    try {
+      const res = await axios("/api/document/list", config);
+      setData(res.data.data);
+      setRefresh(false);
+    } catch (err) {
+      console.log(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return redirectError();
+
+        default:
+          return console.log(err, "default");
+      }
+    }
+    setIsLoading(false);
+    setIsSync(false);
+  }, [auth, setIsLoading, redirectError]);
+
   useEffect(() => {
     if (isSlipCount === true) {
       getdataCount();
     }
   }, [isSlipCount, getdataCount]);
+
+  useEffect(() => {
+    if (isSync === true) {
+      getData();
+    }
+  }, [isSync, getData]);
 
   const columns = [
     {

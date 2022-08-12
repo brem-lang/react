@@ -93,7 +93,10 @@ function AddApproval() {
   const close = () => {
     navigate("/mi-logs");
   };
-
+  if (state === null) {
+    navigate("/");
+    console.log("empty");
+  }
   return (
     <body className="hold-transition register-page">
       <div className="register-box">
