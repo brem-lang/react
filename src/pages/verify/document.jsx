@@ -20,35 +20,40 @@ const Document = () => {
   const [valid, setValid] = useState(false);
   const [errorDoc, setErrorDoc] = useState(false);
   const [verifiedData, setVerifiedData] = useState({});
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
-    const verifyDocument = async () => {
-      const val = location.search.split("=")[1];
+    if (refresh === true) {
+      verifyDocument();
+    }
+  }, [refresh]);
 
-      console.log(val);
+  const verifyDocument = async () => {
+    const val = location?.search.split("=")[1];
 
-      try {
-        const res = await axiosVerifyDoc({
-          params: {
-            key: val,
-          },
-        });
+    if (!val) return;
 
-        if (res.data.success === true) {
-          setVerifiedData(res.data.data);
-          setValid(true);
-          setErrorDoc(false);
-        }
-      } catch (err) {
-        if (err.code === "ERR_BAD_REQUEST") {
-          setErrorDoc(true);
-        }
+    try {
+      const res = await axiosVerifyDoc({
+        params: {
+          key: val,
+        },
+      });
 
-        console.log(err);
+      if (res.data.success === true) {
+        setVerifiedData(res.data.data);
+        setValid(true);
+        setErrorDoc(false);
       }
-    };
-    return verifyDocument;
-  }, [location]);
+    } catch (err) {
+      if (err.code === "ERR_BAD_REQUEST") {
+        setErrorDoc(true);
+      }
+
+      console.log(err);
+      setRefresh(false);
+    }
+  };
 
   return (
     <section style={{ overflow: "hidden", maxHeight: "100vh" }}>
