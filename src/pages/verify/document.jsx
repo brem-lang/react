@@ -23,7 +23,9 @@ const Document = () => {
 
   useEffect(() => {
     const verifyDocument = async () => {
-      const val = location.pathname.split("=")[1];
+      const val = location.search.split("=")[1];
+
+      console.log(val);
 
       try {
         const res = await axiosVerifyDoc({
