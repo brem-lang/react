@@ -67,6 +67,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/maintenance" element={<Maintenance />} />
         <Route path="/handover" element={<Handover />} />
+        {/* <Route path="/test" element={<Testfile />} /> */}
+
         {/* Protected Routes */}
         <Route element={<PersistLogin />}>
           <Route path="/" element={<Layout />}>

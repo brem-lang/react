@@ -1,8 +1,12 @@
 import React from "react";
 import Logo from "../../assets/images/gfi.jpg";
+import { useLocation } from "react-router-dom";
+
 // import { ThreeDots } from "react-loader-spinner";
 
 export default function Maintenance() {
+  const location = useLocation();
+  console.log(location);
   return (
     <div
       className="hold-transition login-page"
