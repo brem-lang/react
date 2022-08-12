@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL = "https://api.gensanfeedmill.com";
-const BASE_URL_VERIFY = "https://withdrawals.gensanfeedmill.com/verify";
+const BASE_URL_VERIFY = "https://api.gensanfeedmill.com/api/service/verify";
 
 export const APP_URL =
   process.env.NODE_ENV !== "production"
