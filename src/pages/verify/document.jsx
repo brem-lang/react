@@ -84,7 +84,7 @@ const Document = () => {
               style={{ background: "transparent" }}
             >
               <h6 style={{ fontSize: "30px" }}>
-                {location.pathname.split("=")[1]}
+                {location?.search.split("=")[1]}
               </h6>
               <p>is not a valid document</p>
               <small>

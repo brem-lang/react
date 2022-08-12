@@ -27,7 +27,7 @@ function FGSlipList() {
   const handlePdf = (e, item) => {
     e.preventDefault();
 
-    const rawCode = `${APP_URL}/verify/key=${item.document_series_no}`;
+    const rawCode = `${APP_URL}/verify?key=${item.document_series_no}`;
 
     setItem(item);
     QRCode.toDataURL(
