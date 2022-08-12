@@ -5,10 +5,10 @@ const BASE_URL_VERIFY = "https://api.gensanfeedmill.com/api/service/verify";
 export const APP_URL =
   process.env.NODE_ENV !== "production"
     ? "localhost:3000"
-    : "https://api.gensanfeedmill.com";
+    : "https://withdrawals.gensanfeedmill.com";
 
 export default axios.create({
-  headers: { "Content-Type": "application/json"},
+  headers: { "Content-Type": "application/json" },
   baseURL: BASE_URL,
 });
 

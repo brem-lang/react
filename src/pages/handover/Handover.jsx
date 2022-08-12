@@ -24,18 +24,14 @@ function Handover() {
     const formData = new FormData();
     formData.append("document_series_no", location.state.document_series_no);
     formData.append("name", dataField.name);
-    console.log(dataField.name);
-    console.log(formData.get("document_series_no"));
     try {
       const res = await axios.post("/api/handover", formData);
       if (res.data.success === true) {
-        Swal.fire(
-          "Great!",
-          "The user was successfully created.",
-          "success"
-        ).then(() => {
-          navigate("/");
-        });
+        Swal.fire("Great!", "The user was successfully added.", "success").then(
+          () => {
+            navigate("/");
+          }
+        );
       }
     } catch (err) {
       switch (err.code) {
