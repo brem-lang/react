@@ -83,11 +83,13 @@ const ValidDocument = ({ data }) => {
           className="card-footer"
           style={{ border: "none", background: "transparent" }}
         >
-          <Link to={"/handover"} state={data}>
-            <button type="button" class="btn btn-outline-light">
-              Handover
-            </button>
-          </Link>
+          {data.status_label === "Open" && data.status.length !== 0 && (
+            <Link to={"/handover"} state={data}>
+              <button type="button" class="btn btn-outline-light">
+                Handover
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </section>
