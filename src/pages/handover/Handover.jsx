@@ -25,23 +25,24 @@ function Handover() {
     const formData = new FormData();
     formData.append("document_series_no", location.state.document_series_no);
     formData.append("name", dataField.name);
-    // try {
-    //   const res = await axios.post("/api/handover", formData);
-    //   if (res.data.success === true) {
-    //     Swal.fire("Great!", "The user was successfully added.", "success").then(
-    //       () => {
-    //         setIsSuccess(true);
-    //       }
-    //     );
-    //   }
-    // } catch (err) {
-    //   switch (err.code) {
-    //     case "ERR_BAD_REQUEST":
-    //       return redirectError();
-    //     default:
-    //       return console.log(err, "default");
-    //   }
-    // }
+    try {
+      const res = await axios.post("/api/handover", formData);
+      if (res.data.success === true) {
+        Swal.fire("Great!", "The user was successfully added.", "success").then(
+          () => {
+            setIsSuccess(true);
+          }
+        );
+      }
+    } catch (err) {
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          // return redirectError();
+          console.log(err);
+        default:
+          return console.log(err, "default");
+      }
+    }
   };
 
   const close = (e) => {
