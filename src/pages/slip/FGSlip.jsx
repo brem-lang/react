@@ -120,7 +120,7 @@ const FGSlip = () => {
                             <p>{errors.batch_no?.message}</p>
                           </div>
                         </div>
-                        
+
                         <div className="col">
                           <div className="form-floating mb-3">
                             <input
@@ -141,7 +141,7 @@ const FGSlip = () => {
                       </div>
 
                       <div className="row">
-                      <div className="col">
+                        <div className="col">
                           <div className="form-floating mb-3">
                             <input
                               type="number"
@@ -178,7 +178,7 @@ const FGSlip = () => {
                       </div>
 
                       <div className="row">
-                      <div className="col-6">
+                        <div className="col-6">
                           <div className="form-floating mb-3">
                             <input
                               type="text"
@@ -348,11 +348,28 @@ const FGSlip = () => {
                           <div className="form-floating mb-3">
                             <input
                               type="text"
+                              {...register("noted_by", {
+                                required: "Noted by is required",
+                              })}
+                              className="form-control"
+                              placeholder="Noted by"
+                              autoComplete="off"
+                              style={{
+                                border: errors.noted_by ? "1px solid red" : "",
+                              }}
+                            />
+                            <p>{errors.noted_by?.message}</p>
+                          </div>
+                        </div>
+                        <div className="col">
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
                               {...register("prepared_by", {
                                 required: "Prepared by is required",
                               })}
-                              placeholder="Prepared by"
                               className="form-control"
+                              placeholder="Prepared by"
                               autoComplete="off"
                               style={{
                                 border: errors.prepared_by
@@ -370,8 +387,8 @@ const FGSlip = () => {
                               {...register("approved_by", {
                                 required: "Approved by is required",
                               })}
-                              placeholder="Approved by"
                               className="form-control"
+                              placeholder="Approved by"
                               autoComplete="off"
                               style={{
                                 border: errors.approved_by
@@ -385,12 +402,31 @@ const FGSlip = () => {
                         <div className="col">
                           <div className="form-floating mb-3">
                             <input
-                              {...register("released_by", {
-                                required: "Release by is required",
-                              })}
                               type="text"
-                              placeholder="Release by"
+                              {...register("checked_by", {
+                                required: "Checked by is required",
+                              })}
                               className="form-control"
+                              placeholder="Checked by"
+                              autoComplete="off"
+                              style={{
+                                border: errors.checked_by
+                                  ? "1px solid red"
+                                  : "",
+                              }}
+                            />
+                            <p>{errors.checked_by?.message}</p>
+                          </div>
+                        </div>
+                        <div className="col">
+                          <div className="form-floating mb-3">
+                            <input
+                              type="text"
+                              {...register("released_by", {
+                                required: "Released by is required",
+                              })}
+                              className="form-control"
+                              placeholder="Released by"
                               autoComplete="off"
                               style={{
                                 border: errors.released_by

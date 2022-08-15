@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    marginTop:"-50",
+    marginTop: "-50",
     textAlign: "center",
     color: "black",
   },
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: "auto",
     marginBottom: 15,
-    marginTop:"-15"
+    marginTop: "-15",
   },
 
   //
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   contentText2: {
     fontSize: 10,
     paddingTop: 5,
+    padding: 5,
   },
   flexRowContent: {
     display: "flex",
@@ -147,6 +148,11 @@ const MrPdf = ({ code, item, close }) => {
     id_no,
     document_series_no,
     created_at,
+    prepared_by,
+    approved_by,
+    released_by,
+    checked_by,
+    noted_by,
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -166,12 +172,10 @@ const MrPdf = ({ code, item, close }) => {
         <Document title={`Memorandum ${document_series_no}`}>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
-
-          <View style={styles.section}>
-          <Image style={styles.logo} src={Logo} />
-            <Text style={styles.title}>Memorandum</Text>
-          </View>
-
+            <View style={styles.section}>
+              <Image style={styles.logo} src={Logo} />
+              <Text style={styles.title}>Memorandum</Text>
+            </View>
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
@@ -207,6 +211,40 @@ const MrPdf = ({ code, item, close }) => {
                   <Text style={styles.contentText2}>{asset_description}</Text>
                   <Text style={styles.contentText2}>{asset_serial_no}</Text>
                   <Text style={styles.contentText2}>{asset_value}</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={[styles.section2, { marginTop: 15 }]}>
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Prepared by :</Text>
+                  <Text style={styles.contentText2}>Approved by :</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{prepared_by}</Text>
+                  <Text style={styles.contentText2}>{approved_by}</Text>
+                </View>
+              </View>
+
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Released by :</Text>
+                  <Text style={styles.contentText2}>Checked by :</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{released_by}</Text>
+                  <Text style={styles.contentText2}>{checked_by}</Text>
+                </View>
+              </View>
+            </View>
+            <View style={[styles.section2, { marginTop: -15 }]}>
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 39 }}>
+                  <Text style={styles.contentText2}>Noted by :</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{noted_by}</Text>
                 </View>
               </View>
             </View>

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    marginTop:"-50",
+    marginTop: "-50",
     textAlign: "center",
     color: "black",
   },
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: "auto",
     marginBottom: 15,
-    marginTop:"-15"
+    marginTop: "-15",
   },
 
   //
@@ -158,7 +158,9 @@ const FgPdf = ({ code, item, close }) => {
     items,
     created_at,
     customer_name,
-    sales_order_number
+    sales_order_number,
+    checked_by,
+    noted_by,
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -176,11 +178,10 @@ const FgPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Finished Goods ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
-
-          <View style={styles.section}>
-          <Image style={styles.logo} src={Logo} />
-            <Text style={styles.title}>Finished Goods Withdrawal Slip</Text>
-          </View>
+            <View style={styles.section}>
+              <Image style={styles.logo} src={Logo} />
+              <Text style={styles.title}>Finished Goods Withdrawal Slip</Text>
+            </View>
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
@@ -254,6 +255,17 @@ const FgPdf = ({ code, item, close }) => {
                 <Text>{prepared_by}</Text>
                 <Text>{approved_by}</Text>
                 <Text>{released_by}</Text>
+              </View>
+            </View>
+            <View style={{ marginTop: 15, marginRight: 180 }}>
+              <View style={styles.footer}>
+                <Text>Noted by</Text>
+                <Text>Checked by</Text>
+              </View>
+
+              <View style={styles.footer}>
+                <Text>{noted_by}</Text>
+                <Text>{checked_by}</Text>
               </View>
             </View>
           </Page>

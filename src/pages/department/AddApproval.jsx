@@ -100,18 +100,19 @@ function AddApproval() {
   return (
     <body className="hold-transition register-page">
       <div className="register-box">
-        <div className="card">
-          <div className="card-body register-card-body">
+        <div className="card card-success">
+          <div className="card-header">
             <button
               onClick={() => close()}
-              style={{ float: "right", border: "none", fontSize: 15 }}
+              style={{ float: "right", fontSize: 15 }}
               type="button"
-              className="btn btn-outline-info"
+              className="btn btn-warning"
             >
               Close
             </button>
-            <p className="login-box-msg">Department</p>
-
+            <h3 className="card-title">DEPARTMENT</h3>
+          </div>
+          <div className="card-body">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="row">
                 <div className="col text-right">
@@ -189,7 +190,7 @@ function AddApproval() {
 
                           <div className="input-group-append">
                             <div className="input-group-text">
-                              {/* <span className="fas fa-lock"></span> */}
+                              <span className="fas fa-building"></span>
                             </div>
                           </div>
                         </div>
@@ -218,6 +219,7 @@ function AddApproval() {
               </div>
             </form>
           </div>
+          {/* /.card-body */}
         </div>
       </div>
     </body>

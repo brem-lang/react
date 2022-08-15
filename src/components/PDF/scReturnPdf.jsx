@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    marginTop:"-50",
+    marginTop: "-50",
     textAlign: "center",
     color: "black",
   },
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: "auto",
     marginBottom: 15,
-    marginTop:"-15"
+    marginTop: "-15",
   },
 
   //
@@ -58,6 +58,10 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   contentText2: {
+    fontSize: 9,
+    paddingTop: 5,
+  },
+  sub_contentText2: {
     fontSize: 9,
     paddingTop: 5,
   },
@@ -164,7 +168,12 @@ const ScRPdf = ({ code, item, close }) => {
     remarks,
     document_series_no,
     problem_type,
-    call_type
+    call_type,
+    prepared_by,
+    approved_by,
+    released_by,
+    checked_by,
+    noted_by,
   } = item;
 
   const date = moment(created_at).format("l");
@@ -183,12 +192,10 @@ const ScRPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Service Call ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
-
             <View style={styles.section}>
-            <Image style={styles.logo} src={Logo} />
+              <Image style={styles.logo} src={Logo} />
               <Text style={styles.title}>Service Call</Text>
             </View>
-
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
@@ -228,7 +235,7 @@ const ScRPdf = ({ code, item, close }) => {
               </View>
             </View>
 
-            <View style={[styles.section2, { marginBottom: -15}]}>
+            <View style={[styles.section2, { marginBottom: -15 }]}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
                   <Text style={styles.contentText2}>Subject :</Text>
@@ -276,10 +283,29 @@ const ScRPdf = ({ code, item, close }) => {
               </View>
             </View>
 
-            <View style={[styles.section2, { marginTop: 15 }]}>
+            <View style={[styles.section2, { marginTop: 20 }]}>
               <View style={styles.flexRowContent}>
                 <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Prepared by :</Text>
+                  <Text style={styles.contentText2}>Approved by :</Text>
+                  <Text style={styles.contentText2}>Noted by :</Text>
+                </View>
+                <View>
+                  <Text style={styles.contentText2}>{prepared_by}</Text>
+                  <Text style={styles.contentText2}>{approved_by}</Text>
+                  <Text style={styles.contentText2}>{noted_by}</Text>
+                </View>
+              </View>
+
+              <View style={styles.flexRowContent}>
+                <View style={{ marginRight: 20 }}>
+                  <Text style={styles.contentText2}>Released by :</Text>
+                  <Text style={styles.contentText2}>Checked by :</Text>
                   <Text style={styles.contentText2}>Remarks :</Text>
+                </View>
+                <View style={{ marginRight: 100 }}>
+                  <Text style={styles.sub_contentText2}>{released_by}</Text>
+                  <Text style={styles.contentText2}>{checked_by}</Text>
                   <Text style={styles.contentText2}>{remarks}</Text>
                 </View>
               </View>

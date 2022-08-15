@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    marginTop:"-50",
+    marginTop: "-50",
     textAlign: "center",
     color: "black",
   },
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: "auto",
     marginBottom: 15,
-    marginTop:"-15"
+    marginTop: "-15",
   },
 
   //
@@ -156,6 +156,8 @@ const FaPdf = ({ code, item, close }) => {
     released_by,
     items,
     created_at,
+    checked_by,
+    noted_by,
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -175,10 +177,10 @@ const FaPdf = ({ code, item, close }) => {
         <Document title={`Fixed Asset ${document_series_no}`}>
           {/*render a single page*/}
           <Page size="A4" style={styles.page}>
-          <View style={styles.section}>
-          <Image style={styles.logo} src={Logo} />
-            <Text style={styles.title}>Fixed Asset Item Withdrawal Slip</Text>
-          </View>
+            <View style={styles.section}>
+              <Image style={styles.logo} src={Logo} />
+              <Text style={styles.title}>Fixed Asset Item Withdrawal Slip</Text>
+            </View>
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
@@ -246,6 +248,17 @@ const FaPdf = ({ code, item, close }) => {
                 <Text>{prepared_by}</Text>
                 <Text>{approved_by}</Text>
                 <Text>{released_by}</Text>
+              </View>
+            </View>
+            <View style={{ marginTop: 15, marginRight: 180 }}>
+              <View style={styles.footer}>
+                <Text>Noted by</Text>
+                <Text>Checked by</Text>
+              </View>
+
+              <View style={styles.footer}>
+                <Text>{noted_by}</Text>
+                <Text>{checked_by}</Text>
               </View>
             </View>
           </Page>

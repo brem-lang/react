@@ -19,6 +19,8 @@ const MIView = ({ item, close }) => {
     wh_location,
     created_at,
     document_series_no,
+    checked_by,
+    noted_by,
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -97,7 +99,7 @@ const MIView = ({ item, close }) => {
                   <h3 className="card-title">DETAILS</h3>
                 </div>
                 {/* body */}
-                <div className="card-body">
+                <div className="card-body" style={mystyle}>
                   <dl class="row">
                     <dt class="col-sm-6">Created by</dt>
                     <dd class="col-sm-6">{user_name}</dd>
@@ -121,6 +123,10 @@ const MIView = ({ item, close }) => {
                     <dd class="col-sm-6">{approved_by}</dd>
                     <dt class="col-sm-6">Released by</dt>
                     <dd class="col-sm-6">{released_by}</dd>
+                    <dt class="col-sm-6">Checked by</dt>
+                    <dd class="col-sm-6">{checked_by}</dd>
+                    <dt class="col-sm-6">Noted by</dt>
+                    <dd class="col-sm-6">{noted_by}</dd>
                   </dl>
                 </div>
               </div>

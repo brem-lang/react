@@ -6,8 +6,8 @@ import axios from "../../api/axios";
 import Swal from "sweetalert2";
 
 const Edit = ({ item, close }) => {
- let roles = [];
- item.roles.length !== 0 && roles.push(item.roles[0]?.name)
+  let roles = [];
+  item.roles.length !== 0 && roles.push(item.roles[0]?.name);
 
   //save initial value
   const initialValue = {
@@ -15,7 +15,7 @@ const Edit = ({ item, close }) => {
     name: item.name,
     pwd: "",
     confirmPwd: "",
-    role:""
+    role: "",
   };
   const { auth } = useAuth();
   const [dataField, setDataField] = useState(initialValue);
@@ -25,7 +25,7 @@ const Edit = ({ item, close }) => {
     const { name, value } = e.target;
     setDataField({ ...dataField, [name]: value });
   };
-//  console.log(item.roles[0].name)
+  //  console.log(item.roles[0].name)
   const handleSubmit = async (e) => {
     e.preventDefault();
     let config = {
@@ -41,10 +41,10 @@ const Edit = ({ item, close }) => {
 
     if (dataField.pwd !== dataField.confirmPwd)
       return Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Password do not match!',
-      })
+        icon: "error",
+        title: "Oops...",
+        text: "Password do not match!",
+      });
 
     try {
       const res = await axios.post("/api/user/update", formData, config);
@@ -130,21 +130,24 @@ const Edit = ({ item, close }) => {
               <p>Roles</p>
               {/* {roles.map((data,index) => ( */}
               <div className="input-group mb-3">
-                <select 
-                name="role"
-                value={dataField.role}
-                onChange={(e) => onChangeHandler(e)}
-                className="form-control">
-                    <option value={roles.length !== 0 ? roles : ""  }>{roles.length !== 0 ? roles : "None"  }</option>
-                    <option value="mi_clerk">MI Clerk</option>
-                    <option value="mro_clerk">MRO Clerk</option>
-                    <option value="dm_clerk">DM Clerk</option>
-                    <option value="fg_clerk">FG Clerk</option>
-                    <option value="fa_clerk">FA Clerk</option>
-                    <option value="ma_clerk">MA Clerk</option>
-                    <option value="mr_clerk">MR Clerk</option>
-                    <option value="sc_clerk">SC Clerk</option>
-                  </select>
+                <select
+                  name="role"
+                  value={dataField.role}
+                  onChange={(e) => onChangeHandler(e)}
+                  className="form-control"
+                >
+                  <option value={roles.length !== 0 ? roles : ""}>
+                    {roles.length !== 0 ? roles : "None"}
+                  </option>
+                  <option value="mi_clerk">MI Clerk</option>
+                  <option value="mro_clerk">MRO Clerk</option>
+                  <option value="dm_clerk">DM Clerk</option>
+                  <option value="fg_clerk">FG Clerk</option>
+                  <option value="fa_clerk">FA Clerk</option>
+                  <option value="ma_clerk">MA Clerk</option>
+                  <option value="mr_clerk">MR Clerk</option>
+                  <option value="sc_clerk">SC Clerk</option>
+                </select>
                 <div className="input-group-append">
                   <div className="input-group-text">
                     {/* <span className="fas fa-lock"></span> */}

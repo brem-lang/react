@@ -161,6 +161,8 @@ const MiPdf = ({ code, item, close }) => {
     warehouse,
     wh_location,
     created_at,
+    checked_by,
+    noted_by,
   } = item;
 
   const date = moment(created_at).format("ll");
@@ -257,6 +259,18 @@ const MiPdf = ({ code, item, close }) => {
                 <Text>{prepared_by}</Text>
                 <Text>{approved_by}</Text>
                 <Text>{released_by}</Text>
+              </View>
+            </View>
+
+            <View style={{ marginTop: 15, marginRight: 180 }}>
+              <View style={styles.footer}>
+                <Text>Noted by</Text>
+                <Text>Checked by</Text>
+              </View>
+
+              <View style={styles.footer}>
+                <Text>{noted_by}</Text>
+                <Text>{checked_by}</Text>
               </View>
             </View>
           </Page>

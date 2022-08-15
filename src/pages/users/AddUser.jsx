@@ -72,18 +72,19 @@ const CreateUser = () => {
   return (
     <body className="hold-transition register-page">
       <div className="register-box">
-        <div className="card">
-          <div className="card-body register-card-body">
+        <div className="card card-success">
+          <div className="card-header">
             <button
               onClick={() => close()}
-              style={{ float: "right", border: "none", fontSize: 15 }}
+              style={{ float: "right", fontSize: 15 }}
               type="button"
-              className="btn btn-outline-info"
+              className="btn btn-warning"
             >
               Close
             </button>
-            <p className="login-box-msg">Add User</p>
-
+            <h3 className="card-title">ADD USER</h3>
+          </div>
+          <div className="card-body">
             <form onSubmit={(e) => handleSubmit(e)}>
               <div className="input-group mb-3">
                 <input
@@ -177,9 +178,7 @@ const CreateUser = () => {
                 </select>
 
                 <div className="input-group-append">
-                  <div className="input-group-text">
-                    {/* <span className="fas fa-lock"></span> */}
-                  </div>
+                  <div className="input-group-text"></div>
                 </div>
               </div>
 
@@ -193,6 +192,7 @@ const CreateUser = () => {
               </div>
             </form>
           </div>
+          {/* /.card-body */}
         </div>
       </div>
     </body>
