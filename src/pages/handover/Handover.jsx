@@ -32,9 +32,7 @@ function Handover() {
     try {
       const res = await axios.post("/api/handover", formData);
       if (res.data.success === true) {
-        Swal.fire("Great!", "Sucess", "success").then(() => {
-          setIsSuccess(true);
-        });
+        setIsSuccess(true);
       }
     } catch (err) {
       switch (err.code) {
