@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     height: "80vh",
   },
   title: {
-    marginTop:"-50",
+    marginTop: "-50",
     textAlign: "center",
     color: "black",
   },
@@ -44,9 +44,8 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: "auto",
     marginBottom: 15,
-    marginTop:"-15"
+    marginTop: "-15",
   },
-
 
   //
   section2: {
@@ -140,6 +139,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
 
+  footer2: {
+    fontSize: 8,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+    marginTop: 15,
+    marginVertical: 5,
+    paddingTop: 15,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+
   textFooter: {
     textAlign: "center",
   },
@@ -159,6 +170,9 @@ const MaRPdf = ({ code, item, close }) => {
     approved_by,
     prepared_by,
     received_by,
+    released_by,
+    checked_by,
+    noted_by,
     items,
     withdrawal_slip_no,
     document_series_no,
@@ -179,11 +193,10 @@ const MaRPdf = ({ code, item, close }) => {
       <PDFViewer style={styles.viewer}>
         <Document title={`Minor Asset Return ${document_series_no}`}>
           <Page size="A4" style={styles.page}>
-
-          <View style={styles.section}>
-          <Image style={styles.logo} src={Logo} />
-            <Text style={styles.title}>Minor Asset Item Return Slip</Text>
-          </View>
+            <View style={styles.section}>
+              <Image style={styles.logo} src={Logo} />
+              <Text style={styles.title}>Minor Asset Item Return Slip</Text>
+            </View>
 
             <View style={styles.section2}>
               <View style={styles.flexRowContent}>
@@ -253,6 +266,20 @@ const MaRPdf = ({ code, item, close }) => {
                 <Text>{prepared_by}</Text>
                 <Text>{approved_by}</Text>
                 <Text>{received_by}</Text>
+              </View>
+            </View>
+
+            <View>
+              <View style={styles.footer2}>
+                <Text>Released by</Text>
+                <Text>Checked by</Text>
+                <Text>Noted by</Text>
+              </View>
+
+              <View style={styles.footer}>
+                <Text>{released_by}</Text>
+                <Text>{checked_by}</Text>
+                <Text>{noted_by}</Text>
               </View>
             </View>
           </Page>

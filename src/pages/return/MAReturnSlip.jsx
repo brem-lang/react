@@ -49,10 +49,13 @@ function MAReturnSlip() {
         );
       }
     } catch (err) {
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          // return console.log(err.code, "ERR_BAD_REQUEST");
-          return redirectError();
+      switch (err.response.status) {
+        case 404:
+          return Swal.fire({
+            icon: "error",
+            title: "Not found",
+            text: "Something went wrong!",
+          });
 
         default:
           return console.log(err, "ERROR");
@@ -359,6 +362,62 @@ function MAReturnSlip() {
                             }}
                           />
                           <p>{errors.received_by?.message}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            {...register("released_by", {
+                              required: "Released by is required",
+                            })}
+                            type="text"
+                            placeholder="Released by"
+                            className="form-control"
+                            autoComplete="off"
+                            style={{
+                              border: errors.released_by ? "1px solid red" : "",
+                            }}
+                          />
+                          <p>{errors.released_by?.message}</p>
+                        </div>
+                      </div>
+
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            {...register("checked_by", {
+                              required: "Checked by is required",
+                            })}
+                            type="text"
+                            placeholder="Checked by"
+                            className="form-control"
+                            autoComplete="off"
+                            style={{
+                              border: errors.checked_by ? "1px solid red" : "",
+                            }}
+                          />
+                          <p>{errors.checked_by?.message}</p>
+                        </div>
+                      </div>
+
+                      <div className="col">
+                        <div className="form-floating mb-3">
+                          <input
+                            {...register("noted_by", {
+                              required: "Noted by is required",
+                            })}
+                            type="text"
+                            placeholder="Noted by"
+                            className="form-control"
+                            autoComplete="off"
+                            style={{
+                              border: errors.noted_by ? "1px solid red" : "",
+                            }}
+                          />
+                          <p>{errors.noted_by?.message}</p>
                         </div>
                       </div>
                     </div>
