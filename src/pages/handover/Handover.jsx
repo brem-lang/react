@@ -22,17 +22,19 @@ function Handover() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSuccess(true);
+    console.log(location.state);
+    if (location.state === null) {
+      navigate("/");
+    }
     const formData = new FormData();
     formData.append("document_series_no", location.state.document_series_no);
     formData.append("name", dataField.name);
     try {
       const res = await axios.post("/api/handover", formData);
       if (res.data.success === true) {
-        Swal.fire("Great!", "The user was successfully added.", "success").then(
-          () => {
-            setIsSuccess(true);
-          }
-        );
+        Swal.fire("Great!", "Sucess", "success").then(() => {
+          setIsSuccess(true);
+        });
       }
     } catch (err) {
       switch (err.code) {
@@ -60,9 +62,17 @@ function Handover() {
         </div>
         {/* /.login-logo */}
         {isSuccess ? (
-          <h1 style={{ fontSize: 30, textAlign: "center" }}>
-            The user was successfully added.
-          </h1>
+          <>
+            <h1 style={{ fontSize: 50, textAlign: "center" }}>Success!!</h1>
+            <button
+              onClick={() => close()}
+              style={{ marginLeft: 150, fontSize: 15 }}
+              type="button"
+              className="btn btn-outline-info"
+            >
+              Close
+            </button>
+          </>
         ) : (
           <div className="card">
             <div className="card-body login-card-body">
