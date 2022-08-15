@@ -32,23 +32,23 @@ const AppSetting = () => {
             {auth?.roles?.find((role) => allowedRoles?.includes(role)) && (
               <>
                 <div className="mb-4">
-                  <h6>Users</h6>
+                  {/* <h6>Users</h6> */}
                   <Link to="/users" style={{ paddingLeft: 15 }}>
-                    Users List
+                    User Management
                   </Link>
                 </div>
 
                 <div className="mb-4">
-                  <h6>Activity Log</h6>
+                  {/* <h6>Activity Log</h6> */}
                   <Link to="/logs" style={{ paddingLeft: 15 }}>
-                    Activity Logs List
+                    System Log
                   </Link>
                 </div>
               </>
             )}
 
             <div className="mb-4">
-              <h6>Profile Settings</h6>
+              {/* <h6>Profile Settings</h6> */}
               <Link to="/update-user" style={{ paddingLeft: 15 }}>
                 Update Profile
               </Link>

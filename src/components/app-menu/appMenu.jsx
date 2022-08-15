@@ -73,13 +73,7 @@ const AppMenu = () => {
       </Link>
       <br></br>
       <div className="sidebar">
-        <div className="user-panel mt-1 ml-4  pb-3 mb-3 d-flex">
-          <div className="info">
-            <Link to="/" className="d-block">
-              {user}
-            </Link>
-          </div>
-        </div>
+        <div className="user-panel mt-1 ml-4  pb-3 mb-3 d-flex"></div>
 
         <nav className="mt-2">
           <ul
