@@ -34,13 +34,13 @@ const MISlip = () => {
 
   // Submit using axios
   const onSubmit = async (data) => {
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
+    console.log(data);
     let config = {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     };
-
     try {
       const res = await axios.post("/api/create/wsmi", data, config);
 
@@ -320,6 +320,7 @@ const MISlip = () => {
                                 placeholder="Qty"
                                 className="form-control"
                                 autoComplete="off"
+                                step="any"
                                 style={{
                                   border: errors?.items?.[index]?.qty
                                     ? "1px solid red"

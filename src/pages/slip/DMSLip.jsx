@@ -270,6 +270,7 @@ const DMSlip = () => {
                                     placeholder="Qty"
                                     className="form-control"
                                     autoComplete="off"
+                                    step="any"
                                     style={{
                                       border: errors?.items?.[index]?.qty
                                         ? "1px solid red"

@@ -218,6 +218,7 @@ const FASlip = () => {
                                 })}
                                 type="number"
                                 placeholder="Qty"
+                                step="any"
                                 className="form-control"
                                 autoComplete="off"
                                 style={{

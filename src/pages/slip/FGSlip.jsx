@@ -275,6 +275,7 @@ const FGSlip = () => {
                                   type="number"
                                   placeholder="Qty"
                                   className="form-control"
+                                  step="any"
                                   autoComplete="off"
                                   style={{
                                     border: errors?.items?.[index]?.qty
