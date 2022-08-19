@@ -21,31 +21,15 @@ const ValidDocument = ({ data }) => {
           background: "transparent",
         }}
       >
-        <h1>Document Verification</h1>
-        <div
-          className="card-header clearfix"
-          style={{ maxHeight: "10rem", border: "none" }}
-        >
-          <blockquote
-            className="quote-success"
-            style={{ background: "transparent" }}
-          >
-            <p>This document is authentic document</p>
-            <small>
-              from <cite title="Source Title">Gensan Feedmil, inc.</cite>
-            </small>
-          </blockquote>
-        </div>
-
         <div className="card-body" style={{ border: "none" }}>
           <div
             className="form-group"
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <label style={{ fontSize: "24px", fontWeight: "bold" }}>
-              {data.document_series_no}
+            <h1>{data.document_series_no}</h1>
+            <label style={{ fontSize: "24px", fontWeight: "lighter" }}>
+              is authentic document
             </label>
-            <p>Document No.</p>
           </div>
 
           <div
