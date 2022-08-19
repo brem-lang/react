@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import Swal from "sweetalert2";
+import { SlipContext } from "../../context/slip-provider";
 
 const Edit = ({ item, close }) => {
+  const { edit, setEdit, isEdit, setIsEdit } = useContext(SlipContext);
   let roles = [];
   item.roles.length !== 0 && roles.push(item.roles[0]?.name);
 
@@ -50,7 +52,8 @@ const Edit = ({ item, close }) => {
       const res = await axios.post("/api/user/update", formData, config);
       if (res.data.success === true) {
         Swal.fire("Great!", "Profile Successfully updated.", "success").then(
-          () => navigate("/")
+          close(false),
+          setIsEdit(true)
         );
       }
     } catch (err) {
