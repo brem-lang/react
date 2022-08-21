@@ -89,8 +89,12 @@ const MIView = React.lazy(() => import("./pages/view/MIView"));
 
 //handover
 const Handover = React.lazy(() => import("./pages/handover/Handover"));
+const HandoverForm = React.lazy(() => import("./pages/handover/HandoverForm"));
+const ReceiveForm = React.lazy(() => import("./pages/handover/ReceiveForm"));
 export {
   Handover,
+  HandoverForm,
+  ReceiveForm,
   Dashboard,
   Dashboardv2,
   Dashboardv3,

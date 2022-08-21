@@ -45,6 +45,8 @@ import {
   MIView,
   AddApproval,
   Handover,
+  HandoverForm,
+  ReceiveForm,
 } from "./exporter";
 import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
@@ -67,6 +69,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/maintenance" element={<Maintenance />} />
         <Route path="/handover" element={<Handover />} />
+        <Route path="/handoverform" element={<HandoverForm />} />
+        <Route path="/receiveform" element={<ReceiveForm />} />
         {/* <Route path="/test" element={<Testfile />} /> */}
 
         {/* Protected Routes */}

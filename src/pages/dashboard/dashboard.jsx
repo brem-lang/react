@@ -76,16 +76,20 @@ const Dashboard = () => {
 
   const columns = [
     {
+      name: "ID",
+      selector: (row) => row.id,
+    },
+    {
       name: "Document Seris No.",
       selector: (row) => row.document_series_no,
     },
     {
-      name: "Prepared by",
-      selector: (row) => row.prepared_by,
+      name: "Approved by",
+      selector: (row) => row.approved_by,
     },
     {
       name: "Status",
-      selector: (row) => row.status,
+      selector: (row) => row.status_label,
     },
   ];
   return (
