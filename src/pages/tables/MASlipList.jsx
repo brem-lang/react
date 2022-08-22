@@ -98,7 +98,7 @@ function MASlipList() {
     auth?.roles?.find((role) => allowedDashboard?.includes(role))
       ? {
           name: "Created By",
-          selector: (row) => row.author,
+          selector: (row) => row.user_name,
         }
       : {},
     {
