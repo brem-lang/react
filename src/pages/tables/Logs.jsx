@@ -22,13 +22,14 @@ function Logs() {
 
     setIsLoading(true);
     try {
-      const res = await axios("api/get/log", config);
+      const res = await axios("api/get/systemlog", config);
       setFilteredData(res.data.data);
     } catch (err) {
       console.log(err);
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return redirectError();
+          // return redirectError();
+          return console.log("Bad Request");
 
         default:
           return console.log(err, "default");
@@ -48,7 +49,7 @@ function Logs() {
   const columns = [
     {
       name: "Date/Time",
-      selector: (row) => moment(row.created_at).format("lll"),
+      selector: (row) => moment(row.date_time).format("lll"),
     },
     {
       name: "Event",

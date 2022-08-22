@@ -30,7 +30,8 @@ const Dashboard = () => {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return redirectError();
+          // return redirectError();
+          return console.log("Bad Request");
 
         default:
           return console.log(err, "ERROR");
@@ -52,7 +53,8 @@ const Dashboard = () => {
       console.log(err);
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return redirectError();
+          // return redirectError();
+          return console.log("Bad request");
 
         default:
           return console.log(err, "default");
