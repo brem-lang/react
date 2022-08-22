@@ -1,15 +1,45 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Logo from "../../assets/images/gfi.jpg";
-import { useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import RedirectError from "../../routes/RedirectError";
+import { useLocation, Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import axios from "../../api/axios";
 
 function Handover() {
-  const navigate = useNavigate();
-  const redirectError = RedirectError();
   const location = useLocation();
+  const { auth } = useAuth();
+  const [approvalDept, setApprovalDept] = useState("");
+  const data = {
+    approvalDept: approvalDept,
+    document_series_no: location.state.document_series_no,
+  };
 
-  console.log(location.state);
+  const getData = useCallback(async () => {
+    const config = {
+      params: { document_series_no: location.state.document_series_no },
+      headers: { Authorization: `Bearer ${useAuth.token}` },
+    };
+
+    try {
+      const res = await axios("/api/formDepartments", config);
+      setApprovalDept(res.data.data);
+    } catch (err) {
+      console.log(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return console.log("Bad Request");
+
+        default:
+          return console.log(err, "default");
+      }
+    }
+
+    // setIsLoading(false);
+    // setIsSync(false);
+  }, [auth]);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div
@@ -26,13 +56,13 @@ function Handover() {
           <div className="card-body login-card-body">
             <div class="row">
               <div class="col-12">
-                <Link to={"/handoverform"} state={location.state}>
+                <Link to={"/handoverform"} state={data}>
                   <button type="submit" class="btn btn-primary btn-block">
                     Handover Form
                   </button>
                 </Link>
                 <br></br>
-                <Link to={"/receiveform"} state={location.state}>
+                <Link to={"/receiveform"} state={data}>
                   <button type="submit" class="btn btn-primary btn-block">
                     Receive Form
                   </button>

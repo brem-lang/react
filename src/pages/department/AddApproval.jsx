@@ -84,8 +84,8 @@ function AddApproval() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-        // return console.log(err.code, "ERR_BAD_REQUEST");
-        // return redirectError();
+          // return console.log(err.code, "ERR_BAD_REQUEST");
+          return redirectError();
         default:
           return console.log(err, "ERROR");
       }

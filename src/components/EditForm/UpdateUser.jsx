@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -38,12 +38,15 @@ function UpdateUser() {
       return alert("Password do not match");
 
     try {
-        const res = await axios.post("/api/manage/profile/update", formData,config);
+      const res = await axios.post(
+        "/api/manage/profile/update",
+        formData,
+        config
+      );
       if (res.data.success === true) {
-
         Swal.fire(
           "Great!",
-          "Password successfully updated.",
+          "It's a good idea to use a strong password that you're not using elsewhere",
           "success"
         ).then(() => navigate(-1));
       }
@@ -52,34 +55,33 @@ function UpdateUser() {
     }
   };
 
-
-    // console.log(auth)
+  // console.log(auth)
   return (
     <body className="hold-transition register-page">
-    <div className="register-box">
-      <div className="card">
-        <div className="card-body register-card-body">
-          <p className="login-box-msg">Update</p>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div className="input-group mb-3">
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Email"
-                name="email"
-                autoComplete="off"
-                required
-                value={auth.user}
-                readOnly
-              />
-              <div className="input-group-append">
-                <div className="input-group-text">
-                  <span className="fas fa-envelope"></span>
+      <div className="register-box">
+        <div className="card">
+          <div className="card-body register-card-body">
+            <p className="login-box-msg">Update</p>
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <div className="input-group mb-3">
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Email"
+                  name="email"
+                  autoComplete="off"
+                  required
+                  value={auth.user}
+                  readOnly
+                />
+                <div className="input-group-append">
+                  <div className="input-group-text">
+                    <span className="fas fa-envelope"></span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="input-group mb-3">
+              <div className="input-group mb-3">
                 <input
                   type="password"
                   className="form-control"
@@ -116,20 +118,20 @@ function UpdateUser() {
                 </div>
               </div>
 
-            <div className="row">
-              <div className="col-8"></div>
-              <div className="col-4">
-                <button type="submit" className="btn btn-primary btn-block">
-                  Update
-                </button>
+              <div className="row">
+                <div className="col-8"></div>
+                <div className="col-4">
+                  <button type="submit" className="btn btn-primary btn-block">
+                    Update
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </body>
-  )
+    </body>
+  );
 }
 
-export default UpdateUser
+export default UpdateUser;

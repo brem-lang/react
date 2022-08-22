@@ -51,10 +51,11 @@ const Edit = ({ item, close }) => {
     try {
       const res = await axios.post("/api/user/update", formData, config);
       if (res.data.success === true) {
-        Swal.fire("Great!", "Profile Successfully updated.", "success").then(
-          close(false),
-          setIsEdit(true)
-        );
+        Swal.fire(
+          "Great!",
+          "It's a good idea to use a strong password that you're not using elsewhere",
+          "success"
+        ).then(close(false), setIsEdit(true));
       }
     } catch (err) {
       console.log(err);

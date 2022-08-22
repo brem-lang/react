@@ -12,39 +12,41 @@ const initialValue = {
 function HandoverForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [dataField, setDataField] = useState(initialValue);
+  const [selected, setSelected] = useState();
   const navigate = useNavigate();
   const redirectError = RedirectError();
   const location = useLocation();
-  const department = location.state.status;
-  console.log(department);
+  const department = location.state.approvalDept;
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setDataField({ ...dataField, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSuccess(true);
     if (location.state === null) {
       navigate("/");
     }
     const formData = new FormData();
     formData.append("document_series_no", location.state.document_series_no);
     formData.append("name", dataField.name);
-
-    // try {
-    //   const res = await axios.post("/api/handover", formData);
-    //   if (res.data.success === true) {
-    //     setIsSuccess(true);
-    //   }
-    // } catch (err) {
-    //   switch (err.code) {
-    //     case "ERR_BAD_REQUEST":
-    //       // return redirectError();
-    //       console.log(err);
-    //     default:
-    //       return console.log(err, "default");
-    //   }
-    // }
+    formData.append("department", selected);
+    try {
+      const res = await axios.post("/api/handover", formData);
+      if (res.data.success === true) {
+        setIsSuccess(true);
+      }
+    } catch (err) {
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          // return redirectError();
+          console.log(err);
+        default:
+          return console.log(err, "default");
+      }
+    }
+    console.log(dataField);
+    console.log(selected);
   };
 
   const close = (e) => {
@@ -97,7 +99,11 @@ function HandoverForm() {
                 </div>
 
                 <div className="input-group mb-3">
-                  <select className="form-control">
+                  <select
+                    className="form-control"
+                    value={selected}
+                    onChange={(e) => setSelected(e.target.value)}
+                  >
                     {department.map((data) => (
                       <option value={data.department}>{data.department}</option>
                     ))}

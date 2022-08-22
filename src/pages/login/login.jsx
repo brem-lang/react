@@ -147,7 +147,7 @@ const LoginPage = () => {
         <div className="login-box">
           <div className="login-logo">
             <Link to="/login">
-              <b>Gensan Feedmil, Inc.</b>
+              <b>Gensan Feedmill, Inc.</b>
             </Link>
           </div>
           <div className="card">
