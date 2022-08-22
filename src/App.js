@@ -71,7 +71,7 @@ function App() {
         <Route path="/handover" element={<Handover />} />
         <Route path="/handoverform" element={<HandoverForm />} />
         <Route path="/receiveform" element={<ReceiveForm />} />
-        {/* <Route path="/test" element={<Testfile />} /> */}
+        <Route path="/test" element={<Testfile />} />
 
         {/* Protected Routes */}
         <Route element={<PersistLogin />}>

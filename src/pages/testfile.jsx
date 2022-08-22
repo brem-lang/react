@@ -1,23 +1,41 @@
 import React, { useRef, useState } from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import SliderImage1 from "../assets/images/slide-image01.jpg";
-import SliderImage2 from "../assets/images/slide-image02.jpg";
+// Import Swiper React components
+// import { Swiper, SwiperSlide } from "swiper/react";
+
+// import SliderImage1 from "../assets/images/slide-image01.jpg";
+// import SliderImage2 from "../assets/images/slide-image02.jpg";
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+// import "swiper/css";
+// import "swiper/css/effect-fade";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
 
 // import required modules
-import { EffectFade, Pagination, Autoplay } from "swiper";
+// import { EffectFade, Pagination, Autoplay } from "swiper";
 
+const CloseButton = ({ closeToast }) => (
+  <i className="material-icons" onClick={() => window.location.reload(false)}>
+    x
+  </i>
+);
 export default function Testfile() {
+  const notify = async () =>
+    toast.warn("", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
   return (
     <>
-      <section style={{ overflow: "hidden", maxHeight: "100vh" }}>
+      {/* <section style={{ overflow: "hidden", maxHeight: "100vh" }}>
         <h1
           style={{
             position: "absolute",
@@ -65,7 +83,12 @@ export default function Testfile() {
             <img src={SliderImage2} />
           </SwiperSlide>
         </Swiper>
-      </section>
+      </section> */}
+      <div>
+        <button onClick={notify}>Notify!</button>
+        {/* <ToastContainer /> */}
+        <ToastContainer closeButton={CloseButton} />
+      </div>
     </>
   );
 }

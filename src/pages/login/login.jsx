@@ -109,6 +109,12 @@ const LoginPage = () => {
   const toastId = React.useRef(null);
   const customId = "custom-id-yes";
 
+  const CloseButton = ({ closeToast }) => (
+    <i className="material-icons" onClick={() => window.location.reload(false)}>
+      x
+    </i>
+  );
+
   const notify = useCallback(() => {
     if (!toast.isActive(toastId.current)) {
       toastId.current = toast.error("User unauthorized, login to continue!", {
@@ -116,10 +122,11 @@ const LoginPage = () => {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
+        closeOnClick: false,
+        pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        onClose: console.log("close"),
       });
     }
   }, []);
@@ -132,6 +139,7 @@ const LoginPage = () => {
 
   return (
     <>
+      <ToastContainer closeButton={CloseButton} />
       <div
         className="hold-transition login-page"
         style={{ backgroundColor: "grey" }}
@@ -204,7 +212,6 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 };

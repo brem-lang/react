@@ -79,8 +79,8 @@ function MISlipList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          // return redirectError();
-          return console.log("Request Error");
+          return redirectError();
+        // return console.log("Request Error");
 
         default:
           return console.log(err, "default");

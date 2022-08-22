@@ -55,7 +55,7 @@ const MROSlip = () => {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          // return console.log(err.code, "ERR_BAD_REQUEST");
+          // return console.log(err.response, "ERR_BAD_REQUEST");
           return redirectError();
 
         default:

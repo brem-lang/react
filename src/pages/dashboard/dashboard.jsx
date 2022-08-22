@@ -30,8 +30,8 @@ const Dashboard = () => {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          // return redirectError();
-          return console.log("Bad Request");
+          return redirectError();
+        // return console.log("Bad Request");
 
         default:
           return console.log(err, "ERROR");
@@ -48,18 +48,18 @@ const Dashboard = () => {
     try {
       const res = await axios("/api/get/forms?status=Open", config);
       setData(res.data.data);
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setRefresh(false);
     } catch (err) {
-      console.log(err);
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          // return redirectError();
-          return console.log("Bad request");
+      console.log(err.response);
 
-        default:
-          return console.log(err, "default");
-      }
+      // redirectError(err.response);
+      // switch (err.response.status) {
+      //   case 429:
+
+      //   default:
+      //     return console.log(err, "default");
+      // }
     }
     setIsLoading(false);
     setIsSync(false);
