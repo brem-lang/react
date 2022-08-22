@@ -6,9 +6,10 @@ const MIView = ({ item, close }) => {
   const navigate = useNavigate();
   const {
     id,
+    created_time,
     approved_by,
     customer_name,
-    user_name,
+    author,
     items,
     pallet_no,
     prepared_by,
@@ -102,9 +103,11 @@ const MIView = ({ item, close }) => {
                 <div className="card-body" style={mystyle}>
                   <dl class="row">
                     <dt class="col-sm-6">Created by</dt>
-                    <dd class="col-sm-6">{user_name}</dd>
+                    <dd class="col-sm-6">{author}</dd>
                     <dt class="col-sm-6">Date Created</dt>
                     <dd class="col-sm-6">{date}</dd>
+                    <dt class="col-sm-6">Time</dt>
+                    <dd class="col-sm-6">{created_time}</dd>
                     <dt class="col-sm-6">Customer Name</dt>
                     <dd class="col-sm-6">{customer_name}</dd>
                     <dt class="col-sm-6">Pallet No.</dt>
