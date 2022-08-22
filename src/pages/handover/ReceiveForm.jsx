@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import Logo from "../../assets/images/gfi.jpg";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,25 +13,27 @@ function ReceiveForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [dataField, setDataField] = useState(initialValue);
   const [selected, setSelected] = useState();
+  const [approvalDept, setApprovalDept] = useState();
   const navigate = useNavigate();
-  const redirectError = RedirectError();
   const location = useLocation();
-  const department = location.state.approvalDept;
-  console.log(location.state);
+  console.log(approvalDept);
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setDataField({ ...dataField, [name]: value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(selected);
-    if (location.state === null) {
-      navigate("/");
-    }
     const formData = new FormData();
     formData.append("document_series_no", location.state.document_series_no);
-    formData.append("name", dataField.name);
+    formData.append("person", dataField.name);
     formData.append("department", selected);
+    if (selected === undefined) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please Select Department",
+      });
+    }
     try {
       const res = await axios.post("/api/receiveForm", formData);
       if (res.data.success === true) {
@@ -47,6 +49,34 @@ function ReceiveForm() {
       }
     }
   };
+
+  const getData = useCallback(async () => {
+    const config = {
+      params: {
+        document_series_no: location.state.document_series_no,
+        type: "Receive",
+      },
+    };
+
+    try {
+      const res = await axios("/api/formDepartmentAvailable", config);
+      setApprovalDept(res.data.data);
+      console.log(res.data.data);
+    } catch (err) {
+      console.log(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          return console.log("Bad Request");
+
+        default:
+          return console.log(err, "default");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const close = (e) => {
     navigate(-2);
@@ -103,7 +133,8 @@ function ReceiveForm() {
                     value={selected}
                     onChange={(e) => setSelected(e.target.value)}
                   >
-                    {department.map((data) => (
+                    <option selected="selected">Select Department</option>
+                    {approvalDept?.map((data) => (
                       <option value={data.department}>{data.department}</option>
                     ))}
                   </select>

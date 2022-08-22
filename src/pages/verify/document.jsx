@@ -44,7 +44,6 @@ const Document = () => {
         setVerifiedData(res.data.data);
         setValid(true);
         setErrorDoc(false);
-        console.log(res.data.data);
       }
     } catch (err) {
       if (err.code === "ERR_BAD_REQUEST") {

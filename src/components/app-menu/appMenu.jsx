@@ -62,7 +62,7 @@ const AppMenu = () => {
   // };
 
   useEffect(() => {
-    const trees = window.$('[data-widget="treeview"]');
+    const trees = window.$('[data-widget="treeview"] .nav-link');
     trees.Treeview("init");
   }, []);
 

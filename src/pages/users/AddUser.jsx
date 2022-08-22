@@ -78,7 +78,7 @@ const CreateUser = () => {
               onClick={() => close()}
               style={{ float: "right", fontSize: 15 }}
               type="button"
-              className="btn btn-warning"
+              className="btn btn-info"
             >
               Close
             </button>
