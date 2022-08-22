@@ -21,7 +21,7 @@ function Department() {
 
     setIsLoading(true);
     try {
-      const res = await axios("api/manage/department", config);
+      const res = await axios("/api/manage/departments", config);
       setFilteredData(res.data.data);
       setRefresh(false);
     } catch (err) {

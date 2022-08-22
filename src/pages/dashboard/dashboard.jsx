@@ -46,8 +46,9 @@ const Dashboard = () => {
 
     // setIsLoading(true);
     try {
-      const res = await axios("/api/document/list", config);
+      const res = await axios("/api/get/forms?status=Open", config);
       setData(res.data.data);
+      console.log(res.data.data);
       setRefresh(false);
     } catch (err) {
       console.log(err);
@@ -91,7 +92,7 @@ const Dashboard = () => {
     },
     {
       name: "Status",
-      selector: (row) => row.status_label,
+      selector: (row) => row.status,
     },
   ];
   return (

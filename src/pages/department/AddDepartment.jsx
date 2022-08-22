@@ -31,7 +31,7 @@ function AddDepartment() {
     formData.append("name", dataField.name);
     try {
       const res = await axios.post(
-        "api/manage/department/store",
+        "/api/manage/department/create",
         formData,
         config
       );

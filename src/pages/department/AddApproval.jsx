@@ -22,7 +22,7 @@ function AddApproval() {
 
     setIsLoading(true);
     try {
-      const res = await axios("api/manage/department", config);
+      const res = await axios("api/manage/departments", config);
       setFilteredData(res.data.data);
     } catch (err) {
       console.log(err);
@@ -58,17 +58,18 @@ function AddApproval() {
     control,
     name: "department",
   });
+
   const onSubmit = async (data) => {
-    console.log(JSON.stringify(data));
     let config = {
       headers: {
         Authorization: `Bearer ${auth.token}`,
+        // data: data,
       },
     };
 
     try {
       const res = await axios.post(
-        "api/document/create/departments",
+        "/api/approval/departments/create?form=wsmi",
         data,
         config
       );
@@ -83,8 +84,8 @@ function AddApproval() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          // return console.log(err.code, "ERR_BAD_REQUEST");
-          return redirectError();
+        // return console.log(err.code, "ERR_BAD_REQUEST");
+        // return redirectError();
         default:
           return console.log(err, "ERROR");
       }
