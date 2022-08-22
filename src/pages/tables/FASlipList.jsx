@@ -9,6 +9,7 @@ import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
 import DataTable from "react-data-table-component";
 import RedirectError from "../../routes/RedirectError";
+import { ROLES } from "../../data/roles";
 
 function FASlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -22,6 +23,7 @@ function FASlipList() {
 
   const redirectError = RedirectError();
   const itemArr = faList;
+  const allowedDashboard = [ROLES.administrator];
 
   const handlePdf = (e, item) => {
     e.preventDefault();
@@ -65,7 +67,8 @@ function FASlipList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return redirectError();
+          // return redirectError();
+          return console.log("Request Error");
 
         default:
           return console.log(err, "default");
@@ -92,6 +95,12 @@ function FASlipList() {
       name: "Release by",
       selector: (row) => row.released_by,
     },
+    auth?.roles?.find((role) => allowedDashboard?.includes(role))
+      ? {
+          name: "Created By",
+          selector: (row) => row.author,
+        }
+      : {},
     {
       name: "Action",
       cell: (row) => (

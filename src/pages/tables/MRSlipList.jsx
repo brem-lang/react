@@ -9,6 +9,7 @@ import { SlipContext } from "../../context/slip-provider";
 import Spinner from "../../components/spinner/spinner.component";
 import DataTable from "react-data-table-component";
 import RedirectError from "../../routes/RedirectError";
+import { ROLES } from "../../data/roles";
 
 function MRSlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -20,7 +21,9 @@ function MRSlipList() {
   const [search, setSearch] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const redirectError = RedirectError();
+
   const itemArr = mrList;
+  const allowedDashboard = [ROLES.administrator];
 
   const handlePdf = (e, item) => {
     e.preventDefault();
@@ -64,7 +67,8 @@ function MRSlipList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return redirectError();
+          // return redirectError();
+          return console.log("Request Error");
 
         default:
           return console.log(err, "default");
@@ -91,6 +95,12 @@ function MRSlipList() {
       name: "Asset Code",
       selector: (row) => row.asset_code,
     },
+    auth?.roles?.find((role) => allowedDashboard?.includes(role))
+      ? {
+          name: "Created By",
+          selector: (row) => row.author,
+        }
+      : {},
     {
       name: "Action",
       cell: (row) => (

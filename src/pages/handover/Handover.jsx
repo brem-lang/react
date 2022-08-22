@@ -28,7 +28,7 @@ function Handover() {
               <div class="col-12">
                 <Link to={"/handoverform"} state={location.state}>
                   <button type="submit" class="btn btn-primary btn-block">
-                    Handover From
+                    Handover Form
                   </button>
                 </Link>
                 <br></br>

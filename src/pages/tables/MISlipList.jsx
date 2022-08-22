@@ -10,6 +10,7 @@ import DataTable from "react-data-table-component";
 
 import { SlipContext } from "../../context/slip-provider";
 import RedirectError from "../../routes/RedirectError";
+import { ROLES } from "../../data/roles";
 
 function MISlipList() {
   const [isOpenPdf, setIsOpenPdf] = useState(false);
@@ -24,6 +25,8 @@ function MISlipList() {
   const redirectError = RedirectError();
 
   const itemArr = miList;
+  const allowedDashboard = [ROLES.administrator];
+
   const handlePdf = (e, item) => {
     e.preventDefault();
 
@@ -76,7 +79,8 @@ function MISlipList() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-          return redirectError();
+          // return redirectError();
+          return console.log("Request Error");
 
         default:
           return console.log(err, "default");
@@ -102,6 +106,12 @@ function MISlipList() {
       name: "Release by",
       selector: (row) => row.released_by,
     },
+    auth?.roles?.find((role) => allowedDashboard?.includes(role))
+      ? {
+          name: "Created By",
+          selector: (row) => row.author,
+        }
+      : {},
     {
       name: "Action",
       cell: (row) => (
