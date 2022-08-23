@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import moment from "moment";
 import { useNavigate, createSearchParams } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import axios from "../../api/axios";
 const MIView = ({ item, close }) => {
   const navigate = useNavigate();
+  const [approval, setApproval] = useState([]);
+  const { auth } = useAuth();
   const {
     id,
     created_time,
@@ -23,9 +27,7 @@ const MIView = ({ item, close }) => {
     checked_by,
     noted_by,
   } = item;
-
   const date = moment(created_at).format("ll");
-  console.log(item);
   const mystyle = {
     overflowY: "scroll",
     float: "left",
@@ -55,6 +57,32 @@ const MIView = ({ item, close }) => {
     },
   ];
 
+  const getData = useCallback(async () => {
+    const config = {
+      params: { document_series_no: document_series_no },
+      headers: { Authorization: `Bearer ${auth.token}` },
+    };
+
+    try {
+      const res = await axios("/api/formDepartments", config);
+      setApproval(res.data.data);
+    } catch (err) {
+      console.log(err);
+      switch (err.code) {
+        case "ERR_BAD_REQUEST":
+          // return redirectError();
+          console.log(err);
+
+        default:
+          return console.log(err, "default");
+      }
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
   const addDept = () => {
     navigate("/add-approval", {
       state: {
@@ -77,14 +105,16 @@ const MIView = ({ item, close }) => {
               >
                 Close
               </button>
-              <button
-                onClick={addDept}
-                style={{ float: "right", fontSize: 15, marginRight: 10 }}
-                type="button"
-                className="btn btn-success"
-              >
-                Add Department
-              </button>
+              {approval.length ? null : (
+                <button
+                  onClick={addDept}
+                  style={{ float: "right", fontSize: 15, marginRight: 10 }}
+                  type="button"
+                  className="btn btn-success"
+                >
+                  Add Department
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -102,6 +132,8 @@ const MIView = ({ item, close }) => {
                 {/* body */}
                 <div className="card-body" style={mystyle}>
                   <dl class="row">
+                    <dt class="col-sm-6">Document Series Number</dt>
+                    <dd class="col-sm-6">{document_series_no}</dd>
                     <dt class="col-sm-6">Created by</dt>
                     <dd class="col-sm-6">{author}</dd>
                     <dt class="col-sm-6">Date Created</dt>
@@ -144,14 +176,16 @@ const MIView = ({ item, close }) => {
                 </div>
                 <div className="card-body" style={mystyle}>
                   <ul>
-                    <li>
-                      <dt>Kristine received form from Production Department</dt>
-                      <p style={{ fontSize: 10 }}>Aug 05, 2022 - 03:00 PM</p>
-                    </li>
-                    <li>
-                      <dt>Kristine received form from Production Department</dt>
-                      <p style={{ fontSize: 10 }}>Aug 05, 2022 - 03:00 PM</p>
-                    </li>
+                    {approval.length ? (
+                      approval.map((data) => (
+                        <li>
+                          <dt>{data.department}</dt>
+                          {/* <p style={{ fontSize: 10 }}>Aug 05, 2022 - 03:00 PM</p> */}
+                        </li>
+                      ))
+                    ) : (
+                      <p style={{ fontSize: 10 }}>No Approval Department</p>
+                    )}
                   </ul>
                 </div>
                 {/* /.card-body */}
