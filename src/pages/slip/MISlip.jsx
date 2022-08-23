@@ -55,14 +55,15 @@ const MISlip = () => {
         ).then(() => navigate("/mi-logs"));
       }
     } catch (err) {
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          // return console.log(err.code, "ERR_BAD_REQUEST");
-          return redirectError();
+      console.log(err.response);
+      // switch (err.code) {
+      //   case "ERR_BAD_REQUEST":
+      //     // return console.log(err.code, "ERR_BAD_REQUEST");
+      //     return redirectError();
 
-        default:
-          return console.log(err, "ERROR");
-      }
+      //   default:
+      //     return console.log(err, "ERROR");
+      // }
     }
   };
 

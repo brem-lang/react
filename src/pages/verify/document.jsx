@@ -46,9 +46,10 @@ const Document = () => {
         setErrorDoc(false);
       }
     } catch (err) {
-      if (err.code === "ERR_BAD_REQUEST") {
-        setErrorDoc(true);
-      }
+      // if (err.code === "ERR_BAD_REQUEST") {
+      //   setErrorDoc(true);
+      // }
+      setErrorDoc(true);
 
       console.log(err);
       setRefresh(false);

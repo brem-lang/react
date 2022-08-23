@@ -40,13 +40,14 @@ function HandoverForm() {
         setIsSuccess(true);
       }
     } catch (err) {
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          // return redirectError();
-          console.log(err);
-        default:
-          return console.log(err, "default");
-      }
+      console.log(err.response);
+      // switch (err.code) {
+      //   case "ERR_BAD_REQUEST":
+      //     // return redirectError();
+      //     console.log(err);
+      //   default:
+      //     return console.log(err, "default");
+      // }
     }
   };
 
@@ -63,14 +64,14 @@ function HandoverForm() {
       setApprovalDept(res.data.data);
       console.log(res.data.data);
     } catch (err) {
-      console.log(err);
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          return console.log("Bad Request");
+      console.log(err.response);
+      // switch (err.code) {
+      //   case "ERR_BAD_REQUEST":
+      //     return console.log("Bad Request");
 
-        default:
-          return console.log(err, "default");
-      }
+      //   default:
+      //     return console.log(err, "default");
+      // }
     }
   }, []);
 

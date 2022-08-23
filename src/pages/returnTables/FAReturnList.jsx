@@ -61,13 +61,14 @@ function FAReturnList() {
       setIsFaR(false);
       setFilteredData(res.data);
     } catch (err) {
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          return redirectError();
+      console.log(err.response);
+      // switch (err.code) {
+      //   case "ERR_BAD_REQUEST":
+      //     return redirectError();
 
-        default:
-          return console.log(err, "default");
-      }
+      //   default:
+      //     return console.log(err, "default");
+      // }
     }
 
     setIsLoading(false);

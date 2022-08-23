@@ -18,11 +18,13 @@ const useLogout = () => {
         // navigate("/login");
         setAuth({});
         localStorage.removeItem("user");
+        window.location.reload(false);
       });
     } catch (err) {
       console.log(err);
       setAuth({});
       localStorage.removeItem("user");
+      window.location.reload(false);
     }
   };
 

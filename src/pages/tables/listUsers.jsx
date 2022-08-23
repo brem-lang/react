@@ -36,7 +36,8 @@ function ListUsers() {
     } catch (err) {
       switch (err.code) {
         case "ERR_BAD_REQUEST":
-        // return redirectError();
+          // return redirectError();
+          console.log(err.response);
 
         default:
           return console.log(err, "default");

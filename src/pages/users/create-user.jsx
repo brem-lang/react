@@ -33,7 +33,7 @@ const CreateUser = () => {
     try {
       await axios.post("/api/auth/register", formData);
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
     }
   };
 

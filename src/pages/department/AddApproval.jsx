@@ -25,14 +25,14 @@ function AddApproval() {
       const res = await axios("api/manage/departments", config);
       setFilteredData(res.data.data);
     } catch (err) {
-      console.log(err);
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          return redirectError();
+      console.log(err.response);
+      // switch (err.code) {
+      //   case "ERR_BAD_REQUEST":
+      //     return redirectError();
 
-        default:
-          return console.log(err, "default");
-      }
+      //   default:
+      //     return console.log(err, "default");
+      // }
     }
     setIsLoading(false);
     setIsSync(false);
@@ -82,13 +82,14 @@ function AddApproval() {
         ).then(() => navigate("/mi-logs"));
       }
     } catch (err) {
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          // return console.log(err.code, "ERR_BAD_REQUEST");
-          return redirectError();
-        default:
-          return console.log(err, "ERROR");
-      }
+      console.log(err.response);
+      // switch (err.code) {
+      //   case "ERR_BAD_REQUEST":
+      //     // return console.log(err.code, "ERR_BAD_REQUEST");
+      //     return redirectError();
+      //   default:
+      //     return console.log(err, "ERROR");
+      // }
     }
   };
   const close = () => {

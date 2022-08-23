@@ -65,14 +65,15 @@ function MRSlipList() {
       setIsMr(false);
       setFilteredData(res.data.data);
     } catch (err) {
-      switch (err.code) {
-        case "ERR_BAD_REQUEST":
-          return redirectError();
-        // return console.log("Request Error");
+      console.log(err.response);
+      // switch (err.code) {
+      //   case "ERR_BAD_REQUEST":
+      //     return redirectError();
+      //   // return console.log("Request Error");
 
-        default:
-          return console.log(err, "default");
-      }
+      //   default:
+      //     return console.log(err, "default");
+      // }
     }
 
     setIsLoading(false);

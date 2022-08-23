@@ -92,7 +92,7 @@ const LoginPage = () => {
         });
       });
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
       if (err.response.data.success === false)
         return alert("Wrong email or password!");
     }
