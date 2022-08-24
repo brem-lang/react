@@ -85,9 +85,8 @@ function HandoverForm() {
         <>
           <h1
             style={{
-              marginTop: "20px",
-              // marginLeft: "750px",
-              marginBottom: "-50px",
+              marginTop: "auto",
+              marginBottom: "auto",
               textAlign: "center",
             }}
           >
@@ -95,13 +94,13 @@ function HandoverForm() {
           </h1>
           <div
             style={{
-              marginLeft: "755px",
-              marginTop: "-10px",
-              width: "20%",
-              marginBottom: "-300px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              width: "50%",
             }}
           >
             <QrReader
+              constraints={{ facingMode: "environment" }}
               onResult={(result, error) => {
                 if (!!result) {
                   setData(result?.text);
