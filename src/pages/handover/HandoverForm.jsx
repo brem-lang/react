@@ -100,7 +100,7 @@ function HandoverForm() {
             }}
           >
             <QrReader
-              // constraints={{ facingMode: "environment" }}
+              constraints={{ facingMode: "environment" }}
               onResult={(result, error) => {
                 if (!!result) {
                   setData(result?.text);
