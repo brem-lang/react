@@ -15,6 +15,7 @@ function HandoverForm() {
   const [selected, setSelected] = useState();
   const [isScanner, setIsScanner] = useState(false);
   const [approvalDept, setApprovalDept] = useState();
+  const [hasCamera, setHasCamera] = useState("environment");
   const [data, setData] = useState();
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,6 +80,14 @@ function HandoverForm() {
     setIsScanner(false);
   };
 
+  const cameraFront = (e) => {
+    setHasCamera("user");
+  };
+
+  const cameraBack = (e) => {
+    setHasCamera("environment");
+  };
+
   return (
     <>
       {isScanner === true ? (
@@ -100,7 +109,7 @@ function HandoverForm() {
             }}
           >
             <QrReader
-              constraints={{ facingMode: "environment" }}
+              constraints={{ facingMode: hasCamera }}
               onResult={(result, error) => {
                 if (!!result) {
                   setData(result?.text);
@@ -111,6 +120,29 @@ function HandoverForm() {
                 }
               }}
             />
+            <div
+              class="row"
+              style={{
+                marginTop: "-30px",
+              }}
+            >
+              <div class="col-6">
+                <button
+                  onClick={() => cameraFront()}
+                  class="btn btn-success btn-block"
+                >
+                  Switch Camera Front
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  onClick={() => cameraBack()}
+                  class="btn btn-primary btn-block"
+                >
+                  Switch Camera Back
+                </button>
+              </div>
+            </div>
             {data === undefined ? null : <>{closeScanner()}</>}
           </div>
         </>
@@ -140,8 +172,7 @@ function HandoverForm() {
               <div className="card">
                 <div className="card-body login-card-body">
                   <p className="login-box-msg">Handover Form</p>
-                  <form
-                  >
+                  <form>
                     <div className="input-group mb-3">
                       <input
                         type="text"
