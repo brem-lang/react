@@ -81,7 +81,7 @@ function HandoverForm() {
   };
 
   const cameraFront = (e) => {
-    setHasCamera("user");
+    setHasCamera("front");
   };
 
   const cameraBack = (e) => {
