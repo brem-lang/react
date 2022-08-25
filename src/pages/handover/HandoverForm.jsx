@@ -15,7 +15,7 @@ function HandoverForm() {
   const [selected, setSelected] = useState();
   const [isScanner, setIsScanner] = useState(false);
   const [approvalDept, setApprovalDept] = useState();
-  const [hasCamera, setHasCamera] = useState("environment");
+  // const [hasCamera, setHasCamera] = useState("environment");
   const [data, setData] = useState();
   const navigate = useNavigate();
   const location = useLocation();
@@ -80,13 +80,13 @@ function HandoverForm() {
     setIsScanner(false);
   };
 
-  const cameraFront = (e) => {
-    setHasCamera("front");
-  };
+  // const cameraFront = (e) => {
+  //   setHasCamera("front");
+  // };
 
-  const cameraBack = (e) => {
-    setHasCamera("environment");
-  };
+  // const cameraBack = (e) => {
+  //   setHasCamera("environment");
+  // };
 
   return (
     <>
@@ -109,7 +109,7 @@ function HandoverForm() {
             }}
           >
             <QrReader
-              constraints={{ facingMode: hasCamera }}
+              constraints={{ facingMode: "environment" }}
               onResult={(result, error) => {
                 if (!!result) {
                   setData(result?.text);
@@ -120,7 +120,7 @@ function HandoverForm() {
                 }
               }}
             />
-            <div
+            {/* <div
               class="row"
               style={{
                 marginTop: "-30px",
@@ -142,7 +142,7 @@ function HandoverForm() {
                   Switch Camera Back
                 </button>
               </div>
-            </div>
+            </div> */}
             {data === undefined ? null : <>{closeScanner()}</>}
           </div>
         </>

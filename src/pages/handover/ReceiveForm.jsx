@@ -14,7 +14,7 @@ function ReceiveForm() {
   const [selected, setSelected] = useState();
   const [approvalDept, setApprovalDept] = useState();
   const [isScanner, setIsScanner] = useState(false);
-  const [hasCamera, setHasCamera] = useState("environment");
+  // const [hasCamera, setHasCamera] = useState("environment");
   const [data, setData] = useState();
   const navigate = useNavigate();
   const location = useLocation();
@@ -84,13 +84,13 @@ function ReceiveForm() {
     setIsScanner(false);
   };
 
-  const cameraFront = (e) => {
-    setHasCamera("user");
-  };
+  // const cameraFront = (e) => {
+  //   setHasCamera("user");
+  // };
 
-  const cameraBack = (e) => {
-    setHasCamera("environment");
-  };
+  // const cameraBack = (e) => {
+  //   setHasCamera("environment");
+  // };
   return (
     <>
       {isScanner === true ? (
@@ -112,7 +112,7 @@ function ReceiveForm() {
             }}
           >
             <QrReader
-              constraints={{ facingMode: hasCamera }}
+              constraints={{ facingMode: "environment" }}
               onResult={(result, error) => {
                 if (!!result) {
                   setData(result?.text);
@@ -123,7 +123,7 @@ function ReceiveForm() {
                 }
               }}
             />
-            <div
+            {/* <div
               class="row"
               style={{
                 marginTop: "-30px",
@@ -145,7 +145,7 @@ function ReceiveForm() {
                   Switch Camera Back
                 </button>
               </div>
-            </div>
+            </div> */}
             {data === undefined ? null : <>{closeScanner()}</>}
           </div>
         </>
