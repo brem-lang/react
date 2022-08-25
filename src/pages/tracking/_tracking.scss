@@ -1,0 +1,48 @@
+.tracking-content {
+  min-height: 50rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .tracking-box {
+    .tracking-card {
+      border-radius: 20px;
+      height: min(555px);
+      overflow: auto;
+
+      .tracking-card-body {
+        border-radius: 20px;
+
+        .tracking-title {
+          border-bottom: 1px solid #000;
+          margin-left: 30px;
+          margin-right: 30px;
+          padding-bottom: 5px;
+          h5 {
+            font-weight: bold;
+          }
+        }
+
+        .tracking-box-data {
+          .tracking {
+            padding: 10px 10px 10px 30px;
+            margin: 10px 0 0 30px;
+            border-left: 3px solid #d9d9d9;
+
+            p {
+              margin-bottom: 0;
+              font-size: 15px;
+            }
+            p:nth-of-type(1) {
+              font-weight: bold;
+            }
+          }
+
+          .tracking:nth-of-type(1) {
+            border-left: 3px solid #0c9a44;
+          }
+        }
+      }
+    }
+  }
+}

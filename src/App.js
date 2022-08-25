@@ -47,6 +47,7 @@ import {
   Handover,
   HandoverForm,
   ReceiveForm,
+  Tracking,
 } from "./exporter";
 import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
@@ -93,6 +94,7 @@ function App() {
                 <Route path="/department" element={<Department />} />
                 <Route path="/add-department" element={<AddDepartment />} />
                 <Route path="/mi-view" element={<MIView />} />
+                <Route path="/tracking" element={<Tracking />} />
               </Route>
 
               {/* MI clerk access */}
