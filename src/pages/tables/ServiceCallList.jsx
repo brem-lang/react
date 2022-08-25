@@ -64,7 +64,6 @@ function ServiceCallList() {
       setScList(res.data.data);
       setIsSc(false);
       setFilteredData(res.data.data);
-      console.log(res.data.data);
     } catch (err) {
       console.log(err.response);
       // switch (err.code) {

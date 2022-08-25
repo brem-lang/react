@@ -118,9 +118,10 @@ const AppMenu = () => {
                 ${location === "/fg-logs" && "active"}
                 ${location === "/fa-logs" && "active"}
                 ${location === "/ma-logs" && "active"}
+                ${location === "/mr-logs" && "active"}     
                 ${
-                  location === "/mr-logs" && "active"
-                }                             
+                  location === "/servicecall-logs" && "active"
+                }                                
                 `}
               >
                 <i className="nav-icon fas fa-edit"></i>

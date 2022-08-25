@@ -141,7 +141,6 @@ function HandoverForm() {
                 <div className="card-body login-card-body">
                   <p className="login-box-msg">Handover Form</p>
                   <form
-                  // onSubmit={(e) => handleSubmit(e)}
                   >
                     <div className="input-group mb-3">
                       <input
