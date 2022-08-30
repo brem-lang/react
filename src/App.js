@@ -48,6 +48,7 @@ import {
   HandoverForm,
   ReceiveForm,
   Tracking,
+  Profiling,
 } from "./exporter";
 import Layout from "./layout/Layout.component";
 import RequireAuth from "./routes/RequireAuth";
@@ -73,6 +74,7 @@ function App() {
         <Route path="/handoverform" element={<HandoverForm />} />
         <Route path="/receiveform" element={<ReceiveForm />} />
         <Route path="/test" element={<Testfile />} />
+        <Route path="/profiling" element={<Profiling />} />
 
         {/* Protected Routes */}
         <Route element={<PersistLogin />}>

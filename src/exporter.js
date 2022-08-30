@@ -94,6 +94,8 @@ const ReceiveForm = React.lazy(() => import("./pages/handover/ReceiveForm"));
 
 const Tracking = React.lazy(() => import("./pages/tracking/tracking"));
 
+const Profiling = React.lazy(() => import("./pages/Profiling/Profiling"));
+
 export {
   Handover,
   HandoverForm,
@@ -142,4 +144,5 @@ export {
   MIView,
   AddApproval,
   Tracking,
+  Profiling,
 };
