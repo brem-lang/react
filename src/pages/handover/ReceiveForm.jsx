@@ -28,6 +28,15 @@ function ReceiveForm() {
     formData.append("document_series_no", location.state.document_series_no);
     formData.append("person", data);
     formData.append("department", selected);
+
+    if (data === undefined) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Pls Scan QR",
+      });
+      return;
+    }
     try {
       const res = await axios.post("/api/receiveForm", formData);
       if (res.data.success === true) {
@@ -38,7 +47,7 @@ function ReceiveForm() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Pls Fill up the Fields",
+        text: "Pls Select Department",
       });
     }
   };
